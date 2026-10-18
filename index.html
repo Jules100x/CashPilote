@@ -4,1537 +4,1539 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#070914">
-<title>CashPilot</title>
+<title>CashPilot — Prototype V5</title>
 
 <style>
-:root{
---bg:#070914;
---panel:#101426;
---panel2:#151a31;
---line:#252b49;
---txt:#f7f8ff;
---muted:#9299b7;
---purple:#7c5cff;
---yellow:#ffd84d;
---orange:#ff8a3d;
---green:#53d99b;
-}
-
+:root{--bg:#070914;--panel:#101426;--panel2:#151a31;--line:#252b49;--txt:#f7f8ff;--muted:#9299b7;--purple:#7c5cff;--yellow:#ffd84d;--orange:#ff8a3d;--green:#53d99b;--red:#ff7182}
 *{box-sizing:border-box}
-
 html{background:var(--bg)}
-
-body{
-margin:0;
-background:
-radial-gradient(circle at 90% -10%,#251d56 0,transparent 30%),
-var(--bg);
-color:var(--txt);
-font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
--webkit-font-smoothing:antialiased;
-}
-
-button,input,select{font:inherit}
+body{margin:0;background:radial-gradient(circle at 90% -10%,#251d56 0,transparent 30%),var(--bg);color:var(--txt);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+button,input{font:inherit}
 button{cursor:pointer}
-
-.topbar{
-height:70px;
-padding:0 28px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-border-bottom:1px solid rgba(255,255,255,.06);
-position:sticky;
-top:0;
-background:rgba(7,9,20,.9);
-backdrop-filter:blur(18px);
-z-index:30;
-}
-
-.logo{
-font-size:23px;
-font-weight:900;
-letter-spacing:-1.2px;
-}
-
+.top{height:68px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:0;background:rgba(7,9,20,.91);backdrop-filter:blur(18px);z-index:30}
+.logo{font-size:23px;font-weight:900;letter-spacing:-1.2px}
 .logo span{color:var(--yellow)}
-
-.mode{
-border:1px solid var(--line);
-background:var(--panel);
-color:#c5cae1;
-padding:8px 11px;
-border-radius:10px;
-font-size:11px;
-}
-
-.wrap{
-max-width:1120px;
-margin:auto;
-padding:42px 22px 100px;
-}
-
-.screen{
-display:none;
-animation:appear .32s ease both;
-}
-
+.nav{display:flex;gap:6px}
+.nav button,.ghost{border:1px solid transparent;background:transparent;color:#8e96b5;padding:9px 11px;border-radius:10px;font-size:12px}
+.nav button.on{background:#151a31;color:#fff}
+.ghost{border-color:var(--line);background:var(--panel);color:#c5cae1}
+.wrap{max-width:1140px;margin:auto;padding:40px 20px 105px}
+.screen{display:none;animation:in .28s ease}
 .screen.active{display:block}
-
-@keyframes appear{
-from{opacity:0;transform:translateY(10px)}
-to{opacity:1;transform:none}
-}
-
-.eyebrow{
-font-size:10px;
-text-transform:uppercase;
-letter-spacing:.14em;
-color:#858eaf;
-font-weight:800;
-margin-bottom:10px;
-}
-
-h1{
-font-size:42px;
-line-height:1.06;
-letter-spacing:-2px;
-margin:0 0 14px;
-max-width:760px;
-}
-
-h2{
-font-size:22px;
-letter-spacing:-.7px;
-margin:0 0 10px;
-}
-
-h3{
-font-size:15px;
-margin:0 0 5px;
-}
-
-p{
-margin:0;
-color:var(--muted);
-line-height:1.55;
-}
-
-.lead{
-font-size:16px;
-max-width:650px;
-}
-
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#858eaf;font-weight:800;margin-bottom:10px}
+h1{font-size:44px;line-height:1.04;letter-spacing:-2.2px;margin:0 0 14px;max-width:820px}
+h2{font-size:22px;letter-spacing:-.7px;margin:0 0 9px}
+h3{font-size:15px;margin:0 0 5px}
+p{margin:0;color:var(--muted);line-height:1.55}
+.lead{font-size:16px;max-width:690px}
 .accent{color:var(--yellow)}
-
-.actions{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-top:28px;
-}
-
-.btn{
-border:0;
-border-radius:12px;
-padding:13px 17px;
-font-weight:800;
-background:var(--yellow);
-color:#151515;
-}
-
-.btn.secondary{
-background:var(--panel2);
-color:#fff;
-border:1px solid var(--line);
-}
-
-.btn.purple{
-background:var(--purple);
-color:#fff;
-}
-
-.btn:active{transform:scale(.98)}
-
-.hero{padding:55px 0 30px}
-
-.proof{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-margin-top:40px;
-}
-
-.mini{
-background:linear-gradient(145deg,#11162a,#0d1020);
-border:1px solid var(--line);
-border-radius:17px;
-padding:18px;
-}
-
-.mini b{
-font-size:20px;
-display:block;
-margin-bottom:4px;
-}
-
-.mini p{font-size:11px}
-
-.nav{
-display:flex;
-gap:7px;
-}
-
-.nav button{
-border:0;
-background:transparent;
-color:#8e96b5;
-padding:9px 10px;
-border-radius:10px;
-font-size:12px;
-}
-
-.nav button.on{
-background:#151a31;
-color:#fff;
-}
-
-/* FUNNEL */
-
-.funnel{
-max-width:720px;
-margin:15px auto;
-}
-
-.progress-head{
-display:flex;
-justify-content:space-between;
-color:#7f88aa;
-font-size:11px;
-margin-bottom:9px;
-}
-
-.progress{
-height:5px;
-background:#181d34;
-border-radius:99px;
-overflow:hidden;
-margin-bottom:35px;
-}
-
-.progress span{
-display:block;
-height:100%;
-background:linear-gradient(
-90deg,
-var(--purple),
-var(--orange),
-var(--yellow)
-);
-transition:.3s;
-}
-
-.question h1{font-size:34px}
-
-.choices{
-display:grid;
-gap:10px;
-margin-top:26px;
-}
-
-.choice{
-border:1px solid var(--line);
-background:var(--panel);
-border-radius:15px;
-padding:17px;
-text-align:left;
-color:#fff;
-transition:.18s;
-}
-
-.choice:hover,
-.choice.selected{
-border-color:#765dff;
-background:#171735;
-transform:translateY(-1px);
-}
-
-.choice b{
-display:block;
-font-size:14px;
-}
-
-.choice small{
-display:block;
-color:#8992b1;
-margin-top:5px;
-}
-
-.funnel-actions{
-display:flex;
-justify-content:space-between;
-margin-top:25px;
-}
-
-/* CARDS */
-
-.result-grid,
-.dash-grid{
-display:grid;
-grid-template-columns:repeat(12,1fr);
-gap:13px;
-margin-top:28px;
-}
-
-.card{
-background:linear-gradient(145deg,#11162a,#0e1120);
-border:1px solid var(--line);
-border-radius:18px;
-padding:19px;
-}
-
+.btn{border:0;border-radius:12px;padding:13px 17px;font-weight:850;background:var(--yellow);color:#151515}
+.btn.secondary{background:var(--panel2);color:#fff;border:1px solid var(--line)}
+.btn.purple{background:var(--purple);color:#fff}
+.btn.sm{padding:9px 12px;font-size:11px}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:26px}
+.hero{padding:56px 0 24px}
+.proof,.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:30px}
+.card{background:linear-gradient(145deg,#11162a,#0e1120);border:1px solid var(--line);border-radius:18px;padding:19px}
+.c3{grid-column:span 3}
 .c4{grid-column:span 4}
 .c5{grid-column:span 5}
+.c6{grid-column:span 6}
 .c7{grid-column:span 7}
 .c8{grid-column:span 8}
 .c12{grid-column:span 12}
+.mini b,.metric{font-size:27px;font-weight:900;letter-spacing:-1px;display:block}
+.mini p,.small{font-size:11px}
+.metric-label{font-size:9px;color:#7f88a7;margin-bottom:8px;text-transform:uppercase;letter-spacing:.1em}
 
-.recommend{
-border-color:#4d417e;
-background:linear-gradient(145deg,#18163a,#111427);
-}
+/* FUNNEL */
+.funnel{max-width:700px;margin:10px auto}
+.progress-head{display:flex;justify-content:space-between;color:#7f88aa;font-size:11px;margin-bottom:9px}
+.progress{height:5px;background:#181d34;border-radius:99px;overflow:hidden;margin-bottom:34px}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--purple),var(--orange),var(--yellow));transition:.28s}
+.question h1{font-size:35px}
+.choices{display:grid;gap:10px;margin-top:24px}
+.choice{border:1px solid var(--line);background:var(--panel);border-radius:15px;padding:17px;text-align:left;color:#fff;transition:.17s}
+.choice:active{transform:scale(.985)}
+.choice:hover{border-color:#6653c6;background:#171735}
+.choice b{display:block;font-size:14px}
+.choice small{display:block;color:#8992b1;margin-top:5px}
+.back{margin-top:20px}
 
-.badge{
-display:inline-block;
-font-size:9px;
-text-transform:uppercase;
-letter-spacing:.09em;
-background:#2a2450;
-color:#c5baff;
-padding:5px 8px;
-border-radius:99px;
-margin-bottom:13px;
-}
-
-.facts{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:7px;
-margin-top:16px;
-}
-
-.fact{
-background:#0b0e1c;
-border-radius:10px;
-padding:10px;
-font-size:10px;
-color:#7e87a7;
-}
-
-.fact b{
-display:block;
-color:#fff;
-font-size:12px;
-margin-top:3px;
-}
+/* ANALYSE */
+.analysis{max-width:760px;margin:70px auto;text-align:center}
+.loader{height:6px;background:#171c32;border-radius:99px;overflow:hidden;margin:28px auto 16px;max-width:460px}
+.loader span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--yellow));animation:load 1.25s ease forwards}
+@keyframes load{to{width:100%}}
+.recommend{border-color:#4d417e;background:linear-gradient(145deg,#18163a,#111427)}
+.badge{display:inline-block;font-size:9px;text-transform:uppercase;letter-spacing:.09em;background:#2a2450;color:#c5baff;padding:5px 8px;border-radius:99px;margin-bottom:12px}
+.badge.orange{background:#3b261d;color:#ffad72}
+.badge.green{background:#173127;color:#78e6b5}
+.score{font-size:43px;font-weight:950;letter-spacing:-2px}
+.score small{font-size:12px;color:#8d95b1;letter-spacing:0}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:15px}
+.fact{background:#0b0e1c;border-radius:10px;padding:10px;font-size:9px;color:#7e87a7}
+.fact b{display:block;color:#fff;font-size:12px;margin-top:3px}
+.why{padding:10px 0;border-top:1px solid #222740}
+.why:first-of-type{border:0}
+.why strong{font-size:12px}
+.why p{font-size:11px}
 
 /* PAYWALL */
+.lock{position:relative;overflow:hidden;min-height:260px}
+.blurred{filter:blur(4px);opacity:.3;user-select:none}
+.paywall{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:22px;background:linear-gradient(transparent,rgba(8,10,21,.95))}
+.paywall>div{max-width:440px}
+.price{font-size:34px;font-weight:950;margin:12px 0}
+.price small{font-size:12px;color:#9299b7;font-weight:500}
 
-.lock{
-position:relative;
-overflow:hidden;
-}
-
-.blurred{
-filter:blur(4px);
-opacity:.35;
-user-select:none;
-}
-
-.paywall{
-position:absolute;
-inset:0;
-display:grid;
-place-items:center;
-text-align:center;
-padding:20px;
-background:linear-gradient(
-transparent,
-rgba(8,10,21,.9)
-);
-}
-
-.paywall div{max-width:380px}
-
-/* MEMBER */
-
-.appnav{
-display:flex;
-gap:6px;
-overflow:auto;
-margin-bottom:26px;
-}
-
-.appnav button{
-white-space:nowrap;
-border:1px solid var(--line);
-background:#0e1223;
-color:#8992af;
-padding:9px 12px;
-border-radius:10px;
-font-size:11px;
-}
-
-.appnav button.on{
-background:#1b2040;
-color:white;
-border-color:#373e69;
-}
-
-.metric{
-font-size:27px;
-font-weight:900;
-letter-spacing:-1px;
-}
-
-.metric-label{
-font-size:10px;
-color:#7f88a7;
-margin-bottom:8px;
-text-transform:uppercase;
-letter-spacing:.08em;
-}
-
-.next{
-background:linear-gradient(135deg,#221b50,#15172d);
-border-color:#4b3f7e;
-}
-
-.task{
-display:flex;
-gap:11px;
-padding:13px 0;
-border-top:1px solid #222740;
-}
-
+/* APP */
+.appnav{display:flex;gap:6px;overflow:auto;margin-bottom:27px;scrollbar-width:none}
+.appnav::-webkit-scrollbar{display:none}
+.appnav button{white-space:nowrap;border:1px solid var(--line);background:#0e1223;color:#8992af;padding:9px 12px;border-radius:10px;font-size:11px}
+.appnav button.on{background:#1b2040;color:#fff;border-color:#373e69}
+.next{background:linear-gradient(135deg,#221b50,#15172d);border-color:#4b3f7e}
+.bar{height:7px;background:#1a1f37;border-radius:99px;overflow:hidden;margin-top:10px}
+.bar span{height:100%;display:block;background:linear-gradient(90deg,var(--purple),var(--yellow))}
+.task{display:grid;grid-template-columns:25px 1fr auto;gap:10px;align-items:start;padding:14px 0;border-top:1px solid #222740}
 .task:first-of-type{border-top:0}
-
-.tick{
-width:21px;
-height:21px;
-border:1px solid #555e7d;
-border-radius:7px;
-flex:none;
-}
-
-.tick.done{
-background:var(--yellow);
-border-color:var(--yellow);
-}
-
+.tick{width:21px;height:21px;border:1px solid #555e7d;border-radius:7px;display:grid;place-items:center;color:#111}
+.tick.done{background:var(--yellow);border-color:var(--yellow)}
 .task p{font-size:11px}
+.tag{font-size:9px;padding:5px 7px;border-radius:99px;background:#171c32;color:#9ba4c5;white-space:nowrap}
+.status{font-size:10px;color:var(--green);font-weight:800}
+.warn{font-size:10px;color:var(--orange);font-weight:800}
+.rank{display:grid;grid-template-columns:35px 1fr auto;gap:8px;align-items:center;padding:13px 0;border-top:1px solid #222740}
+.rank:first-of-type{border:0}
+.rank strong:last-child{color:var(--yellow)}
+.weektabs{display:flex;gap:6px;margin:16px 0;overflow:auto}
+.weektabs button{border:1px solid var(--line);background:#0d1121;color:#838ca9;padding:8px 10px;border-radius:9px;font-size:10px}
+.weektabs button.on{background:#26204d;color:#fff;border-color:#54458b}
+.timeline{border-left:1px solid #343a5c;margin-left:10px;padding-left:18px}
+.event{position:relative;padding:0 0 19px}
+.event:before{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:var(--yellow);left:-22.5px;top:5px}
+.event p{font-size:11px}
 
 /* OPPORTUNITIES */
+.opportunity{position:relative;overflow:hidden}
+.opportunity:before{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:rgba(124,92,255,.13);filter:blur(22px);right:-55px;top:-55px}
+.signal{display:flex;align-items:center;gap:7px;font-size:10px;color:#aab1c9;margin:13px 0}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px rgba(83,217,155,.6)}
+.impact{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:15px}
+.impact-box{background:#0b0e1c;border:1px solid #202640;border-radius:11px;padding:11px}
+.impact-box span{font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:#747d9c}
+.impact-box b{display:block;font-size:12px;margin-top:5px}
+.source{font-size:9px;color:#707997;margin-top:14px;padding-top:12px;border-top:1px solid #222740}
+.notice{border:1px solid #423b6b;background:#14152a;border-radius:14px;padding:14px;font-size:11px;color:#9ca4c2;margin-top:18px}
 
-.opportunity{
-border:1px solid #39335b;
-background:#15142a;
-border-radius:14px;
-padding:15px;
-margin-top:10px;
-}
-
-.opportunity .new{
-color:var(--orange);
-font-size:9px;
-font-weight:900;
-text-transform:uppercase;
-letter-spacing:.08em;
-}
-
-/* LEADERBOARD */
-
-.rank{
-display:grid;
-grid-template-columns:35px 1fr auto;
-gap:8px;
-align-items:center;
-padding:13px 0;
-border-top:1px solid #222740;
-}
-
-.rank:first-of-type{border-top:0}
-
-.rank strong:last-child{color:var(--yellow)}
-
-.podium{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:8px;
-margin:20px 0;
-}
-
-.pod{
-background:#11162a;
-border:1px solid var(--line);
-border-radius:15px;
-padding:16px;
-text-align:center;
-}
-
-.pod:nth-child(2){
-transform:translateY(-8px);
-border-color:#5e4c96;
-}
-
-.pod b{
-font-size:18px;
-display:block;
-}
-
-.pod small{color:#8a93b2}
-
-.notice{
-font-size:10px;
-color:#818aa8;
-margin-top:12px;
-}
-
-.mobile-menu{display:none}
-
-/* MOBILE */
+.mobile{display:none}
 
 @media(max-width:760px){
-
-.topbar{
-height:62px;
-padding:0 15px;
-}
-
-.topbar .nav{display:none}
-
-.wrap{
-padding:26px 14px 90px;
-}
-
+.top{height:62px;padding:0 14px}
+.top .nav{display:none}
+.wrap{padding:25px 14px 92px}
 h1{font-size:34px}
-
 .question h1{font-size:29px}
-
-.proof{grid-template-columns:1fr}
-
-.c4,.c5,.c7,.c8{
-grid-column:span 12;
-}
-
-.podium{
-grid-template-columns:repeat(3,1fr);
-}
-
-.pod{padding:12px 5px}
-
-.mobile-menu{
-display:flex;
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-background:rgba(8,10,20,.97);
-backdrop-filter:blur(15px);
-border-top:1px solid #20253d;
-padding:7px 5px calc(7px + env(safe-area-inset-bottom));
-justify-content:space-around;
-z-index:40;
-}
-
-.mobile-menu button{
-border:0;
-background:none;
-color:#7f88a6;
-font-size:9px;
-padding:7px;
-}
-
-.mobile-menu button.on{
-color:var(--yellow);
-}
-
+.c3,.c4,.c5,.c6,.c7,.c8{grid-column:span 12}
+.facts,.impact{grid-template-columns:repeat(3,1fr)}
+.mobile{display:flex;position:fixed;bottom:0;left:0;right:0;background:rgba(8,10,20,.97);backdrop-filter:blur(15px);border-top:1px solid #20253d;padding:7px 4px calc(7px + env(safe-area-inset-bottom));justify-content:space-around;z-index:40}
+.mobile button{border:0;background:none;color:#7f88a6;font-size:9px;padding:7px}
+.mobile button.on{color:var(--yellow)}
 }
 </style>
 </head>
 
 <body>
 
-<header class="topbar">
+<header class="top">
+<div class="logo">cash<span>pilot</span>.</div>
 
-<div class="logo">
-cash<span>pilot</span>.
-</div>
-
-<div class="nav visitor-nav">
+<div class="nav visitor">
 <button class="on" data-public="landing">Accueil</button>
-<button data-public="funnel">Construire mon plan</button>
-<button data-public="publicleader">Leaderboard</button>
+<button data-public="funnel">Mon plan</button>
+<button data-public="leader">Leaderboard</button>
+<button data-public="benefits">Pourquoi CashPilot</button>
 </div>
 
-<button class="mode" id="modeBtn">
-Prototype · Visiteur
-</button>
-
+<button class="ghost" id="mode">Démo · Visiteur</button>
 </header>
 
+<main class="wrap">
 
-<div class="wrap">
-
-<!-- ACCUEIL -->
-
+<!-- LANDING -->
 <section id="landing" class="screen active">
-
 <div class="hero">
 
-<div class="eyebrow">
-Construire · Exécuter · Mesurer
-</div>
+<div class="eyebrow">De l’objectif à l’exécution</div>
 
 <h1>
-Un plan concret pour transformer ton objectif en
-<span class="accent">revenus.</span>
+Arrête de chercher quoi faire.
+Construis un plan qui correspond à
+<span class="accent">ta situation.</span>
 </h1>
 
 <p class="lead">
-CashPilot part de ta situation, resserre les options
-et construit une stratégie adaptée à ton budget,
-ton temps et ton objectif.
+CashPilot filtre les pistes selon ton objectif, ton temps,
+ton budget, tes compétences et ton niveau de risque.
+Tu repars avec une direction claire, puis un suivi concret
+semaine après semaine.
 </p>
 
 <div class="actions">
-
-<button class="btn" onclick="startFunnel()">
-Construire mon plan →
-</button>
-
-<button
-class="btn secondary"
-onclick="showPublic('publicleader')">
-Voir le leaderboard
-</button>
-
+<button class="btn" onclick="startFunnel()">Construire mon plan →</button>
+<button class="btn secondary" onclick="showPublic('benefits')">Voir ce qui est inclus</button>
 </div>
-
 
 <div class="proof">
 
-<div class="mini">
-<b>01</b>
-<p>Définis précisément ton objectif.</p>
+<div class="card mini c4">
+<div class="metric-label">Étape 01</div>
+<b>Profil</b>
+<p>On élimine ce qui ne correspond pas à ta réalité.</p>
 </div>
 
-<div class="mini">
-<b>02</b>
-<p>CashPilot filtre les stratégies compatibles.</p>
+<div class="card mini c4">
+<div class="metric-label">Étape 02</div>
+<b>Direction</b>
+<p>Une stratégie principale, pas une liste infinie d’idées.</p>
 </div>
 
-<div class="mini">
-<b>03</b>
-<p>Ton plan devient un suivi semaine après semaine.</p>
+<div class="card mini c4">
+<div class="metric-label">Étape 03</div>
+<b>Exécution</b>
+<p>Actions, suivi et ajustements au fil des résultats.</p>
 </div>
 
 </div>
-
 </div>
-
 </section>
 
-
-<!-- ENTONNOIR -->
-
+<!-- FUNNEL -->
 <section id="funnel" class="screen">
-
 <div class="funnel">
 
 <div class="progress-head">
-
-<span id="stepTxt">
-Étape 1 sur 7
-</span>
-
-<span id="stepPct">
-14%
-</span>
-
+<span id="stepTxt"></span>
+<span id="stepPct"></span>
 </div>
 
 <div class="progress">
-<span id="progressBar" style="width:14%"></span>
+<span id="progressBar"></span>
 </div>
 
-<div
-class="question"
-id="question">
-</div>
+<div id="question" class="question"></div>
 
-
-<div class="funnel-actions">
-
-<button
-class="btn secondary"
-id="backBtn"
-onclick="back()">
-
-← Retour
-
-</button>
-
-<button
-class="btn"
-id="nextBtn"
-onclick="next()">
-
-Continuer →
-
-</button>
+<button class="ghost back" id="backBtn" onclick="back()">← Retour</button>
 
 </div>
-
-</div>
-
 </section>
 
+<!-- ANALYSE -->
+<section id="analysing" class="screen">
+<div class="analysis">
 
-<!-- RÉSULTAT -->
+<div class="eyebrow">Profil complété</div>
 
-<section id="preview" class="screen">
+<h1>On resserre les options.</h1>
 
-<div class="eyebrow">
-Analyse terminée
-</div>
-
-<h1>
-Ton profil CashPilot est prêt.
-</h1>
-
-<p class="lead">
-Voici la direction principale retenue à partir de tes réponses.
+<p>
+Compatibilité avec ton objectif, tes contraintes,
+tes ressources et ton mode d’exécution.
 </p>
 
+<div class="loader">
+<span></span>
+</div>
 
-<div class="result-grid">
+<p class="small">
+Prototype de recommandation.
+Aucun revenu n’est garanti.
+</p>
+
+</div>
+</section>
+
+<!-- RESULTAT -->
+<section id="result" class="screen">
+
+<div class="eyebrow">Ton profil CashPilot est prêt</div>
+
+<h1>
+Une direction principale,
+avant de construire ton plan.
+</h1>
+
+<p class="lead" id="resultLead"></p>
+
+<div class="grid">
 
 <div class="card recommend c7">
 
-<span class="badge">
-Recommandation principale
-</span>
+<span class="badge">Recommandation principale</span>
 
-<h2>
-Service spécialisé à faible capital
-</h2>
-
-<p>
-Un modèle actif, testable rapidement,
-construit autour d’une offre claire
-et d’une prospection ciblée.
-</p>
-
+<h2 id="strategy"></h2>
+<p id="strategyDesc"></p>
 
 <div class="facts">
 
 <div class="fact">
-Budget
-<b id="rBudget">—</b>
-</div>
-
-<div class="fact">
 Objectif
-<b id="rGoal">—</b>
+<b id="fGoal"></b>
 </div>
 
 <div class="fact">
-Délai
-<b id="rTime">—</b>
+Temps disponible
+<b id="fHours"></b>
+</div>
+
+<div class="fact">
+Budget
+<b id="fBudget"></b>
 </div>
 
 </div>
-
 </div>
-
 
 <div class="card c5">
 
-<h2>
-Pourquoi cette piste ?
-</h2>
+<div class="metric-label">Compatibilité estimée</div>
 
-<p>
-Elle correspond au rapport entre ton temps,
-ton capital et ton objectif.
+<div class="score" id="fitScore">
+—
+<small>/100</small>
+</div>
 
-Dans la version finale,
-la recommandation sera également basée
-sur des données de marché récentes.
-</p>
+<div id="reasons"></div>
 
 </div>
 
+<div class="card c6">
+
+<span class="badge green">Option plus prudente</span>
+
+<h2 id="safeTitle"></h2>
+<p id="safeDesc"></p>
+
+</div>
+
+<div class="card c6">
+
+<span class="badge orange">Option plus ambitieuse</span>
+
+<h2 id="ambTitle"></h2>
+<p id="ambDesc"></p>
+
+</div>
 
 <div class="card c12 lock">
 
 <div class="blurred">
 
-<h2>
-Ton plan sur 4 semaines
-</h2>
+<h2>Ton plan personnalisé</h2>
 
 <div class="task">
-
 <div class="tick"></div>
-
 <div>
-
-<h3>
-Semaine 1 · Validation
-</h3>
-
-<p>
-Définition de l’offre et premiers tests.
-</p>
-
+<h3>Semaine 1 · Validation</h3>
+<p>Définir précisément l’offre, la cible et le test initial.</p>
 </div>
-
+<span class="tag">3 actions</span>
 </div>
-
 
 <div class="task">
-
 <div class="tick"></div>
-
 <div>
-
-<h3>
-Semaine 2 · Acquisition
-</h3>
-
-<p>
-Canaux, prospection et suivi des réponses.
-</p>
-
+<h3>Semaine 2 · Acquisition</h3>
+<p>Tester le canal avec de vraies personnes.</p>
 </div>
-
+<span class="tag">4 actions</span>
 </div>
-
 
 <div class="task">
-
 <div class="tick"></div>
-
 <div>
+<h3>Semaine 3 · Mesure</h3>
+<p>Comparer résultats, coûts et temps investi.</p>
+</div>
+<span class="tag">Analyse</span>
+</div>
 
-<h3>
-Semaine 3 · Optimisation
-</h3>
-
-<p>
-Prix, proposition et conversion.
-</p>
-
+<div class="task">
+<div class="tick"></div>
+<div>
+<h3>Semaine 4 · Ajustement</h3>
+<p>Conserver, corriger ou accélérer selon les données.</p>
+</div>
+<span class="tag">Décision</span>
 </div>
 
 </div>
-
-</div>
-
 
 <div class="paywall">
-
 <div>
 
-<h2>
-Débloque ton plan complet
-</h2>
+<h2>Ta direction est prête.</h2>
 
 <p>
-Accède au plan semaine par semaine,
-au suivi et aux ajustements CashPilot.
+Débloque le plan détaillé, le suivi,
+les bilans et la veille d’opportunités.
 </p>
 
-<button
-class="btn purple"
-onclick="activateMember()">
+<div class="price">
+9,90 €
+<small>/ mois · tarif de démonstration</small>
+</div>
 
-Voir l’expérience abonné →
-
+<button class="btn purple" onclick="activateMember()">
+Simuler l’abonnement →
 </button>
 
+<p class="small" style="margin-top:9px">
+Aucun paiement réel dans cette démo.
+</p>
+
+</div>
 </div>
 
 </div>
-
 </div>
-
-</div>
-
 </section>
 
+<!-- BENEFITS -->
+<section id="benefits" class="screen">
 
-<!-- LEADERBOARD PUBLIC -->
-
-<section id="publicleader" class="screen">
-
-<div class="eyebrow">
-Communauté
-</div>
+<div class="eyebrow">Pourquoi CashPilot</div>
 
 <h1>
-Leaderboard CashPilot.
+Pas seulement trouver une idée.
+Savoir quoi faire ensuite.
 </h1>
 
 <p class="lead">
-Un aperçu public des membres
-qui choisissent de partager leurs performances.
+CashPilot accompagne la décision depuis le choix
+de la stratégie jusqu’à son amélioration.
 </p>
 
+<div class="grid">
 
-<div class="podium">
-
-<div class="pod">
-<small>#2</small>
-<b>Lina N.</b>
-<span>2 190 €</span>
+<div class="card c4">
+<h2>Direction personnalisée</h2>
+<p>
+Une recommandation construite autour de ton objectif,
+tes ressources et tes contraintes.
+</p>
 </div>
 
-<div class="pod">
-<small>#1</small>
-<b>Alex M.</b>
-<span>2 840 €</span>
+<div class="card c4">
+<h2>Plan hebdomadaire</h2>
+<p>
+Les grandes idées deviennent des actions précises
+et mesurables.
+</p>
 </div>
 
-<div class="pod">
-<small>#3</small>
-<b>Thomas H.</b>
-<span>1 760 €</span>
+<div class="card c4">
+<h2>Suivi réel</h2>
+<p>
+Revenus, dépenses, résultat net,
+temps investi et progression.
+</p>
+</div>
+
+<div class="card c6">
+<h2>Bilan intelligent</h2>
+<p>
+CashPilot distingue ce qui fonctionne,
+ce qui reste incertain et ce qui doit être testé ensuite.
+</p>
+</div>
+
+<div class="card c6">
+<h2>Veille d’opportunités</h2>
+<p>
+CashPilot surveille les changements extérieurs
+susceptibles d’améliorer ton projet :
+nouveaux outils, nouveaux canaux,
+évolutions de marché ou changements pertinents.
+</p>
 </div>
 
 </div>
 
-
-<div class="card">
-
-<div class="rank">
-<strong>04</strong>
-<span>Sarah R. · Services</span>
-<strong>1 420 €</strong>
-</div>
-
-<div class="rank">
-<strong>05</strong>
-<span>Noah B. · Digital</span>
-<strong>1 180 €</strong>
-</div>
-
-<div class="notice">
-Prototype : données fictives.
-À terme, participation volontaire
-et distinction entre revenus déclarés et vérifiés.
-</div>
-
+<div class="actions">
+<button class="btn" onclick="startFunnel()">Construire mon plan →</button>
 </div>
 
 </section>
 
+<!-- LEADERBOARD PUBLIC -->
+<section id="leader" class="screen">
 
-<!-- ESPACE ABONNÉ -->
+<div class="eyebrow">Communauté · Démonstration</div>
 
-<section id="member" class="screen">
+<h1>Les membres qui progressent le plus.</h1>
 
-<div class="appnav">
-
-<button class="on" data-member="dashboard">
-Dashboard
-</button>
-
-<button data-member="myplan">
-Mon plan
-</button>
-
-<button data-member="tracking">
-Suivi
-</button>
-
-<button data-member="extras">
-Améliorations
-</button>
-
-<button data-member="memberleader">
-Leaderboard
-</button>
-
-</div>
-
-
-<!-- DASHBOARD -->
-
-<div
-id="dashboard"
-class="memberpage">
-
-<div class="eyebrow">
-Espace abonné
-</div>
-
-<h1>
-Continue là où tu t’es arrêté.
-</h1>
-
-
-<div class="dash-grid">
-
-<div class="card next c7">
-
-<div class="metric-label">
-Prochaine action
-</div>
-
-<h2>
-Valider ton offre auprès de 10 prospects
-</h2>
-
-<p>
-Objectif : obtenir des retours
-avant d’augmenter ton budget.
+<p class="lead">
+Dans le produit final, l’apparition dans ce classement
+serait volontaire et pourrait utiliser un pseudonyme.
 </p>
 
-<button class="btn">
-Ouvrir l’étape →
-</button>
-
-</div>
-
-
-<div class="card c5">
-
-<div class="metric-label">
-Progression cette semaine
-</div>
-
-<div class="metric">
-40%
-</div>
-
-<p>
-2 actions terminées sur 5.
-</p>
-
-</div>
-
-
-<div class="card c4">
-
-<div class="metric-label">
-Revenus
-</div>
-
-<div class="metric">
-180 €
-</div>
-
-<p>
-ce mois · démo
-</p>
-
-</div>
-
-
-<div class="card c4">
-
-<div class="metric-label">
-Résultat net
-</div>
-
-<div class="metric">
-142 €
-</div>
-
-<p>
-ce mois · démo
-</p>
-
-</div>
-
-
-<div class="card c4">
-
-<div class="metric-label">
-Temps investi
-</div>
-
-<div class="metric">
-6h20
-</div>
-
-<p>
-ce mois · démo
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- MON PLAN -->
-
-<div
-id="myplan"
-class="memberpage"
-style="display:none">
-
-<div class="eyebrow">
-Mon plan
-</div>
-
-<h1>
-Cette semaine.
-</h1>
-
-
-<div class="card">
-
-<div class="task">
-
-<div class="tick done"></div>
-
-<div>
-<h3>Définir l’offre</h3>
-<p>Terminé.</p>
-</div>
-
-</div>
-
-
-<div class="task">
-
-<div class="tick done"></div>
-
-<div>
-<h3>Fixer le prix test</h3>
-<p>Terminé.</p>
-</div>
-
-</div>
-
-
-<div class="task">
-
-<div class="tick"></div>
-
-<div>
-<h3>Contacter 10 prospects</h3>
-<p>Action actuelle.</p>
-</div>
-
-</div>
-
-
-<div class="task">
-
-<div class="tick"></div>
-
-<div>
-<h3>Analyser les réponses</h3>
-<p>Étape suivante.</p>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- SUIVI -->
-
-<div
-id="tracking"
-class="memberpage"
-style="display:none">
-
-<div class="eyebrow">
-Suivi
-</div>
-
-<h1>
-Ce que ton plan produit.
-</h1>
-
-
-<div class="dash-grid">
-
-<div class="card c4">
-
-<div class="metric-label">
-Revenus
-</div>
-
-<div class="metric">
-180 €
-</div>
-
-</div>
-
-
-<div class="card c4">
-
-<div class="metric-label">
-Dépenses
-</div>
-
-<div class="metric">
-38 €
-</div>
-
-</div>
-
-
-<div class="card c4">
-
-<div class="metric-label">
-Net
-</div>
-
-<div class="metric">
-142 €
-</div>
-
-</div>
-
+<div class="grid">
 
 <div class="card c12">
 
-<h2>
-Historique
-</h2>
-
-<p>
-La version finale affichera ici
-l’évolution semaine par semaine
-et les actions associées aux résultats.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- AMÉLIORATIONS -->
-
-<div
-id="extras"
-class="memberpage"
-style="display:none">
-
-<div class="eyebrow">
-Améliorations
-</div>
-
-<h1>
-Renforcer ton plan,
-pas le remplacer.
-</h1>
-
-
-<div class="card">
-
-<div class="opportunity">
-
-<span class="new">
-Nouvelle piste · démo
-</span>
-
-<h3>
-Ajouter un canal de prospection locale
-</h3>
-
-<p>
-Compatible avec ton plan actuel.
-Peut augmenter le nombre de prospects
-sans modifier ton activité principale.
-</p>
-
-<button class="btn secondary">
-Voir l’impact
-</button>
-
-</div>
-
-
-<div class="opportunity">
-
-<span class="new">
-Optimisation · démo
-</span>
-
-<h3>
-Tester une offre récurrente
-</h3>
-
-<p>
-À envisager seulement après
-validation de l’offre initiale.
-</p>
-
-<button class="btn secondary">
-Analyser
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- LEADERBOARD MEMBRE -->
-
-<div
-id="memberleader"
-class="memberpage"
-style="display:none">
-
-<div class="eyebrow">
-Classement
-</div>
-
-<h1>
-Ta progression face à la communauté.
-</h1>
-
-
-<div class="card">
-
 <div class="rank">
 <strong>01</strong>
-<span>Alex M.</span>
+<span>Alex M. · Service local</span>
 <strong>2 840 €</strong>
 </div>
 
 <div class="rank">
 <strong>02</strong>
-<span>Lina N.</span>
+<span>Lina N. · Freelance</span>
 <strong>2 190 €</strong>
 </div>
 
 <div class="rank">
 <strong>03</strong>
-<span>Thomas H.</span>
+<span>Thomas H. · Produit digital</span>
+<strong>1 760 €</strong>
+</div>
+
+<div class="rank">
+<strong>04</strong>
+<span>Sarah R. · Service B2B</span>
+<strong>1 420 €</strong>
+</div>
+
+<div class="rank">
+<strong>05</strong>
+<span>Noah D. · Création</span>
+<strong>1 080 €</strong>
+</div>
+
+<p class="small">
+Données fictives utilisées uniquement pour présenter l’interface.
+</p>
+
+</div>
+</div>
+</section>
+
+<!-- ESPACE MEMBRE -->
+<section id="member" class="screen">
+
+<div class="appnav">
+
+<button class="on" data-member="dashboard">Dashboard</button>
+<button data-member="plan">Mon plan</button>
+<button data-member="tracking">Suivi</button>
+<button data-member="weekly">Bilan</button>
+<button data-member="opportunities">Opportunités</button>
+<button data-member="memberleader">Leaderboard</button>
+
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="memberpage">
+
+<div class="eyebrow">Dashboard · Semaine 2</div>
+
+<h1>
+Une priorité aujourd’hui :
+obtenir un vrai signal.
+</h1>
+
+<div class="grid">
+
+<div class="card next c7">
+
+<div class="metric-label">Action prioritaire</div>
+
+<h2>Contacter 10 prospects ciblés</h2>
+
+<p>
+Ton offre est prête à être testée.
+Avant de modifier ton prix ou ton positionnement,
+termine un premier échantillon de prospects.
+</p>
+
+<div class="actions">
+<button class="btn sm" onclick="openMember('plan')">
+Ouvrir mon plan →
+</button>
+</div>
+
+</div>
+
+<div class="card c5">
+
+<div class="metric-label">Objectif mensuel</div>
+
+<div class="metric" id="memberGoal">500 €</div>
+
+<div class="bar">
+<span style="width:36%"></span>
+</div>
+
+<p class="small" style="margin-top:8px">
+180 € enregistrés · 36% de l’objectif
+</p>
+
+</div>
+
+<div class="card c3">
+<div class="metric-label">Revenus</div>
+<div class="metric">180 €</div>
+<p class="small">ce mois · démo</p>
+</div>
+
+<div class="card c3">
+<div class="metric-label">Dépenses</div>
+<div class="metric">38 €</div>
+<p class="small">ce mois · démo</p>
+</div>
+
+<div class="card c3">
+<div class="metric-label">Résultat net</div>
+<div class="metric">142 €</div>
+<p class="small">avant fiscalité · démo</p>
+</div>
+
+<div class="card c3">
+<div class="metric-label">Temps investi</div>
+<div class="metric">6h20</div>
+<p class="small">ce mois · démo</p>
+</div>
+
+<div class="card c8">
+
+<h2>Cette semaine</h2>
+
+<div class="task">
+<div class="tick done">✓</div>
+<div>
+<h3>Finaliser l’offre test</h3>
+<p>Proposition et prix de départ définis.</p>
+</div>
+<span class="status">Terminé</span>
+</div>
+
+<div class="task">
+<div class="tick"></div>
+<div>
+<h3>Contacter 10 prospects</h3>
+<p>3 contacts effectués sur 10.</p>
+</div>
+<span class="tag">Priorité</span>
+</div>
+
+<div class="task">
+<div class="tick"></div>
+<div>
+<h3>Documenter les objections</h3>
+<p>
+Conserver les refus, questions
+et objections récurrentes.
+</p>
+</div>
+<span class="tag">Ensuite</span>
+</div>
+
+</div>
+
+<div class="card c4">
+
+<div class="metric-label">Validation actuelle</div>
+
+<div class="metric">3 / 10</div>
+
+<p>prospects contactés</p>
+
+<div style="height:14px"></div>
+
+<span class="warn">
+Pas encore assez de données pour modifier le plan.
+</span>
+
+</div>
+
+<div class="card c12">
+
+<div class="metric-label">Lecture CashPilot</div>
+
+<h2>Continue le test avant d’optimiser.</h2>
+
+<p>
+Le premier revenu est encourageant,
+mais le volume de données reste faible.
+La meilleure décision est encore d’exécuter
+le plan actuel plutôt que d’ajouter
+de nouvelles actions.
+</p>
+
+</div>
+</div>
+</div>
+
+<!-- PLAN -->
+<div id="plan" class="memberpage" style="display:none">
+
+<div class="eyebrow">Plan d’exécution</div>
+
+<h1>
+De la validation
+à un système reproductible.
+</h1>
+
+<p class="lead">
+Chaque semaine répond à une question précise.
+Tu avances lorsque les données permettent
+de prendre la décision suivante.
+</p>
+
+<div class="weektabs">
+<button class="on">Semaine 1</button>
+<button>Semaine 2</button>
+<button>Semaine 3</button>
+<button>Semaine 4</button>
+</div>
+
+<div class="grid">
+
+<div class="card c8">
+
+<div class="metric-label">Semaine actuelle</div>
+
+<h2>Semaine 2 · Tester l’acquisition</h2>
+
+<p>
+Objectif : vérifier si des personnes
+correspondant réellement à ta cible
+réagissent à l’offre.
+</p>
+
+<div class="task">
+<div class="tick done">✓</div>
+<div>
+<h3>Préparer le message de contact</h3>
+<p>
+Une proposition courte,
+compréhensible et orientée résultat.
+</p>
+</div>
+<span class="status">Fait</span>
+</div>
+
+<div class="task">
+<div class="tick"></div>
+<div>
+<h3>Sélectionner 10 prospects qualifiés</h3>
+<p>
+Ils doivent correspondre au profil
+de client défini.
+</p>
+</div>
+<span class="tag">7/10</span>
+</div>
+
+<div class="task">
+<div class="tick"></div>
+<div>
+<h3>Contacter les 10 prospects</h3>
+<p>
+L’objectif est d’obtenir des réactions,
+pas simplement d’envoyer des messages.
+</p>
+</div>
+<span class="tag">3/10</span>
+</div>
+
+<div class="task">
+<div class="tick"></div>
+<div>
+<h3>Documenter chaque réponse</h3>
+<p>
+Intéressé, refus, objection,
+absence de réponse ou demande d’information.
+</p>
+</div>
+<span class="tag">En cours</span>
+</div>
+
+<div class="task">
+<div class="tick"></div>
+<div>
+<h3>Faire le bilan du test</h3>
+<p>
+Décider ensuite si l’offre,
+la cible ou le canal doit évoluer.
+</p>
+</div>
+<span class="tag">À venir</span>
+</div>
+
+</div>
+
+<div class="card c4">
+
+<div class="metric-label">Objectif semaine</div>
+<div class="metric">10</div>
+<p>prospects qualifiés</p>
+
+<div style="height:22px"></div>
+
+<div class="metric-label">Signal recherché</div>
+<div class="metric">3+</div>
+<p>conversations utiles</p>
+
+<div style="height:22px"></div>
+
+<div class="metric-label">Budget maximum</div>
+<div class="metric">20 €</div>
+<p>avant validation</p>
+
+</div>
+
+<div class="card c12">
+
+<h2>Pourquoi cette étape maintenant ?</h2>
+
+<p>
+Ajouter de la publicité,
+acheter de nouveaux outils ou reconstruire
+l’offre trop tôt augmenterait le coût
+sans avoir confirmé que la proposition
+intéresse réellement la cible.
+</p>
+
+</div>
+</div>
+</div>
+
+<!-- SUIVI -->
+<div id="tracking" class="memberpage" style="display:none">
+
+<div class="eyebrow">Suivi financier et opérationnel</div>
+
+<h1>
+Mesure ce que ton projet
+produit réellement.
+</h1>
+
+<div class="grid">
+
+<div class="card c3">
+<div class="metric-label">Chiffre d’affaires</div>
+<div class="metric">180 €</div>
+<p class="small">octobre · démo</p>
+</div>
+
+<div class="card c3">
+<div class="metric-label">Dépenses</div>
+<div class="metric">38 €</div>
+<p class="small">octobre · démo</p>
+</div>
+
+<div class="card c3">
+<div class="metric-label">Résultat</div>
+<div class="metric">142 €</div>
+<p class="small">avant fiscalité</p>
+</div>
+
+<div class="card c3">
+<div class="metric-label">Résultat / heure</div>
+<div class="metric">22,4 €</div>
+<p class="small">sur temps déclaré</p>
+</div>
+
+<div class="card c7">
+
+<h2>Historique</h2>
+
+<div class="timeline">
+
+<div class="event">
+<h3>Semaine 1 · Construction</h3>
+<p>
+2h10 investies · 0 € de revenu ·
+offre test définie.
+</p>
+</div>
+
+<div class="event">
+<h3>Semaine 2 · Test en cours</h3>
+<p>
+4h10 investies · 180 € enregistrés ·
+3 prospects contactés.
+</p>
+</div>
+
+</div>
+</div>
+
+<div class="card c5">
+
+<div class="metric-label">Lecture CashPilot</div>
+
+<h2>
+Premier signal positif,
+validation encore incomplète.
+</h2>
+
+<p>
+Un revenu a été enregistré,
+mais il est trop tôt pour considérer
+le canal d’acquisition comme reproductible.
+</p>
+
+<div style="height:14px"></div>
+
+<span class="warn">
+Priorité : augmenter l’échantillon.
+</span>
+
+</div>
+
+<div class="card c6">
+
+<h2>Répartition du temps</h2>
+
+<div class="why">
+<strong>Prospection · 2h30</strong>
+<p>39% du temps déclaré.</p>
+</div>
+
+<div class="why">
+<strong>Production · 2h15</strong>
+<p>36% du temps déclaré.</p>
+</div>
+
+<div class="why">
+<strong>Organisation · 1h35</strong>
+<p>25% du temps déclaré.</p>
+</div>
+
+</div>
+
+<div class="card c6">
+
+<h2>Dépenses enregistrées</h2>
+
+<div class="why">
+<strong>Outil · 19 €</strong>
+<p>Abonnement de travail.</p>
+</div>
+
+<div class="why">
+<strong>Déplacement · 12 €</strong>
+<p>Prospection / rendez-vous.</p>
+</div>
+
+<div class="why">
+<strong>Autre · 7 €</strong>
+<p>Dépense opérationnelle.</p>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- BILAN -->
+<div id="weekly" class="memberpage" style="display:none">
+
+<div class="eyebrow">Bilan hebdomadaire</div>
+
+<h1>
+Ce qu’on apprend
+avant de décider de la suite.
+</h1>
+
+<div class="grid">
+
+<div class="card c6">
+
+<h2>Ce qui fonctionne</h2>
+
+<div class="why">
+<strong>Une première vente</strong>
+<p>
+Le projet a généré un premier signal économique réel.
+</p>
+</div>
+
+<div class="why">
+<strong>L’offre est compréhensible</strong>
+<p>
+Les premiers contacts comprennent
+ce qui est proposé.
+</p>
+</div>
+
+</div>
+
+<div class="card c6">
+
+<h2>Ce qui reste incertain</h2>
+
+<div class="why">
+<strong>Acquisition non validée</strong>
+<p>
+Trois contacts sont insuffisants
+pour juger le canal.
+</p>
+</div>
+
+<div class="why">
+<strong>Rentabilité non stabilisée</strong>
+<p>
+Le résultat par heure peut fortement varier
+avec davantage de données.
+</p>
+</div>
+
+</div>
+
+<div class="card next c12">
+
+<div class="metric-label">Décision recommandée</div>
+
+<h2>Ne change pas encore de stratégie.</h2>
+
+<p>
+Termine le test initial.
+Si les 10 contacts produisent peu de réponses,
+CashPilot pourra ensuite isoler le problème :
+cible, proposition, prix ou canal.
+</p>
+
+</div>
+
+<div class="card c4">
+<div class="metric-label">Actions terminées</div>
+<div class="metric">4 / 7</div>
+<p>57% cette semaine</p>
+</div>
+
+<div class="card c4">
+<div class="metric-label">Objectif revenu</div>
+<div class="metric">36%</div>
+<p>180 € sur 500 €</p>
+</div>
+
+<div class="card c4">
+<div class="metric-label">Confiance du plan</div>
+<div class="metric">Moyenne</div>
+<p>encore peu de données</p>
+</div>
+
+</div>
+</div>
+
+<!-- OPPORTUNITÉS -->
+<div id="opportunities" class="memberpage" style="display:none">
+
+<div class="eyebrow">Veille CashPilot</div>
+
+<h1>
+Ce qui vient de changer
+autour de ton projet.
+</h1>
+
+<p class="lead">
+Une opportunité n’est pas une tâche de ton plan.
+C’est un changement extérieur récent
+qui pourrait améliorer ton activité,
+réduire un coût, gagner du temps
+ou ouvrir un nouveau canal.
+</p>
+
+<div class="notice">
+Les signaux ci-dessous sont fictifs pour cette démo.
+Dans CashPilot final, chaque opportunité devra être
+récente, datée, sourcée et vérifiée.
+</div>
+
+<div class="grid">
+
+<div class="card c12 opportunity">
+
+<span class="badge orange">
+Nouvel outil · Exemple
+</span>
+
+<h2>
+Un nouvel outil pourrait automatiser
+une partie de ta gestion administrative.
+</h2>
+
+<p>
+Un nouvel acteur fictif du marché vient de lancer
+une fonction capable de collecter les justificatifs,
+classer les dépenses et préparer certaines données
+utilisées pour la gestion comptable.
+</p>
+
+<div class="signal">
+<span class="dot"></span>
+Pertinence élevée pour ton activité
+</div>
+
+<div class="impact">
+
+<div class="impact-box">
+<span>Impact principal</span>
+<b>Gain de temps</b>
+</div>
+
+<div class="impact-box">
+<span>Coût annoncé</span>
+<b>29 €/mois</b>
+</div>
+
+<div class="impact-box">
+<span>Priorité</span>
+<b>À analyser</b>
+</div>
+
+</div>
+
+<div class="why">
+
+<strong>Pourquoi CashPilot te le montre</strong>
+
+<p>
+Tes données indiquent qu’une partie croissante
+de ton temps est consacrée aux tâches administratives.
+Si l’outil fonctionne réellement comme annoncé,
+ce temps pourrait être réaffecté
+à des tâches plus directement productives.
+</p>
+
+</div>
+
+<div class="why">
+
+<strong>Ce qui est factuel</strong>
+
+<p>
+L’existence de la nouvelle fonctionnalité,
+son prix annoncé et ses fonctions disponibles
+doivent pouvoir être confirmés par des sources.
+</p>
+
+</div>
+
+<div class="why">
+
+<strong>Ce qui reste une hypothèse</strong>
+
+<p>
+Le nombre réel d’heures économisées
+et l’impact financier sur ton activité
+ne peuvent pas être affirmés avant un test.
+</p>
+
+</div>
+
+<div class="actions">
+<button class="btn sm">Analyser l’opportunité</button>
+<button class="btn secondary sm">Ignorer</button>
+</div>
+
+<div class="source">
+SOURCE · Exemple fictif · Dans le produit réel :
+source originale + date de publication + date de vérification.
+</div>
+
+</div>
+
+<div class="card c6 opportunity">
+
+<span class="badge orange">
+Nouveau canal · Exemple
+</span>
+
+<h2>
+Une plateforme ouvre une catégorie
+adaptée à ton service.
+</h2>
+
+<p>
+Une plateforme fictive vient d’ouvrir
+un espace dédié à des prestataires
+correspondant à ton type d’activité.
+</p>
+
+<div class="signal">
+<span class="dot"></span>
+Compatible avec ton plan actuel
+</div>
+
+<div class="impact">
+
+<div class="impact-box">
+<span>Potentiel</span>
+<b>Acquisition</b>
+</div>
+
+<div class="impact-box">
+<span>Coût du test</span>
+<b>Faible</b>
+</div>
+
+<div class="impact-box">
+<span>Fenêtre</span>
+<b>7 jours</b>
+</div>
+
+</div>
+
+<div class="why">
+
+<strong>Pourquoi c’est une opportunité</strong>
+
+<p>
+Ce canal n’existait pas sous cette forme
+lorsque ton plan a été construit.
+Il pourrait donc créer une nouvelle possibilité
+d’acquisition sans remplacer ta stratégie actuelle.
+</p>
+
+</div>
+
+<div class="why">
+
+<strong>Ce qu’il faut vérifier</strong>
+
+<p>
+Volume réel de clients,
+niveau de concurrence,
+commission éventuelle
+et qualité des demandes.
+</p>
+
+</div>
+
+<div class="actions">
+<button class="btn sm">Voir l’analyse</button>
+<button class="btn secondary sm">Pas maintenant</button>
+</div>
+
+<div class="source">
+SOURCE · Exemple fictif · À remplacer par une source réelle et datée.
+</div>
+
+</div>
+
+<div class="card c6 opportunity">
+
+<span class="badge orange">
+Évolution produit · Exemple
+</span>
+
+<h2>
+Un outil que tu utilises pourrait
+désormais remplacer un abonnement.
+</h2>
+
+<p>
+Une nouvelle fonctionnalité fictive
+couvre maintenant une tâche
+pour laquelle ton activité paie
+actuellement un deuxième logiciel.
+</p>
+
+<div class="signal">
+<span class="dot"></span>
+Impact potentiel sur tes coûts
+</div>
+
+<div class="impact">
+
+<div class="impact-box">
+<span>Économie possible</span>
+<b>19 €/mois</b>
+</div>
+
+<div class="impact-box">
+<span>Effort de test</span>
+<b>Faible</b>
+</div>
+
+<div class="impact-box">
+<span>Risque</span>
+<b>Faible</b>
+</div>
+
+</div>
+
+<div class="why">
+
+<strong>Pourquoi CashPilot te le montre</strong>
+
+<p>
+Ton suivi contient actuellement
+une dépense mensuelle de 19 €
+sur un outil potentiellement redondant.
+</p>
+
+</div>
+
+<div class="why">
+
+<strong>Avant de supprimer l’abonnement</strong>
+
+<p>
+CashPilot doit comparer les fonctions,
+vérifier la fiabilité de la nouvelle solution
+et confirmer qu’aucune fonction essentielle
+ne serait perdue.
+</p>
+
+</div>
+
+<div class="actions">
+<button class="btn sm">Comparer les solutions</button>
+<button class="btn secondary sm">Ignorer</button>
+</div>
+
+<div class="source">
+SOURCE · Exemple fictif · Aucune économie réelle n’est affirmée.
+</div>
+
+</div>
+
+<div class="card c12 next">
+
+<div class="metric-label">Méthode CashPilot</div>
+
+<h2>
+Détecter → vérifier → comparer → décider.
+</h2>
+
+<p>
+CashPilot ne transforme jamais automatiquement
+une nouveauté en action.
+Une opportunité doit d’abord être pertinente
+pour ton projet, vérifiable, suffisamment récente
+et présenter un rapport coût / temps / risque intéressant.
+</p>
+
+<div style="height:16px"></div>
+
+<p>
+Si tu décides de l’utiliser,
+elle peut ensuite créer une nouvelle action
+dans ton plan. Sinon, ton plan reste inchangé.
+</p>
+
+</div>
+
+</div>
+</div>
+
+<!-- LEADERBOARD MEMBRE -->
+<div id="memberleader" class="memberpage" style="display:none">
+
+<div class="eyebrow">Communauté</div>
+
+<h1>
+Ta progression dans le classement.
+</h1>
+
+<div class="grid">
+
+<div class="card c12">
+
+<div class="rank">
+<strong>01</strong>
+<span>Alex M. · Service local</span>
+<strong>2 840 €</strong>
+</div>
+
+<div class="rank">
+<strong>02</strong>
+<span>Lina N. · Freelance</span>
+<strong>2 190 €</strong>
+</div>
+
+<div class="rank">
+<strong>03</strong>
+<span>Thomas H. · Produit digital</span>
 <strong>1 760 €</strong>
 </div>
 
 <div class="rank">
 <strong>—</strong>
-<span>Toi · pas encore classé</span>
+<span>Toi · non classé</span>
 <strong>180 €</strong>
 </div>
 
-</div>
+<p class="small">
+Données entièrement fictives.
+Le partage public des revenus
+serait optionnel.
+</p>
 
+</div>
+</div>
 </div>
 
 </section>
+</main>
 
-</div>
+<nav class="mobile visitor">
 
-
-<!-- MENU MOBILE VISITEUR -->
-
-<nav class="mobile-menu visitor-nav">
-
-<button
-class="on"
-data-public="landing">
-Accueil
-</button>
-
-<button
-data-public="funnel">
-Mon plan
-</button>
-
-<button
-data-public="publicleader">
-Top
-</button>
+<button class="on" data-public="landing">Accueil</button>
+<button data-public="funnel">Mon plan</button>
+<button data-public="leader">Top</button>
+<button data-public="benefits">Avantages</button>
 
 </nav>
 
-
 <script>
 
-/* QUESTIONS DE L'ENTONNOIR */
-
-const questions = [
+const Q=[
 
 {
-title:"Qu’est-ce que tu veux construire ?",
-sub:"On commence large. CashPilot affinera ensuite les options.",
-key:"type",
+key:"goalType",
+title:"Qu’est-ce que tu veux obtenir ?",
+sub:"Choisis une seule direction. Ton choix détermine la suite.",
 opts:[
-[
-"Complément de revenu",
-"Ajouter une source de revenu à côté de ton activité actuelle."
-],
-[
-"Remplacer mon salaire",
-"Construire progressivement un revenu principal."
-],
-[
-"Créer mon activité principale",
-"Développer une activité avec un potentiel de croissance."
-],
-[
-"Faire fructifier mon capital",
-"Privilégier les solutions basées sur le capital disponible."
-]
+["extra","Complément de revenu","Ajouter une source de revenu à côté de ta situation actuelle."],
+["salary","Remplacer mon salaire","Construire un revenu capable de devenir principal."],
+["business","Construire mon activité principale","Créer une activité avec une logique de développement."],
+["capital","Faire fructifier mon capital","Faire travailler un capital existant selon ton horizon et ton risque."]
 ]
 },
 
 {
-title:"Quel montant veux-tu atteindre ?",
-sub:"Choisis un objectif mensuel.",
-key:"goal",
+key:"amount",
+title:a=>
+a.goalType==="extra"
+?"Combien veux-tu générer en plus chaque mois ?"
+:a.goalType==="salary"
+?"Quel revenu mensuel veux-tu remplacer ?"
+:a.goalType==="capital"
+?"Quel résultat vises-tu à terme ?"
+:"Quel revenu mensuel veux-tu viser ?",
+sub:"On cherche un objectif suffisamment précis pour construire le plan.",
 opts:[
-["200 € / mois","Premier complément."],
-["500 € / mois","Complément significatif."],
-["1 000 € / mois","Objectif plus exigeant."],
-["2 000 €+ / mois","Objectif avancé."]
+["200","200 € / mois","Un premier objectif mesurable."],
+["500","500 € / mois","Un complément significatif."],
+["1000","1 000 € / mois","Demande davantage de temps ou de levier."],
+["2000","2 000 €+ / mois","Objectif avancé à construire progressivement."]
 ]
 },
 
 {
-title:"Dans quel délai ?",
-sub:"Le délai influence fortement les stratégies possibles.",
-key:"time",
+key:"deadline",
+title:"À quel horizon veux-tu voir des résultats ?",
+sub:"Plus le délai est court, plus CashPilot privilégie les actions directement exécutables.",
 opts:[
-["Dès que possible","Priorité au retour rapide."],
-["1 à 3 mois","Court terme."],
-["3 à 6 mois","Construction progressive."],
-["6 à 12 mois","Plus de temps pour développer."]
+["fast","Le plus vite possible","Priorité aux premières entrées d’argent."],
+["1-3","1 à 3 mois","Court terme avec phase de test."],
+["3-6","3 à 6 mois","Temps pour construire et optimiser."],
+["6-12","6 à 12 mois","Développement plus progressif."]
 ]
 },
 
 {
-title:"Quel budget peux-tu engager ?",
-sub:"Uniquement l’argent réellement disponible pour démarrer.",
 key:"budget",
+title:"Quel budget peux-tu réellement engager ?",
+sub:"On parle uniquement d’argent disponible sans mettre en danger tes dépenses essentielles.",
 opts:[
-["0 €","Démarrer sans capital."],
-["Moins de 100 €","Budget très limité."],
-["100 à 500 €","Budget intermédiaire."],
-["500 à 2 000 €","Plus de possibilités de test."],
-["Plus de 2 000 €","Capital plus important."]
+["0","0 €","Le plan doit fonctionner sans capital de départ."],
+["100","Moins de 100 €","Budget de test très limité."],
+["500","100 à 500 €","Possibilité de financer quelques outils ou tests."],
+["2000","500 à 2 000 €","Capacité de test plus large."],
+["plus","Plus de 2 000 €","Capital disponible plus important."]
 ]
 },
 
 {
-title:"Combien de temps as-tu chaque semaine ?",
-sub:"On élimine les stratégies incompatibles avec ton emploi du temps.",
 key:"hours",
+title:"Combien de temps peux-tu y consacrer chaque semaine ?",
+sub:"On préfère un plan plus petit mais réellement exécutable.",
 opts:[
-["Moins de 3 h","Très peu de disponibilité."],
-["3 à 7 h","Quelques créneaux chaque semaine."],
-["7 à 15 h","Temps régulier."],
-["Plus de 15 h","Forte disponibilité."]
+["3","Moins de 3 h","Disponibilité très faible."],
+["7","3 à 7 h","Quelques créneaux réguliers."],
+["15","7 à 15 h","Temps suffisant pour une activité active."],
+["20","Plus de 15 h","Forte capacité d’exécution."]
 ]
 },
 
 {
-title:"Quel type d’effort te correspond le mieux ?",
-sub:"Ton plan doit rester réaliste à exécuter.",
-key:"style",
+key:"skills",
+title:"Sur quoi peux-tu déjà t’appuyer ?",
+sub:"Choisis ton point fort principal aujourd’hui.",
 opts:[
-[
-"Vendre / prospecter",
-"Je suis prêt à chercher activement des clients."
-],
-[
-"Créer / produire",
-"Je préfère fabriquer, créer ou délivrer."
-],
-[
-"Construire quelque chose de scalable",
-"Je peux attendre davantage pour développer."
-],
-[
-"Je suis ouvert",
-"Je veux surtout la meilleure option compatible."
-]
+["sales","Vente / relation client","Prospecter, convaincre, négocier ou conseiller."],
+["creative","Création / contenu","Design, vidéo, rédaction, photo ou création digitale."],
+["digital","Digital / outils","Web, automatisation, outils numériques ou technique."],
+["local","Travail local / terrain","Services physiques, réseau local ou interventions."],
+["none","Pas encore de compétence forte","Le plan devra rester simple et apprendre en exécutant."]
 ]
 },
 
 {
-title:"Quel niveau de risque acceptes-tu ?",
-sub:"Dernier filtre avant la recommandation.",
+key:"model",
+title:"Quel fonctionnement te correspond le mieux ?",
+sub:"Le meilleur plan est celui que tu peux tenir plusieurs semaines.",
+opts:[
+["active","Je peux travailler activement","Je préfère agir directement pour générer des résultats."],
+["scale","Je veux construire quelque chose de scalable","J’accepte plus de délai pour créer un actif ou système."],
+["invest","Je préfère utiliser mon capital","Je veux limiter le travail opérationnel."],
+["open","Je suis ouvert","Je veux la meilleure option compatible avec mes contraintes."]
+]
+},
+
+{
 key:"risk",
+title:"Quelle incertitude es-tu prêt à accepter ?",
+sub:"Ce choix sert à éviter de te proposer une stratégie incompatible avec ton profil.",
 opts:[
-[
-"Faible",
-"Préserver au maximum mon capital."
-],
-[
-"Modéré",
-"Accepter une incertitude mesurée."
-],
-[
-"Élevé",
-"Accepter davantage de volatilité ou d’échec."
-]
+["low","Faible","Je préfère une progression lente mais maîtrisée."],
+["mid","Modérée","J’accepte de tester et de perdre une petite partie du budget."],
+["high","Élevée","J’accepte davantage d’échecs ou de volatilité pour viser plus haut."]
 ]
 }
 
 ];
 
+let step=0;
 
-let step = 0;
-let answers = {};
+let A=JSON.parse(
+localStorage.getItem("cashpilot-v5")||"{}"
+);
 
-
-/* NAVIGATION PUBLIQUE */
-
-function hideAll(){
+function hide(){
 
 document
 .querySelectorAll(".screen")
-.forEach(function(screen){
-
-screen.classList.remove("active");
-
-});
+.forEach(x=>x.classList.remove("active"));
 
 }
 
-
 function showPublic(id){
 
-hideAll();
+hide();
 
 document
 .getElementById(id)
 .classList.add("active");
 
-
 document
 .querySelectorAll("[data-public]")
-.forEach(function(button){
-
-button.classList.toggle(
+.forEach(x=>
+x.classList.toggle(
 "on",
-button.dataset.public === id
+x.dataset.public===id
+)
 );
-
-});
-
 
 window.scrollTo({
 top:0,
@@ -1543,107 +1545,64 @@ behavior:"smooth"
 
 }
 
-
 document
 .querySelectorAll("[data-public]")
-.forEach(function(button){
-
-button.onclick = function(){
-
-if(button.dataset.public === "funnel"){
-
-startFunnel();
-
-}else{
-
-showPublic(
-button.dataset.public
+.forEach(b=>
+b.onclick=()=>
+b.dataset.public==="funnel"
+?startFunnel()
+:showPublic(b.dataset.public)
 );
-
-}
-
-};
-
-});
-
-
-/* DÉMARRAGE ENTONNOIR */
 
 function startFunnel(){
 
-step = 0;
+step=0;
 
 showPublic("funnel");
 
-renderQuestion();
+renderQ();
 
 }
 
+function renderQ(){
 
-/* AFFICHAGE QUESTION */
+let q=Q[step];
 
-function renderQuestion(){
-
-const q = questions[step];
-
-const percentage =
+let pct=
 Math.round(
-((step + 1) / questions.length) * 100
+(step+1)/Q.length*100
 );
 
+let title=
+typeof q.title==="function"
+?q.title(A)
+:q.title;
 
-document.getElementById("stepTxt").textContent =
-"Étape " +
-(step + 1) +
-" sur " +
-questions.length;
+document
+.getElementById("stepTxt")
+.textContent=
+`Étape ${step+1} sur ${Q.length}`;
 
+document
+.getElementById("stepPct")
+.textContent=
+pct+"%";
 
-document.getElementById("stepPct").textContent =
-percentage + "%";
+document
+.getElementById("progressBar")
+.style.width=
+pct+"%";
 
-
-document.getElementById("progressBar").style.width =
-percentage + "%";
-
-
-const optionsHTML =
-q.opts.map(function(option){
-
-const selected =
-answers[q.key] === option[0]
-? "selected"
-: "";
-
-return `
-
-<button
-class="choice ${selected}"
-data-value="${option[0]}">
-
-<b>
-${option[0]}
-</b>
-
-<small>
-${option[1]}
-</small>
-
-</button>
-
-`;
-
-}).join("");
-
-
-document.getElementById("question").innerHTML = `
+document
+.getElementById("question")
+.innerHTML=`
 
 <div class="eyebrow">
-Ton profil
+Profil CashPilot
 </div>
 
 <h1>
-${q.title}
+${title}
 </h1>
 
 <p>
@@ -1651,134 +1610,413 @@ ${q.sub}
 </p>
 
 <div class="choices">
-${optionsHTML}
+
+${q.opts.map(o=>`
+
+<button
+class="choice"
+data-v="${o[0]}">
+
+<b>${o[1]}</b>
+
+<small>
+${o[2]}
+</small>
+
+</button>
+
+`).join("")}
+
 </div>
 
 `;
 
-
 document
 .querySelectorAll(".choice")
-.forEach(function(button){
-
-button.onclick = function(){
-
-answers[q.key] =
-button.dataset.value;
-
-renderQuestion();
-
-};
-
-});
-
-
-document.getElementById("backBtn").style.visibility =
-step === 0
-? "hidden"
-: "visible";
-
-
-document.getElementById("nextBtn").textContent =
-step === questions.length - 1
-? "Voir mon analyse →"
-: "Continuer →";
-
-}
-
-
-/* QUESTION SUIVANTE */
-
-function next(){
-
-const q =
-questions[step];
-
-
-if(!answers[q.key]){
-
-const choices =
-document.querySelector(".choices");
-
-choices.animate(
-[
-{transform:"translateX(-4px)"},
-{transform:"translateX(4px)"},
-{transform:"translateX(0)"}
-],
-{
-duration:180
-}
+.forEach(b=>
+b.onclick=()=>choose(b.dataset.v)
 );
 
-return;
+document
+.getElementById("backBtn")
+.style.visibility=
+step?"visible":"hidden";
 
 }
 
+function choose(v){
 
-if(step < questions.length - 1){
+A[Q[step].key]=v;
+
+localStorage.setItem(
+"cashpilot-v5",
+JSON.stringify(A)
+);
+
+let btn=
+[...document.querySelectorAll(".choice")]
+.find(x=>x.dataset.v===v);
+
+if(btn){
+
+btn.style.borderColor="#7c5cff";
+btn.style.background="#1b1740";
+
+}
+
+setTimeout(()=>{
+
+if(step<Q.length-1){
 
 step++;
-
-renderQuestion();
+renderQ();
 
 }else{
 
-document.getElementById("rBudget").textContent =
-answers.budget;
-
-document.getElementById("rGoal").textContent =
-answers.goal;
-
-document.getElementById("rTime").textContent =
-answers.time;
-
-showPublic("preview");
+analyse();
 
 }
 
+},170);
+
 }
-
-
-/* RETOUR */
 
 function back(){
 
-if(step > 0){
+if(step){
 
 step--;
-
-renderQuestion();
-
-}
+renderQ();
 
 }
 
+}
 
-/* PASSAGE EN MODE ABONNÉ */
+function label(key,val){
+
+let q=
+Q.find(x=>x.key===key);
+
+if(!q)return "—";
+
+let o=
+q.opts.find(x=>x[0]===val);
+
+return o?o[1]:"—";
+
+}
+
+function analyse(){
+
+showPublic("analysing");
+
+setTimeout(
+buildResult,
+1350
+);
+
+}
+
+function buildResult(){
+
+let s="service";
+let score=82;
+
+if(
+A.goalType==="capital" ||
+A.model==="invest"
+){
+
+s="capital";
+
+}
+
+else if(
+A.skills==="local"
+){
+
+s="local";
+
+}
+
+else if(
+A.skills==="creative"
+){
+
+s="freelance";
+
+}
+
+else if(
+A.skills==="digital"
+){
+
+s="digital";
+
+}
+
+else if(
+A.skills==="sales"
+){
+
+s="sales";
+
+}
+
+else if(
+A.model==="scale" &&
+(
+A.hours==="15" ||
+A.hours==="20"
+)
+){
+
+s="digital";
+
+}
+
+if(
+A.budget==="0" &&
+s==="capital"
+){
+
+s="service";
+score-=12;
+
+}
+
+if(
+A.hours==="3" &&
+A.amount==="2000"
+){
+
+score-=15;
+
+}
+
+if(
+A.deadline==="fast" &&
+(
+s==="digital" ||
+s==="capital"
+)
+){
+
+score-=8;
+
+}
+
+if(A.risk==="low"){
+score+=2;
+}
+
+score=
+Math.max(
+55,
+Math.min(
+94,
+score
+)
+);
+
+const data={
+
+service:[
+"Service ciblé à faible capital",
+"Vendre une prestation simple à une cible précise, valider rapidement la demande puis améliorer l’offre à partir des retours.",
+"Vente d’objets / missions ponctuelles",
+"Plus simple pour générer les premiers euros sans construire immédiatement une activité.",
+"Service productisé",
+"Transformer ensuite la prestation en offre plus standardisée et plus scalable."
+],
+
+sales:[
+"Service B2B orienté vente",
+"Utiliser ta capacité à prospecter, comprendre un besoin et convaincre pour proposer une prestation simple à une cible professionnelle précise.",
+"Mission commerciale ponctuelle",
+"Monétiser directement la compétence commerciale avec moins de construction initiale.",
+"Offre commerciale récurrente",
+"Construire progressivement une prestation mensuelle avec processus, suivi et récurrence."
+],
+
+freelance:[
+"Freelance spécialisé",
+"Monétiser une compétence existante avec une offre étroite, un résultat clair et une prospection ciblée.",
+"Missions ponctuelles simples",
+"Réduire la complexité pour obtenir des premières références.",
+"Offre récurrente",
+"Passer ensuite de missions isolées à un service mensuel récurrent."
+],
+
+local:[
+"Service local ciblé",
+"Exploiter une demande locale avec une offre facile à expliquer, une zone précise et une acquisition directe.",
+"Missions locales ponctuelles",
+"Commencer sans structure complexe pour vérifier la demande.",
+"Récurrence locale",
+"Créer ensuite des contrats ou passages réguliers pour stabiliser le revenu."
+],
+
+digital:[
+"Produit ou service digital progressif",
+"Construire un actif numérique autour d’un problème précis, mais valider la demande avant d’investir beaucoup de temps.",
+"Freelance lié à la compétence",
+"Monétiser la compétence directement pendant la phase de validation.",
+"Produit digital récurrent",
+"Standardiser progressivement ce qui se vend déjà pour gagner en échelle."
+],
+
+capital:[
+"Allocation progressive du capital",
+"Construire une approche cohérente avec l’horizon et le risque plutôt que rechercher un rendement rapide. Le prototype ne fournit pas de conseil financier personnalisé.",
+"Épargne sécurisée / liquidités",
+"Conserver une partie disponible selon l’horizon et les besoins.",
+"Approche diversifiée long terme",
+"À étudier selon pays, fiscalité, horizon et tolérance au risque avant toute décision."
+]
+
+};
+
+let d=data[s];
+
+document
+.getElementById("strategy")
+.textContent=d[0];
+
+document
+.getElementById("strategyDesc")
+.textContent=d[1];
+
+document
+.getElementById("safeTitle")
+.textContent=d[2];
+
+document
+.getElementById("safeDesc")
+.textContent=d[3];
+
+document
+.getElementById("ambTitle")
+.textContent=d[4];
+
+document
+.getElementById("ambDesc")
+.textContent=d[5];
+
+document
+.getElementById("fGoal")
+.textContent=
+label("amount",A.amount);
+
+document
+.getElementById("fHours")
+.textContent=
+label("hours",A.hours);
+
+document
+.getElementById("fBudget")
+.textContent=
+label("budget",A.budget);
+
+document
+.getElementById("fitScore")
+.innerHTML=
+score+'<small>/100</small>';
+
+document
+.getElementById("reasons")
+.innerHTML=`
+
+<div class="why">
+<strong>Objectif</strong>
+<p>
+${label("amount",A.amount)}
+avec un horizon
+${label("deadline",A.deadline).toLowerCase()}.
+</p>
+</div>
+
+<div class="why">
+<strong>Capacité d’exécution</strong>
+<p>
+${label("hours",A.hours)}
+et profil
+${label("skills",A.skills).toLowerCase()}.
+</p>
+</div>
+
+<div class="why">
+<strong>Budget initial</strong>
+<p>
+${label("budget",A.budget)}.
+</p>
+</div>
+
+<div class="why">
+<strong>Risque</strong>
+<p>
+Niveau
+${label("risk",A.risk).toLowerCase()}
+pris en compte.
+</p>
+</div>
+
+`;
+
+document
+.getElementById("resultLead")
+.textContent=
+"La recommandation ci-dessous est générée à partir de tes réponses. Elle sert de direction de départ, pas de promesse de revenu.";
+
+document
+.getElementById("memberGoal")
+.textContent=
+label("amount",A.amount)
+.replace(" / mois","");
+
+showPublic("result");
+
+}
 
 function activateMember(){
 
-hideAll();
+hide();
 
 document
 .getElementById("member")
 .classList.add("active");
 
+document
+.querySelectorAll(".visitor")
+.forEach(x=>x.style.display="none");
 
 document
-.querySelectorAll(".visitor-nav")
-.forEach(function(nav){
+.getElementById("mode")
+.textContent=
+"Démo · Abonné";
 
-nav.style.display =
-"none";
+openMember("dashboard");
 
-});
+}
 
+function openMember(id){
 
-document.getElementById("modeBtn").textContent =
-"Prototype · Abonné";
+document
+.querySelectorAll(".memberpage")
+.forEach(x=>x.style.display="none");
 
+document
+.getElementById(id)
+.style.display="block";
+
+document
+.querySelectorAll("[data-member]")
+.forEach(x=>
+x.classList.toggle(
+"on",
+x.dataset.member===id
+)
+);
 
 window.scrollTo({
 top:0,
@@ -1787,69 +2025,26 @@ behavior:"smooth"
 
 }
 
-
-/* NAVIGATION ABONNÉ */
-
 document
 .querySelectorAll("[data-member]")
-.forEach(function(button){
-
-button.onclick = function(){
-
-document
-.querySelectorAll(".memberpage")
-.forEach(function(page){
-
-page.style.display =
-"none";
-
-});
-
+.forEach(b=>
+b.onclick=()=>openMember(b.dataset.member)
+);
 
 document
-.getElementById(
-button.dataset.member
-)
-.style.display =
-"block";
-
-
-document
-.querySelectorAll("[data-member]")
-.forEach(function(item){
-
-item.classList.remove("on");
-
-});
-
-
-button.classList.add("on");
-
-};
-
-});
-
-
-/* SWITCH PROTOTYPE VISITEUR / ABONNÉ */
-
-document
-.getElementById("modeBtn")
-.onclick = function(){
+.getElementById("mode")
+.onclick=function(){
 
 if(
 this.textContent.includes("Abonné")
 ){
 
 document
-.querySelectorAll(".visitor-nav")
-.forEach(function(nav){
+.querySelectorAll(".visitor")
+.forEach(x=>x.style.display="");
 
-nav.style.display = "";
-
-});
-
-this.textContent =
-"Prototype · Visiteur";
+this.textContent=
+"Démo · Visiteur";
 
 showPublic("landing");
 
@@ -1860,6 +2055,26 @@ activateMember();
 }
 
 };
+
+document.addEventListener(
+"click",
+function(event){
+
+const tick=
+event.target.closest(".tick");
+
+if(
+!tick ||
+tick.classList.contains("done")
+){
+return;
+}
+
+tick.classList.add("done");
+tick.textContent="✓";
+
+}
+);
 
 </script>
 

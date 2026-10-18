@@ -1,40 +1,746 @@
-cashpilot.
-Vue d’ensemble
-Plan d’action
-Opportunités
-Budget
-Mon profil
-Méthode & sources
-TABLEAU DE BORD
-Bonjour Jules.
-Voici où tu en es et ce qui mérite ton attention aujourd’hui.
-Données de démonstration
-Objectif mensuel
-+300 € / mois
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CashPilot</title>
 
-38 % du plan complété
-Capital disponible
-50 €
-Budget déclaré, pas encore engagé.
-Temps disponible
-5 h / semaine
-Priorité aux actions à faible coût.
-À faire maintenant
+<style>
+:root{
+  --dark:#0b1d15;
+  --green:#caff63;
+  --bg:#f4f6f2;
+  --card:#fff;
+  --text:#132019;
+  --muted:#718078;
+  --line:#e3e8e3;
+}
 
-Choisir une offre simple à tester
-Une seule offre, un prix et un client cible.
-20 min
+*{box-sizing:border-box}
 
-Contacter 5 prospects
-Mesurer les réponses avant d’investir davantage.
-45 min
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
 
-Noter le résultat du test
-Réponses, coût, temps passé et revenu obtenu.
-5 min
-Piste prioritaire
-Service local ciblé
-À valider
-Faible capital initial et retour rapide du marché. La demande réelle doit être vérifiée avant de conclure.
-Risque faible à modéré
-CashPilot ne promet aucun revenu. Les estimations servent à comparer des options.
+button{font:inherit;cursor:pointer}
+
+.sidebar{
+  position:fixed;
+  width:230px;
+  top:0;
+  bottom:0;
+  left:0;
+  background:var(--dark);
+  padding:28px 18px;
+  color:white;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:900;
+  margin:0 10px 30px;
+}
+
+.logo span{color:var(--green)}
+
+.nav{
+  display:block;
+  width:100%;
+  border:0;
+  background:none;
+  color:#91a39a;
+  text-align:left;
+  padding:12px;
+  border-radius:11px;
+  margin:4px 0;
+}
+
+.nav.active{
+  background:#153326;
+  color:white;
+}
+
+.main{
+  margin-left:230px;
+  padding:34px;
+  max-width:1250px;
+}
+
+.page{
+  display:none;
+  animation:show .25s ease;
+}
+
+.page.active{display:block}
+
+@keyframes show{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:none}
+}
+
+h1{
+  font-size:30px;
+  margin:0 0 7px;
+  letter-spacing:-1px;
+}
+
+h2{font-size:18px;margin:0 0 14px}
+h3{font-size:14px;margin:0}
+
+p{
+  color:var(--muted);
+  line-height:1.5;
+  margin:0;
+}
+
+.header{margin-bottom:25px}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:14px;
+}
+
+.card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:20px;
+}
+
+.c4{grid-column:span 4}
+.c5{grid-column:span 5}
+.c7{grid-column:span 7}
+.c8{grid-column:span 8}
+.c12{grid-column:span 12}
+
+.hero{
+  background:var(--dark);
+  color:white;
+}
+
+.hero p{color:#a5b4ac}
+
+.label{
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+
+.metric{
+  font-size:28px;
+  font-weight:850;
+}
+
+.btn{
+  border:0;
+  background:var(--dark);
+  color:white;
+  border-radius:10px;
+  padding:11px 14px;
+  font-weight:700;
+  margin-top:15px;
+}
+
+.hero .btn{
+  background:var(--green);
+  color:var(--text);
+}
+
+.task{
+  display:flex;
+  gap:11px;
+  padding:14px 0;
+  border-top:1px solid #edf0ed;
+}
+
+.task:first-of-type{border-top:0}
+
+.task p{
+  font-size:12px;
+  margin-top:4px;
+}
+
+.check{
+  width:21px;
+  height:21px;
+  border:1px solid #bcc8c0;
+  border-radius:6px;
+  flex:none;
+}
+
+.check.done{
+  background:var(--dark);
+  border-color:var(--dark);
+}
+
+.check.done:after{
+  content:"✓";
+  color:white;
+  display:block;
+  text-align:center;
+}
+
+.tag{
+  display:inline-block;
+  margin-top:7px;
+  padding:4px 7px;
+  border-radius:99px;
+  background:#f0f3ef;
+  font-size:10px;
+}
+
+.opportunity{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:15px;
+  margin-top:10px;
+}
+
+.opportunity p{
+  font-size:12px;
+  margin-top:5px;
+}
+
+.rank{
+  display:grid;
+  grid-template-columns:40px 1fr auto;
+  align-items:center;
+  padding:14px 0;
+  border-top:1px solid #edf0ed;
+}
+
+.rank:first-of-type{border-top:0}
+
+.rank-number{
+  font-weight:900;
+}
+
+.money{
+  font-weight:800;
+}
+
+.tabs{
+  margin-bottom:12px;
+}
+
+.tabs button{
+  border:0;
+  padding:8px 11px;
+  border-radius:9px;
+  background:#eef1ed;
+  margin-right:5px;
+}
+
+.tabs button.active{
+  background:var(--dark);
+  color:white;
+}
+
+.bottom-nav{display:none}
+
+/* MOBILE */
+@media(max-width:800px){
+
+  .sidebar{display:none}
+
+  .main{
+    margin:0;
+    padding:24px 14px 95px;
+  }
+
+  .c4,.c5,.c7,.c8{
+    grid-column:span 12;
+  }
+
+  h1{font-size:27px}
+
+  .bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    display:flex;
+    justify-content:space-around;
+    background:var(--dark);
+    padding:8px 4px calc(8px + env(safe-area-inset-bottom));
+    z-index:100;
+  }
+
+  .bottom-nav button{
+    border:0;
+    background:none;
+    color:#84968d;
+    font-size:10px;
+    padding:8px 4px;
+  }
+
+  .bottom-nav button.active{
+    color:var(--green);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<div class="logo">
+cash<span>pilot</span>.
+</div>
+
+<button class="nav active" data-page="home">Vue d’ensemble</button>
+<button class="nav" data-page="plan">Plan d’action</button>
+<button class="nav" data-page="opportunities">Opportunités</button>
+<button class="nav" data-page="tracking">Suivi</button>
+<button class="nav" data-page="leaderboard">Classement</button>
+<button class="nav" data-page="profile">Profil</button>
+
+</aside>
+
+<main class="main">
+
+<!-- DASHBOARD -->
+
+<section id="home" class="page active">
+
+<div class="header">
+<h1>Ton objectif, en clair.</h1>
+<p>Avance sur ce qui peut réellement produire un résultat.</p>
+</div>
+
+<div class="grid">
+
+<div class="card hero c7">
+
+<div class="label">OBJECTIF ACTUEL</div>
+
+<h2>Générer 300 € supplémentaires / mois</h2>
+
+<p>
+5 h disponibles par semaine · 50 € de capital
+</p>
+
+<div style="margin-top:28px">
+<div class="label">PROGRESSION DU PLAN</div>
+<div class="metric" id="progress">0%</div>
+</div>
+
+<button class="btn" onclick="openPage('plan')">
+Continuer le plan →
+</button>
+
+</div>
+
+<div class="card c5">
+
+<h2>Prochaine action</h2>
+
+<div class="task">
+
+<div class="check"></div>
+
+<div>
+<h3>Définir une offre test</h3>
+<p>Une offre, un prix et une cible précise.</p>
+<span class="tag">20 min</span>
+</div>
+
+</div>
+
+<button class="btn" onclick="openPage('plan')">
+Voir les étapes
+</button>
+
+</div>
+
+<div class="card c4">
+<div class="label">REVENUS SUIVIS</div>
+<div class="metric">0 €</div>
+<p>Ce mois</p>
+</div>
+
+<div class="card c4">
+<div class="label">CAPITAL DISPONIBLE</div>
+<div class="metric">50 €</div>
+<p>0 € engagé</p>
+</div>
+
+<div class="card c4">
+<div class="label">TEMPS DISPONIBLE</div>
+<div class="metric">5 h</div>
+<p>par semaine</p>
+</div>
+
+</div>
+</section>
+
+
+<!-- PLAN -->
+
+<section id="plan" class="page">
+
+<div class="header">
+<h1>Plan d’action.</h1>
+<p>Des étapes simples, courtes et mesurables.</p>
+</div>
+
+<div class="grid">
+
+<div class="card c8">
+
+<h2>Semaine 1 · Validation</h2>
+
+<div class="task">
+<div class="check"></div>
+<div>
+<h3>Choisir une cible précise</h3>
+<p>Identifier qui rencontre le problème et peut payer.</p>
+</div>
+</div>
+
+<div class="task">
+<div class="check"></div>
+<div>
+<h3>Créer une offre simple</h3>
+<p>Définir le résultat, le prix test et le délai.</p>
+</div>
+</div>
+
+<div class="task">
+<div class="check"></div>
+<div>
+<h3>Contacter 10 prospects</h3>
+<p>Mesurer l’intérêt réel et les objections.</p>
+</div>
+</div>
+
+<div class="task">
+<div class="check"></div>
+<div>
+<h3>Enregistrer les résultats</h3>
+<p>Temps passé, dépenses et revenus obtenus.</p>
+</div>
+</div>
+
+</div>
+
+<div class="card c4">
+
+<h2>Règle de décision</h2>
+
+<p>
+Ne pas augmenter le budget tant qu’un signal concret du marché n’a pas été obtenu.
+</p>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- OPPORTUNITÉS -->
+
+<section id="opportunities" class="page">
+
+<div class="header">
+<h1>Opportunités.</h1>
+<p>Comparer les possibilités avant d’investir du temps ou de l’argent.</p>
+</div>
+
+<div class="card">
+
+<div class="opportunity">
+<h3>Service local</h3>
+<p>Faible capital · test rapide · demande à valider.</p>
+</div>
+
+<div class="opportunity">
+<h3>Service numérique</h3>
+<p>Faible capital · concurrence et demande à vérifier.</p>
+</div>
+
+<div class="opportunity">
+<h3>Revente ciblée</h3>
+<p>Capital supérieur · marge réelle à calculer après les frais.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SUIVI -->
+
+<section id="tracking" class="page">
+
+<div class="header">
+<h1>Suivi.</h1>
+<p>Mesure ce que tes actions produisent réellement.</p>
+</div>
+
+<div class="grid">
+
+<div class="card c4">
+<div class="label">REVENUS</div>
+<div class="metric">0 €</div>
+</div>
+
+<div class="card c4">
+<div class="label">DÉPENSES</div>
+<div class="metric">0 €</div>
+</div>
+
+<div class="card c4">
+<div class="label">RÉSULTAT NET</div>
+<div class="metric">0 €</div>
+</div>
+
+<div class="card c12">
+<h2>Historique</h2>
+<p>Aucun résultat enregistré pour le moment.</p>
+</div>
+
+</div>
+</section>
+
+
+<!-- LEADERBOARD -->
+
+<section id="leaderboard" class="page">
+
+<div class="header">
+<h1>Leaderboard.</h1>
+<p>Les utilisateurs CashPilot qui progressent le plus.</p>
+</div>
+
+<div class="grid">
+
+<div class="card c7">
+
+<div class="tabs">
+<button class="active">Ce mois</button>
+<button>Cette semaine</button>
+<button>Global</button>
+</div>
+
+<div class="rank">
+<div class="rank-number">01</div>
+<div>Alex M. · Services</div>
+<div class="money">2 840 €</div>
+</div>
+
+<div class="rank">
+<div class="rank-number">02</div>
+<div>Lina N. · Digital</div>
+<div class="money">2 190 €</div>
+</div>
+
+<div class="rank">
+<div class="rank-number">03</div>
+<div>Thomas H. · Revente</div>
+<div class="money">1 760 €</div>
+</div>
+
+<div class="rank">
+<div class="rank-number">04</div>
+<div>Sarah R. · Services</div>
+<div class="money">1 420 €</div>
+</div>
+
+<div class="rank">
+<div class="rank-number">05</div>
+<div>Noah B. · Digital</div>
+<div class="money">1 180 €</div>
+</div>
+
+</div>
+
+<div class="card c5">
+
+<h2>Ta position</h2>
+
+<div class="metric">—</div>
+
+<p style="margin-top:8px">
+Tu n’es pas encore classé.
+</p>
+
+<p style="margin-top:20px;font-size:12px">
+Le classement sera volontaire. Les revenus personnels ne seront jamais publics par défaut.
+</p>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- PROFIL -->
+
+<section id="profile" class="page">
+
+<div class="header">
+<h1>Ton profil.</h1>
+<p>Ces informations serviront à personnaliser les recommandations.</p>
+</div>
+
+<div class="grid">
+
+<div class="card c7">
+
+<h2>Objectifs</h2>
+
+<p>
+Objectif : <strong>300 €/mois</strong>
+<br><br>
+Capital : <strong>50 €</strong>
+<br><br>
+Temps : <strong>5 h/semaine</strong>
+<br><br>
+Pays : <strong>France</strong>
+<br><br>
+Risque : <strong>Faible à modéré</strong>
+</p>
+
+<button class="btn">
+Modifier le profil
+</button>
+
+</div>
+
+<div class="card c5">
+
+<h2>Confidentialité</h2>
+
+<p>
+Tes données financières ne seront jamais publiées sans ton accord.
+</p>
+
+</div>
+
+</div>
+</section>
+
+</main>
+
+
+<!-- NAVIGATION MOBILE -->
+
+<nav class="bottom-nav">
+
+<button class="active" data-page="home">
+Accueil
+</button>
+
+<button data-page="plan">
+Plan
+</button>
+
+<button data-page="opportunities">
+Pistes
+</button>
+
+<button data-page="tracking">
+Suivi
+</button>
+
+<button data-page="leaderboard">
+Top
+</button>
+
+<button data-page="profile">
+Profil
+</button>
+
+</nav>
+
+
+<script>
+
+function openPage(page){
+
+document.querySelectorAll(".page").forEach(function(element){
+element.classList.remove("active");
+});
+
+document.getElementById(page).classList.add("active");
+
+document.querySelectorAll("[data-page]").forEach(function(button){
+
+button.classList.toggle(
+"active",
+button.dataset.page === page
+);
+
+});
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+document.querySelectorAll("[data-page]").forEach(function(button){
+
+button.addEventListener("click",function(){
+
+openPage(button.dataset.page);
+
+});
+
+});
+
+
+const checks =
+Array.from(document.querySelectorAll(".check"));
+
+
+checks.forEach(function(check){
+
+check.addEventListener("click",function(){
+
+check.classList.toggle("done");
+
+const completed =
+checks.filter(function(item){
+return item.classList.contains("done");
+}).length;
+
+const percentage =
+Math.round(
+(completed / checks.length) * 100
+);
+
+document.getElementById("progress").textContent =
+percentage + "%";
+
+});
+
+});
+
+
+document.querySelectorAll(".tabs button").forEach(function(button){
+
+button.addEventListener("click",function(){
+
+document.querySelectorAll(".tabs button").forEach(function(item){
+item.classList.remove("active");
+});
+
+button.classList.add("active");
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

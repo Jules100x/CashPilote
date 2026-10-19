@@ -3,102 +3,182 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#070914">
+<meta name="theme-color" content="#080B14">
 <title>CashPilot — V6</title>
 
 <style>
 :root{
---bg:#070914;
---panel:#101426;
---panel2:#151a31;
---line:#252b49;
---txt:#f7f8ff;
---muted:#9299b7;
---purple:#7c5cff;
---yellow:#ffd84d;
---orange:#ff8a3d;
---green:#53d99b;
---red:#ff7182;
---blue:#65a7ff;
+  --bg:#080B14;
+  --bg2:#0D1220;
+  --card:#101625;
+  --card2:#151B2D;
+  --line:#242B42;
+  --text:#F7F8FC;
+  --muted:#929BB4;
+  --purple:#7C5CFF;
+  --purple2:#9C88FF;
+  --yellow:#FFD84D;
+  --orange:#FF8A3D;
+  --green:#5DDBA3;
+  --red:#FF7185;
+  --blue:#66A8FF;
 }
+
 *{box-sizing:border-box}
 html{background:var(--bg)}
 body{
-margin:0;
-background:
-radial-gradient(circle at 90% -10%,#251d56 0,transparent 28%),
-radial-gradient(circle at -10% 60%,#171333 0,transparent 24%),
-var(--bg);
-color:var(--txt);
-font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
--webkit-font-smoothing:antialiased
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(circle at 100% -5%,rgba(124,92,255,.17),transparent 28%),
+    radial-gradient(circle at -10% 70%,rgba(255,138,61,.07),transparent 22%),
+    var(--bg);
 }
+
 button,input,select{font:inherit}
 button{cursor:pointer}
-.top{
-height:66px;padding:0 20px;
-display:flex;align-items:center;justify-content:space-between;
-border-bottom:1px solid rgba(255,255,255,.06);
-position:sticky;top:0;
-background:rgba(7,9,20,.92);
-backdrop-filter:blur(18px);
-z-index:50
+button:active{transform:scale(.985)}
+
+header{
+  height:64px;
+  padding:0 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(8,11,20,.91);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.06);
 }
-.logo{font-size:22px;font-weight:950;letter-spacing:-1.2px}
+
+.logo{
+  font-weight:950;
+  font-size:22px;
+  letter-spacing:-1.2px;
+}
 .logo span{color:var(--yellow)}
-.demo{
-font-size:10px;color:#b9c0d9;
-border:1px solid var(--line);
-padding:7px 10px;border-radius:99px;
-background:#101426
+
+.demoBadge{
+  font-size:9px;
+  color:#ADB5CD;
+  border:1px solid var(--line);
+  padding:7px 10px;
+  border-radius:999px;
+  background:#101523;
 }
-.wrap{max-width:1160px;margin:auto;padding:34px 18px 110px}
-.screen{display:none;animation:fade .25s ease}
-.screen.active{display:block}
+
+main{
+  max-width:1120px;
+  margin:auto;
+  padding:32px 16px 110px;
+}
+
+.screen{display:none}
+.screen.active{
+  display:block;
+  animation:fade .25s ease;
+}
 @keyframes fade{
-from{opacity:0;transform:translateY(7px)}
-to{opacity:1;transform:none}
+  from{opacity:0;transform:translateY(7px)}
+  to{opacity:1;transform:none}
 }
+
 .eyebrow{
-font-size:9px;text-transform:uppercase;
-letter-spacing:.15em;color:#858eaf;
-font-weight:850;margin-bottom:10px
+  font-size:9px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#7F89A6;
+  font-weight:850;
+  margin-bottom:10px;
 }
+
 h1{
-font-size:43px;line-height:1.04;
-letter-spacing:-2.1px;margin:0 0 14px;
-max-width:850px
+  margin:0;
+  font-size:43px;
+  line-height:1.04;
+  letter-spacing:-2px;
 }
-h2{font-size:21px;letter-spacing:-.7px;margin:0 0 9px}
-h3{font-size:14px;margin:0 0 5px}
-p{margin:0;color:var(--muted);line-height:1.55}
-.lead{font-size:15px;max-width:720px}
+
+h2{
+  margin:0;
+  font-size:21px;
+  letter-spacing:-.7px;
+}
+
+h3{
+  margin:0;
+  font-size:14px;
+}
+
+p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.55;
+}
+
+.lead{
+  font-size:15px;
+  max-width:720px;
+  margin-top:14px;
+}
+
 .small{font-size:10px}
-.accent{color:var(--yellow)}
+.yellow{color:var(--yellow)}
 .green{color:var(--green)}
-.orange{color:var(--orange)}
+.red{color:var(--red)}
+.purple{color:var(--purple2)}
+
 .btn{
-border:0;border-radius:12px;
-padding:13px 17px;font-weight:850;
-background:var(--yellow);color:#121212
+  border:0;
+  border-radius:12px;
+  padding:13px 17px;
+  font-weight:850;
+  background:linear-gradient(135deg,var(--yellow),var(--orange));
+  color:#111;
 }
+
 .btn.secondary{
-background:var(--panel2);color:#fff;
-border:1px solid var(--line)
+  background:#12182A;
+  color:#fff;
+  border:1px solid var(--line);
 }
-.btn.purple{background:var(--purple);color:white}
-.btn.red{background:#311820;color:#ff9bab}
-.btn.sm{padding:9px 12px;font-size:10px}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+
+.btn.purple{
+  background:var(--purple);
+  color:#fff;
+}
+
+.btn.smallBtn{
+  padding:9px 11px;
+  font-size:10px;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:22px;
+}
+
 .grid{
-display:grid;grid-template-columns:repeat(12,1fr);
-gap:12px;margin-top:25px
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:12px;
+  margin-top:24px;
 }
+
 .card{
-background:linear-gradient(145deg,#11162a,#0e1120);
-border:1px solid var(--line);
-border-radius:18px;padding:18px
+  background:linear-gradient(145deg,#111727,#0E1321);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
 }
+
 .c3{grid-column:span 3}
 .c4{grid-column:span 4}
 .c5{grid-column:span 5}
@@ -106,2250 +186,3757 @@ border-radius:18px;padding:18px
 .c7{grid-column:span 7}
 .c8{grid-column:span 8}
 .c12{grid-column:span 12}
-.metric{
-font-size:28px;font-weight:950;
-letter-spacing:-1px
-}
-.metric-label{
-font-size:8px;color:#7f88a7;
-margin-bottom:7px;text-transform:uppercase;
-letter-spacing:.11em
-}
+
 .badge{
-display:inline-block;
-font-size:8px;text-transform:uppercase;
-letter-spacing:.09em;
-padding:5px 8px;border-radius:99px;
-background:#2a2450;color:#c5baff;
-margin-bottom:10px
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:5px 8px;
+  border-radius:999px;
+  background:#29234D;
+  color:#C8BFFF;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
 }
-.badge.green{background:#173127;color:#78e6b5}
-.badge.orange{background:#3b261d;color:#ffad72}
-.badge.blue{background:#172840;color:#83b8ff}
+
+.badge.green{
+  background:#153126;
+  color:#7BE7B8;
+}
+.badge.orange{
+  background:#3A261B;
+  color:#FFB17B;
+}
+.badge.red{
+  background:#361B24;
+  color:#FF9CAC;
+}
+
+.metric{
+  font-size:30px;
+  font-weight:950;
+  letter-spacing:-1.4px;
+}
+
+.metricLabel{
+  font-size:8px;
+  color:#7F89A7;
+  text-transform:uppercase;
+  letter-spacing:.11em;
+  font-weight:800;
+  margin-bottom:7px;
+}
+
 .bar{
-height:7px;background:#1a1f37;
-border-radius:99px;overflow:hidden;margin-top:10px
+  height:7px;
+  border-radius:999px;
+  background:#171D30;
+  overflow:hidden;
 }
+
 .bar span{
-height:100%;display:block;
-background:linear-gradient(90deg,var(--purple),var(--yellow));
-transition:.3s
+  height:100%;
+  display:block;
+  border-radius:inherit;
+  background:linear-gradient(90deg,var(--purple),var(--yellow),var(--orange));
+  transition:.35s ease;
 }
 
 /* LANDING */
-.hero{padding:58px 0 25px}
-.hero h1{max-width:900px;font-size:48px}
-.steps{
-display:grid;grid-template-columns:repeat(4,1fr);
-gap:10px;margin-top:35px
-}
-.stepbox{
-padding:16px;border:1px solid var(--line);
-background:#0e1222;border-radius:15px
-}
-.stepbox b{display:block;margin:5px 0;font-size:13px}
-.stepbox p{font-size:10px}
 
-/* ONBOARDING */
-.onboard{max-width:720px;margin:5px auto}
-.progress-head{
-display:flex;justify-content:space-between;
-font-size:10px;color:#7f88aa;margin-bottom:8px
+.hero{
+  padding:58px 0 20px;
 }
-.progress{
-height:5px;background:#181d34;
-border-radius:99px;overflow:hidden;margin-bottom:31px
+
+.hero h1{
+  max-width:880px;
+  font-size:50px;
 }
-.progress span{
-display:block;height:100%;
-background:linear-gradient(90deg,var(--purple),var(--orange),var(--yellow));
-transition:.25s
+
+.heroGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:38px;
 }
-.question h1{font-size:34px}
-.choices{display:grid;gap:9px;margin-top:22px}
-.choice{
-border:1px solid var(--line);
-background:var(--panel);
-border-radius:15px;padding:16px;
-text-align:left;color:#fff;
-transition:.15s
+
+.heroBox{
+  background:#0D1220;
+  border:1px solid var(--line);
+  padding:17px;
+  border-radius:16px;
 }
-.choice:hover{border-color:#6d59d5;background:#171735}
-.choice:active{transform:scale(.987)}
-.choice b{display:block;font-size:13px}
-.choice small{display:block;color:#8992b1;margin-top:5px;line-height:1.4}
-.back{margin-top:18px}
+
+.heroBox strong{
+  display:block;
+  margin:7px 0;
+  font-size:13px;
+}
+
+.heroBox p{font-size:10px}
+
+/* DIAGNOSTIC */
+
+.diagnostic{
+  max-width:760px;
+  margin:0 auto;
+}
+
+.progressTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:9px;
+}
+
+.progressTop span{
+  font-size:10px;
+  color:#8993AF;
+}
+
+.progressLarge{
+  height:6px;
+  background:#171D30;
+  border-radius:999px;
+  overflow:hidden;
+  margin-bottom:37px;
+}
+
+.progressLarge span{
+  height:100%;
+  display:block;
+  width:0;
+  background:linear-gradient(90deg,var(--purple),var(--yellow),var(--orange));
+  transition:.45s cubic-bezier(.2,.8,.2,1);
+}
+
+.question{
+  min-height:430px;
+}
+
+.question h1{
+  font-size:35px;
+  max-width:700px;
+}
+
+.questionText{
+  margin-top:11px;
+  font-size:13px;
+  max-width:650px;
+}
+
+.options{
+  display:grid;
+  gap:9px;
+  margin-top:24px;
+}
+
+.option{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:#0F1524;
+  color:white;
+  padding:16px;
+  text-align:left;
+  transition:.16s ease;
+}
+
+.option:hover{
+  background:#161A35;
+  border-color:#6455B9;
+}
+
+.option strong{
+  display:block;
+  font-size:13px;
+}
+
+.option small{
+  display:block;
+  color:#8993AF;
+  margin-top:5px;
+  line-height:1.4;
+}
+
+.multiOption{
+  display:flex;
+  gap:11px;
+  align-items:flex-start;
+}
+
+.fakeCheck{
+  width:21px;
+  height:21px;
+  flex:0 0 21px;
+  border-radius:6px;
+  border:1px solid #4A536F;
+  display:grid;
+  place-items:center;
+}
+
+.option.selected{
+  border-color:var(--purple);
+  background:#181633;
+}
+
+.option.selected .fakeCheck{
+  background:var(--purple);
+  border-color:var(--purple);
+}
+
+.cityInput{
+  width:100%;
+  margin-top:24px;
+  background:#0E1423;
+  border:1px solid var(--line);
+  color:#fff;
+  padding:16px;
+  border-radius:14px;
+  outline:none;
+}
+
+.cityInput:focus{border-color:var(--purple)}
+
+.diagnosticFooter{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:18px;
+}
+
+.infoGain{
+  font-size:9px;
+  color:#707B99;
+}
 
 /* ANALYSIS */
-.analysis{
-max-width:760px;margin:65px auto;text-align:center
+
+.analysisBox{
+  max-width:760px;
+  text-align:center;
+  margin:70px auto;
 }
-.loader{
-height:6px;background:#171c32;
-border-radius:99px;overflow:hidden;
-margin:28px auto 16px;max-width:470px
+
+.spinner{
+  width:56px;
+  height:56px;
+  margin:27px auto;
+  border-radius:50%;
+  border:4px solid #20263A;
+  border-top-color:var(--yellow);
+  animation:spin .8s linear infinite;
 }
-.loader span{
-display:block;height:100%;width:0;
-background:linear-gradient(90deg,var(--purple),var(--yellow));
-animation:load 1.5s ease forwards
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.analysisGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:24px;
 }
-@keyframes load{to{width:100%}}
-.scan{
-display:grid;grid-template-columns:repeat(3,1fr);
-gap:8px;max-width:620px;margin:20px auto
+
+.analysisItem{
+  padding:13px;
+  border-radius:12px;
+  background:#0E1422;
+  border:1px solid var(--line);
+  font-size:9px;
+  color:#808AA6;
 }
-.scan div{
-background:#0e1222;border:1px solid var(--line);
-padding:12px;border-radius:11px;font-size:9px;color:#858eaa
+
+.analysisItem strong{
+  display:block;
+  color:#fff;
+  margin-top:5px;
+  font-size:13px;
 }
-.scan b{display:block;color:#fff;font-size:13px;margin-top:4px}
 
 /* RESULTS */
-.strategy-card{
-position:relative;overflow:hidden
-}
-.strategy-card:before{
-content:"";position:absolute;width:180px;height:180px;
-border-radius:50%;background:rgba(124,92,255,.13);
-filter:blur(25px);right:-70px;top:-80px
-}
-.ranknum{
-font-size:11px;font-weight:900;
-color:var(--yellow);margin-bottom:7px
-}
-.score{
-font-size:40px;font-weight:950;letter-spacing:-2px
-}
-.score small{font-size:11px;color:#8992ad;letter-spacing:0}
-.reasons{margin-top:14px}
-.reason{
-padding:10px 0;border-top:1px solid #222740
-}
-.reason:first-child{border-top:0}
-.reason b{font-size:11px}
-.reason p{font-size:10px}
-.chips{
-display:flex;gap:6px;flex-wrap:wrap;margin-top:13px
-}
-.chip{
-font-size:8px;padding:5px 7px;border-radius:99px;
-background:#171c32;color:#a5aecb
+
+.resultHero{
+  padding:15px 0 10px;
 }
 
-/* PLANS */
-.pricing{
-display:grid;grid-template-columns:repeat(3,1fr);
-gap:12px;margin-top:26px
+.topResult{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 100% 0,rgba(124,92,255,.22),transparent 32%),
+    linear-gradient(145deg,#15162D,#101522);
 }
-.price-card{
-border:1px solid var(--line);
-background:#0f1324;border-radius:18px;padding:20px;
-position:relative
+
+.topResult:after{
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  background:rgba(255,216,77,.08);
+  filter:blur(30px);
+  border-radius:50%;
+  right:-60px;
+  bottom:-80px;
 }
-.price-card.featured{
-border-color:#6654c7;
-background:linear-gradient(145deg,#1b1740,#101426)
+
+.bigScore{
+  font-size:51px;
+  font-weight:950;
+  letter-spacing:-3px;
+  margin:11px 0 2px;
 }
-.price{font-size:31px;font-weight:950;margin:15px 0}
-.price small{font-size:10px;color:#8d95b1;font-weight:500}
-.feature{
-padding:9px 0;border-top:1px solid #222740;
-font-size:10px;color:#a5adc7
+
+.bigScore small{
+  font-size:11px;
+  letter-spacing:0;
+  color:#8E97B2;
+}
+
+.subscores{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+  margin-top:17px;
+}
+
+.subscore{
+  background:#0C1120;
+  border:1px solid #232940;
+  padding:10px;
+  border-radius:11px;
+}
+
+.subscore span{
+  display:block;
+  font-size:8px;
+  color:#7F89A6;
+  margin-bottom:5px;
+}
+
+.subscore strong{
+  font-size:14px;
+}
+
+.reason{
+  padding:11px 0;
+  border-top:1px solid #232940;
+}
+
+.reason:first-child{border-top:0}
+
+.reason strong{
+  display:block;
+  font-size:11px;
+  margin-bottom:4px;
+}
+
+.reason p{font-size:10px}
+
+.strategyRow{
+  display:grid;
+  grid-template-columns:45px 1fr auto;
+  gap:12px;
+  align-items:center;
+  padding:14px 0;
+  border-top:1px solid #22283D;
+}
+
+.strategyRow:first-child{border-top:0}
+
+.rank{
+  width:37px;
+  height:37px;
+  border-radius:11px;
+  background:#181D30;
+  display:grid;
+  place-items:center;
+  font-size:11px;
+  font-weight:900;
+}
+
+.strategyRow p{font-size:9px}
+
+.rowScore{
+  font-size:18px;
+  font-weight:950;
+}
+
+.eliminated{
+  opacity:.45;
+}
+
+/* DEBUG PROFILE */
+
+.profileFact{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:11px 0;
+  border-top:1px solid #232940;
+}
+
+.profileFact:first-child{border-top:0}
+
+.profileFact span{
+  font-size:10px;
+  color:#8E97B2;
+}
+
+.profileFact strong{
+  font-size:10px;
+  text-align:right;
 }
 
 /* APP */
-.appnav{
-display:flex;gap:6px;overflow:auto;
-margin-bottom:26px;scrollbar-width:none
+
+.appNav{
+  display:flex;
+  gap:6px;
+  overflow:auto;
+  scrollbar-width:none;
+  margin-bottom:27px;
 }
-.appnav::-webkit-scrollbar{display:none}
-.appnav button{
-white-space:nowrap;border:1px solid var(--line);
-background:#0e1223;color:#8992af;
-padding:9px 12px;border-radius:10px;font-size:10px
+
+.appNav::-webkit-scrollbar{display:none}
+
+.appNav button{
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:9px 12px;
+  background:#0E1422;
+  color:#838DA9;
+  font-size:10px;
+  white-space:nowrap;
 }
-.appnav button.on{
-background:#1b2040;color:#fff;border-color:#373e69
+
+.appNav button.active{
+  background:#1A2035;
+  color:#fff;
+  border-color:#3A4364;
 }
+
 .task{
-display:grid;grid-template-columns:26px 1fr auto;
-gap:10px;align-items:start;
-padding:14px 0;border-top:1px solid #222740
+  display:grid;
+  grid-template-columns:28px 1fr auto;
+  gap:10px;
+  padding:15px 0;
+  border-top:1px solid #22283D;
+  align-items:start;
 }
-.task:first-of-type{border-top:0}
-.tick{
-width:22px;height:22px;border:1px solid #555e7d;
-border-radius:7px;display:grid;place-items:center;
-font-size:11px
+
+.task:first-child{border-top:0}
+
+.checkbox{
+  width:24px;
+  height:24px;
+  border:1px solid #515A77;
+  border-radius:7px;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
 }
-.tick.done{
-background:var(--yellow);border-color:var(--yellow);
-color:#111;font-weight:900
+
+.checkbox.done{
+  background:var(--yellow);
+  border-color:var(--yellow);
+  color:#111;
+  font-weight:950;
 }
+
 .task p{font-size:10px}
-.tag{
-font-size:8px;padding:5px 7px;border-radius:99px;
-background:#171c32;color:#9ba4c5;white-space:nowrap
-}
-.next{
-background:linear-gradient(135deg,#221b50,#15172d);
-border-color:#4b3f7e
-}
-.status{font-size:9px;color:var(--green);font-weight:850}
-.warning{font-size:9px;color:var(--orange);font-weight:850}
 
-/* FORMS */
-.formrow{
-display:grid;grid-template-columns:1fr 1fr;gap:10px
+.taskStatus{
+  font-size:8px;
+  color:#929CB8;
+  background:#171D30;
+  border-radius:999px;
+  padding:5px 7px;
 }
-.field{margin-top:13px}
+
+.today{
+  background:
+    radial-gradient(circle at 90% 0,rgba(255,216,77,.10),transparent 32%),
+    linear-gradient(145deg,#15182A,#101522);
+}
+
+.formGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.field{margin-top:11px}
+
 .field label{
-display:block;font-size:9px;color:#858eaa;margin-bottom:6px
-}
-.field input,.field select{
-width:100%;background:#0a0e1c;color:#fff;
-border:1px solid var(--line);
-padding:12px;border-radius:10px;outline:none
-}
-.field input:focus{border-color:var(--purple)}
-
-/* CONNECTORS */
-.connector{
-display:flex;justify-content:space-between;
-align-items:center;gap:10px;
-padding:14px 0;border-top:1px solid #222740
-}
-.connector:first-of-type{border:0}
-.connector p{font-size:9px}
-.connector-state{
-font-size:8px;padding:5px 7px;border-radius:99px;
-background:#17251f;color:#6ee0ac
+  display:block;
+  color:#808AA7;
+  font-size:9px;
+  margin-bottom:6px;
 }
 
-/* HISTORY */
+.field input{
+  width:100%;
+  border:1px solid var(--line);
+  background:#0B101D;
+  color:white;
+  padding:12px;
+  border-radius:10px;
+  outline:none;
+}
+
 .timeline{
-border-left:1px solid #343a5c;
-margin-left:9px;padding-left:18px
+  border-left:1px solid #343C59;
+  padding-left:19px;
+  margin-left:8px;
 }
-.event{position:relative;padding:0 0 20px}
-.event:before{
-content:"";position:absolute;
-width:8px;height:8px;border-radius:50%;
-background:var(--yellow);
-left:-22.5px;top:5px
-}
-.event p{font-size:10px}
 
-/* MOBILE */
-.mobile{
-display:none
+.timelineItem{
+  position:relative;
+  padding-bottom:20px;
 }
+
+.timelineItem:before{
+  content:"";
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--yellow);
+  position:absolute;
+  left:-23.5px;
+  top:4px;
+}
+
+.timelineItem p{font-size:10px}
+
 @media(max-width:760px){
-.top{height:61px;padding:0 13px}
-.wrap{padding:24px 13px 94px}
-h1{font-size:33px}
-.hero{padding-top:35px}
-.hero h1{font-size:37px}
-.question h1{font-size:28px}
-.steps,.pricing{grid-template-columns:1fr}
-.c3,.c4,.c5,.c6,.c7,.c8{grid-column:span 12}
-.scan{grid-template-columns:1fr 1fr}
-.formrow{grid-template-columns:1fr}
-.mobile{
-display:flex;position:fixed;
-bottom:0;left:0;right:0;
-background:rgba(8,10,20,.97);
-backdrop-filter:blur(15px);
-border-top:1px solid #20253d;
-padding:7px 3px calc(7px + env(safe-area-inset-bottom));
-justify-content:space-around;z-index:60
-}
-.mobile button{
-border:0;background:none;color:#7f88a6;
-font-size:8px;padding:7px 4px
-}
-.mobile button.on{color:var(--yellow)}
+  main{padding:24px 13px 90px}
+  header{height:60px;padding:0 13px}
+  h1{font-size:34px}
+  .hero{padding-top:35px}
+  .hero h1{font-size:38px}
+  .heroGrid{grid-template-columns:1fr}
+  .question h1{font-size:29px}
+  .question{min-height:470px}
+  .analysisGrid{grid-template-columns:1fr 1fr}
+  .c3,.c4,.c5,.c6,.c7,.c8{grid-column:span 12}
+  .subscores{grid-template-columns:1fr 1fr}
+  .formGrid{grid-template-columns:1fr}
+  .strategyRow{grid-template-columns:38px 1fr auto}
 }
 </style>
 </head>
 
 <body>
 
-<header class="top">
-<div class="logo">cash<span>pilot</span>.</div>
-<div class="demo" id="demoStatus">V6 · Mode démo</div>
+<header>
+  <div class="logo">cash<span>pilot</span>.</div>
+  <div class="demoBadge">V6 · Diagnostic adaptatif</div>
 </header>
 
-<main class="wrap">
+<main>
 
 <!-- LANDING -->
 <section id="landing" class="screen active">
-<div class="hero">
+  <div class="hero">
+    <div class="eyebrow">CashPilot V6</div>
 
-<div class="eyebrow">CashPilot V6 · Démo fonctionnelle</div>
+    <h1>
+      Le bon business ne dépend pas seulement
+      du marché. Il dépend de <span class="yellow">toi.</span>
+    </h1>
 
-<h1>
-Trouve le business qui correspond
-à <span class="accent">ton profil réel.</span>
-</h1>
+    <p class="lead">
+      CashPilot analyse ton profil, tes compétences, ton environnement,
+      tes ressources et ta manière de travailler pour identifier les
+      modèles de business réellement compatibles avec toi.
+    </p>
 
-<p class="lead">
-CashPilot analyse tes ressources, tes compétences,
-tes préférences et tes contraintes pour comparer plusieurs
-modèles de revenus indépendants. Ensuite, ton plan évolue
-selon ce que tu fais réellement.
-</p>
+    <div class="actions">
+      <button class="btn" onclick="startDiagnostic()">
+        Construire mon profil →
+      </button>
+      <button class="btn secondary" onclick="loadTestProfile()">
+        Charger un profil test
+      </button>
+    </div>
 
-<div class="actions">
-<button class="btn" onclick="startProfile()">Analyser mon profil →</button>
-<button class="btn secondary" onclick="openDemo()">Ouvrir une démo existante</button>
-</div>
+    <div class="heroGrid">
+      <div class="heroBox">
+        <div class="eyebrow">Humain</div>
+        <strong>Comprendre la personne</strong>
+        <p>
+          Compétences, comportement, argent, temps, environnement,
+          motivation, expérience et contraintes.
+        </p>
+      </div>
 
-<div class="steps">
+      <div class="heroBox">
+        <div class="eyebrow">CashPilot</div>
+        <strong>Créer la correspondance</strong>
+        <p>
+          Élimination des incompatibilités puis comparaison
+          multidimensionnelle des stratégies.
+        </p>
+      </div>
 
-<div class="stepbox">
-<div class="eyebrow">01</div>
-<b>Profil profond</b>
-<p>CashPilot comprend ce que tu peux réellement construire.</p>
-</div>
-
-<div class="stepbox">
-<div class="eyebrow">02</div>
-<b>Comparaison</b>
-<p>Les stratégies sont notées selon leur compatibilité avec toi.</p>
-</div>
-
-<div class="stepbox">
-<div class="eyebrow">03</div>
-<b>Plan adaptatif</b>
-<p>La suite dépend de tes résultats, pas d’un calendrier figé.</p>
-</div>
-
-<div class="stepbox">
-<div class="eyebrow">04</div>
-<b>Pilotage</b>
-<p>Revenus, temps, dépenses et progression restent centralisés.</p>
-</div>
-
-</div>
-</div>
+      <div class="heroBox">
+        <div class="eyebrow">Business</div>
+        <strong>Choisir une activité réaliste</strong>
+        <p>
+          Pas le business le plus tendance : celui présentant
+          la meilleure adéquation avec la personne.
+        </p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- PROFILE -->
-<section id="profile" class="screen">
-<div class="onboard">
+<!-- DIAGNOSTIC -->
+<section id="diagnostic" class="screen">
+  <div class="diagnostic">
 
-<div class="progress-head">
-<span id="profileStep"></span>
-<span id="profilePct"></span>
-</div>
+    <div class="progressTop">
+      <span>Construction de ton profil</span>
+      <strong id="progressPercent">0 %</strong>
+    </div>
 
-<div class="progress">
-<span id="profileBar"></span>
-</div>
+    <div class="progressLarge">
+      <span id="progressBar"></span>
+    </div>
 
-<div id="question" class="question"></div>
+    <div id="questionContainer" class="question"></div>
 
-<button id="backBtn" class="btn secondary sm back" onclick="profileBack()">
-← Retour
-</button>
+    <div class="diagnosticFooter">
+      <button id="backButton"
+              class="btn secondary smallBtn"
+              onclick="goBack()">
+        ← Retour
+      </button>
 
-</div>
+      <span class="infoGain" id="infoGain"></span>
+    </div>
+
+  </div>
 </section>
 
 <!-- ANALYSIS -->
 <section id="analysis" class="screen">
-<div class="analysis">
+  <div class="analysisBox">
 
-<div class="eyebrow">Moteur CashPilot</div>
+    <div class="eyebrow">Diagnostic terminé</div>
+    <h1>Recherche de la meilleure correspondance.</h1>
 
-<h1>Analyse de compatibilité.</h1>
+    <div class="spinner"></div>
 
-<p>
-CashPilot compare ton profil aux critères
-des stratégies actuellement présentes dans le catalogue.
-</p>
+    <p>
+      CashPilot compare ton profil aux contraintes,
+      exigences et avantages de chaque stratégie.
+    </p>
 
-<div class="loader"><span></span></div>
+    <div class="analysisGrid">
+      <div class="analysisItem">
+        Stratégies
+        <strong id="analysisStrategies">30</strong>
+      </div>
 
-<div class="scan">
-<div>Profil<b id="scanProfile">—</b></div>
-<div>Stratégies analysées<b id="scanStrategies">18</b></div>
-<div>Critères comparés<b>14</b></div>
-<div>Contraintes<b id="scanConstraints">—</b></div>
-<div>Préférence digitale<b id="scanDigital">—</b></div>
-<div>Résultat<b>Top 3</b></div>
-</div>
+      <div class="analysisItem">
+        Profil
+        <strong id="analysisCompleteness">—</strong>
+      </div>
 
-<p class="small">
-Les scores sont des scores de compatibilité internes,
-pas des probabilités de réussite ou des promesses de revenus.
-</p>
+      <div class="analysisItem">
+        Confiance
+        <strong id="analysisConfidence">—</strong>
+      </div>
 
-</div>
+      <div class="analysisItem">
+        Compétences
+        <strong>analysées</strong>
+      </div>
+
+      <div class="analysisItem">
+        Contraintes
+        <strong>vérifiées</strong>
+      </div>
+
+      <div class="analysisItem">
+        Géographie
+        <strong id="analysisGeo">intégrée</strong>
+      </div>
+    </div>
+
+  </div>
 </section>
 
 <!-- RESULTS -->
 <section id="results" class="screen">
 
-<div class="eyebrow">Résultat de l’analyse</div>
+  <div class="resultHero">
+    <div class="eyebrow">Diagnostic CashPilot</div>
+    <h1>Ton meilleur ajustement actuel.</h1>
+    <p class="lead">
+      La compatibilité mesure l'adéquation entre ton profil et le modèle.
+      Elle ne représente pas une garantie de revenus ou de réussite.
+    </p>
+  </div>
 
-<h1>Les stratégies les plus compatibles avec toi.</h1>
+  <div id="winner"></div>
 
-<p class="lead">
-CashPilot ne cherche pas le business le plus tendance.
-Il cherche le meilleur compromis entre ton profil,
-tes ressources, tes contraintes et ton objectif.
-</p>
+  <div class="grid">
 
-<div id="topStrategies" class="grid"></div>
+    <div class="card c7">
+      <div class="eyebrow">Top correspondances</div>
+      <h2>Les alternatives les plus proches</h2>
+      <div id="topRanking"></div>
+    </div>
 
-<div class="actions">
-<button class="btn" onclick="showPricing()">Construire mon plan →</button>
-<button class="btn secondary" onclick="startProfile()">Refaire le profil</button>
-</div>
+    <div class="card c5">
+      <div class="eyebrow">Diagnostic</div>
+      <h2>Ce que CashPilot a compris</h2>
+      <div id="profileSummary"></div>
+    </div>
 
-</section>
+    <div class="card c12">
+      <div class="eyebrow">Stress-test du moteur</div>
+      <h2>Classement complet des 30 stratégies</h2>
+      <p class="small" style="margin-top:7px">
+        Cette vue est conservée dans la démo pour vérifier que le classement
+        change réellement entre plusieurs profils.
+      </p>
+      <div id="fullRanking" style="margin-top:15px"></div>
+    </div>
 
-<!-- PRICING -->
-<section id="pricing" class="screen">
+  </div>
 
-<div class="eyebrow">Choisir ton niveau de pilotage</div>
+  <div class="actions">
+    <button class="btn" onclick="activateProject()">
+      Choisir la stratégie n°1 →
+    </button>
 
-<h1>La même stratégie. Une visibilité différente.</h1>
-
-<p class="lead">
-La suite du plan n’est jamais entièrement figée :
-CashPilot l’adapte selon tes résultats.
-</p>
-
-<div class="pricing">
-
-<div class="price-card">
-<span class="badge">Essentiel</span>
-<h2>Pilotage semaine</h2>
-<div class="price">9,90 € <small>/ mois · démo</small></div>
-<div class="feature">✓ 1 période visible</div>
-<div class="feature">✓ Plan adaptatif</div>
-<div class="feature">✓ Suivi revenus / coûts / temps</div>
-<div class="feature">✓ Historique</div>
-<div class="actions">
-<button class="btn secondary" onclick="subscribe('essential')">Choisir</button>
-</div>
-</div>
-
-<div class="price-card featured">
-<span class="badge orange">Recommandé</span>
-<h2>Pilotage avancé</h2>
-<div class="price">19,90 € <small>/ mois · démo</small></div>
-<div class="feature">✓ 2 périodes de visibilité</div>
-<div class="feature">✓ Plan adaptatif</div>
-<div class="feature">✓ Analyse plus détaillée</div>
-<div class="feature">✓ Connecteurs démo</div>
-<div class="actions">
-<button class="btn" onclick="subscribe('advanced')">Choisir</button>
-</div>
-</div>
-
-<div class="price-card">
-<span class="badge green">Premium</span>
-<h2>Pilotage mensuel</h2>
-<div class="price">34,90 € <small>/ mois · démo</small></div>
-<div class="feature">✓ Horizon mensuel</div>
-<div class="feature">✓ Scénarios et anticipation</div>
-<div class="feature">✓ Connecteurs</div>
-<div class="feature">✓ Analyse complète</div>
-<div class="actions">
-<button class="btn secondary" onclick="subscribe('premium')">Choisir</button>
-</div>
-</div>
-
-</div>
-
-<p class="small" style="margin-top:18px">
-Aucun paiement réel. Les trois formules sont simulées dans cette V6.
-</p>
+    <button class="btn secondary" onclick="startDiagnostic()">
+      Tester un autre profil
+    </button>
+  </div>
 
 </section>
 
 <!-- APP -->
 <section id="app" class="screen">
 
-<div class="appnav">
-<button class="on" data-page="dashboard">Dashboard</button>
-<button data-page="plan">Mon plan</button>
-<button data-page="tracking">Suivi</button>
-<button data-page="review">Bilan</button>
-<button data-page="connectors">Connecteurs</button>
-<button data-page="history">Historique</button>
-<button data-page="profileview">Profil</button>
-</div>
-
-<!-- DASHBOARD -->
-<div id="dashboard" class="appPage">
-
-<div class="eyebrow">Ton cockpit</div>
-<h1 id="dashTitle">Ton projet commence maintenant.</h1>
-
-<div class="grid">
-
-<div class="card next c7">
-<div class="metric-label">Action prioritaire</div>
-<h2 id="priorityTitle">—</h2>
-<p id="priorityDesc">—</p>
-<div class="actions">
-<button class="btn sm" onclick="openPage('plan')">Ouvrir le plan →</button>
-</div>
-</div>
-
-<div class="card c5">
-<div class="metric-label">Stratégie actuelle</div>
-<h2 id="currentStrategy">—</h2>
-<p id="currentFit">—</p>
-</div>
-
-<div class="card c3">
-<div class="metric-label">Revenus</div>
-<div class="metric" id="dashRevenue">0 €</div>
-<p class="small">déclarés</p>
-</div>
-
-<div class="card c3">
-<div class="metric-label">Dépenses</div>
-<div class="metric" id="dashCost">0 €</div>
-<p class="small">déclarées</p>
-</div>
-
-<div class="card c3">
-<div class="metric-label">Résultat</div>
-<div class="metric" id="dashProfit">0 €</div>
-<p class="small">avant fiscalité</p>
-</div>
-
-<div class="card c3">
-<div class="metric-label">Temps investi</div>
-<div class="metric" id="dashTime">0h</div>
-<p class="small">déclaré</p>
-</div>
-
-<div class="card c8">
-<h2>Période actuelle</h2>
-<div id="dashTasks"></div>
-</div>
-
-<div class="card c4">
-<div class="metric-label">Progression</div>
-<div class="metric" id="progressMetric">0%</div>
-<div class="bar"><span id="taskBar" style="width:0"></span></div>
-<p class="small" style="margin-top:9px" id="periodState">
-Commence par la première action.
-</p>
-</div>
-
-</div>
-</div>
-
-<!-- PLAN -->
-<div id="plan" class="appPage" style="display:none">
-
-<div class="eyebrow">Plan adaptatif</div>
-<h1 id="planTitle">Période 1.</h1>
-
-<p class="lead" id="planIntro">
-La prochaine période sera décidée à partir de ce que tu obtiens ici.
-</p>
-
-<div class="grid">
-
-<div class="card c8">
-<h2>Objectifs</h2>
-<div id="planTasks"></div>
-</div>
-
-<div class="card c4">
-<div class="metric-label">Règle de passage</div>
-<h2>Résultats + exécution</h2>
-<p>
-Terminer les tâches ne suffit pas toujours.
-CashPilot regarde également le signal obtenu.
-</p>
-
-<div style="height:18px"></div>
-
-<div class="metric-label">Période</div>
-<div class="metric" id="periodNumber">1</div>
-
-<div style="height:18px"></div>
-
-<div class="metric-label">Formule</div>
-<div class="metric" style="font-size:19px" id="planTier">—</div>
-</div>
-
-</div>
-</div>
-
-<!-- TRACKING -->
-<div id="tracking" class="appPage" style="display:none">
-
-<div class="eyebrow">Données réelles</div>
-<h1>Ce que ton projet produit.</h1>
-
-<div class="grid">
-
-<div class="card c6">
-
-<h2>Ajouter un résultat</h2>
-
-<div class="formrow">
-<div class="field">
-<label>Revenus (€)</label>
-<input id="revenueInput" type="number" min="0" placeholder="0">
-</div>
-<div class="field">
-<label>Dépenses (€)</label>
-<input id="costInput" type="number" min="0" placeholder="0">
-</div>
-</div>
-
-<div class="formrow">
-<div class="field">
-<label>Temps investi (heures)</label>
-<input id="timeInput" type="number" min="0" step=".5" placeholder="0">
-</div>
-<div class="field">
-<label>Prospects / personnes contactées</label>
-<input id="contactsInput" type="number" min="0" placeholder="0">
-</div>
-</div>
-
-<div class="formrow">
-<div class="field">
-<label>Réponses / conversations utiles</label>
-<input id="responsesInput" type="number" min="0" placeholder="0">
-</div>
-<div class="field">
-<label>Clients / ventes</label>
-<input id="salesInput" type="number" min="0" placeholder="0">
-</div>
-</div>
-
-<div class="actions">
-<button class="btn" onclick="saveTracking()">Enregistrer</button>
-</div>
-
-</div>
-
-<div class="card c6">
-
-<div class="metric-label">Lecture actuelle</div>
-<h2 id="trackingReading">Pas encore assez de données.</h2>
-<p id="trackingAdvice">
-Ajoute tes premiers résultats pour permettre à CashPilot d’interpréter la période.
-</p>
-
-<div style="height:20px"></div>
-
-<div class="metric-label">Valeur / heure</div>
-<div class="metric" id="hourValue">—</div>
-
-</div>
-
-</div>
-</div>
-
-<!-- REVIEW -->
-<div id="review" class="appPage" style="display:none">
-
-<div class="eyebrow">Fin de période</div>
-<h1>CashPilot décide de la suite avec toi.</h1>
-
-<div class="grid">
-
-<div class="card c7">
-<h2>État de la période</h2>
-<div id="reviewSummary"></div>
-</div>
-
-<div class="card c5 next">
-<div class="metric-label">Décision du moteur</div>
-<h2 id="decisionTitle">En attente</h2>
-<p id="decisionDesc">
-Termine ou renseigne suffisamment la période pour lancer l’analyse.
-</p>
-
-<div class="actions">
-<button class="btn sm" onclick="runReview()">Analyser la période</button>
-</div>
-</div>
-
-<div class="card c12" id="nextPeriodBox" style="display:none">
-<div class="metric-label">Suite proposée</div>
-<h2 id="nextPeriodTitle"></h2>
-<p id="nextPeriodDesc"></p>
-<div class="actions">
-<button class="btn" onclick="acceptNextPeriod()">Démarrer cette période →</button>
-</div>
-</div>
-
-</div>
-</div>
-
-<!-- CONNECTORS -->
-<div id="connectors" class="appPage" style="display:none">
-
-<div class="eyebrow">Automatisation · Mode démo</div>
-<h1>CashPilot peut vérifier certaines actions automatiquement.</h1>
-
-<p class="lead">
-Aucun service externe n’est réellement connecté dans cette V6.
-Les intégrations ci-dessous simulent le fonctionnement futur.
-</p>
-
-<div class="grid">
-
-<div class="card c6">
-<h2>Connecteurs disponibles</h2>
-
-<div class="connector">
-<div>
-<h3>Stripe</h3>
-<p>Ventes et revenus détectés automatiquement.</p>
-</div>
-<button class="btn secondary sm" onclick="toggleConnector('Stripe',this)">Connecter</button>
-</div>
-
-<div class="connector">
-<div>
-<h3>Shopify</h3>
-<p>Commandes, chiffre d’affaires et produits.</p>
-</div>
-<button class="btn secondary sm" onclick="toggleConnector('Shopify',this)">Connecter</button>
-</div>
-
-<div class="connector">
-<div>
-<h3>Calendrier</h3>
-<p>Temps consacré au projet et rendez-vous.</p>
-</div>
-<button class="btn secondary sm" onclick="toggleConnector('Calendrier',this)">Connecter</button>
-</div>
-
-<div class="connector">
-<div>
-<h3>CRM / Prospection</h3>
-<p>Contacts, réponses et progression commerciale.</p>
-</div>
-<button class="btn secondary sm" onclick="toggleConnector('CRM',this)">Connecter</button>
-</div>
-
-</div>
-
-<div class="card c6">
-<h2>Événements détectés</h2>
-<div id="connectorEvents">
-<p>Aucun connecteur actif.</p>
-</div>
-</div>
-
-</div>
-</div>
-
-<!-- HISTORY -->
-<div id="history" class="appPage" style="display:none">
-
-<div class="eyebrow">Mémoire du projet</div>
-<h1>Pourquoi ton plan a changé.</h1>
-
-<div class="grid">
-<div class="card c12">
-<div class="timeline" id="historyTimeline"></div>
-</div>
-</div>
-
-</div>
-
-<!-- PROFILE VIEW -->
-<div id="profileview" class="appPage" style="display:none">
-
-<div class="eyebrow">Profil CashPilot</div>
-<h1>Le moteur apprend ton fonctionnement.</h1>
-
-<div class="grid">
-
-<div class="card c7">
-<h2>Profil actuel</h2>
-<div id="profileData"></div>
-</div>
-
-<div class="card c5">
-<div class="metric-label">Compatibilité actuelle</div>
-<div class="score" id="profileScore">—</div>
-<p>
-Ce score concerne ta stratégie actuelle.
-Il ne représente pas une probabilité de réussite.
-</p>
-</div>
-
-<div class="card c12">
-<h2>Tester un autre profil</h2>
-<p>
-Tu peux réinitialiser toute la démo pour vérifier
-si CashPilot recommande réellement des stratégies différentes.
-</p>
-<div class="actions">
-<button class="btn red sm" onclick="resetDemo()">Réinitialiser la démo</button>
-</div>
-</div>
-
-</div>
-</div>
+  <div class="appNav">
+    <button class="active" onclick="openAppPage('today',this)">Aujourd'hui</button>
+    <button onclick="openAppPage('plan',this)">Plan</button>
+    <button onclick="openAppPage('tracking',this)">Résultats</button>
+    <button onclick="openAppPage('review',this)">Bilan</button>
+    <button onclick="openAppPage('history',this)">Historique</button>
+    <button onclick="openAppPage('profileApp',this)">Profil</button>
+  </div>
+
+  <!-- TODAY -->
+  <div id="today" class="appPage">
+
+    <div class="eyebrow">Aujourd'hui</div>
+    <h1>Une priorité claire.</h1>
+
+    <div class="grid">
+
+      <div class="card today c8">
+        <div class="metricLabel">Action prioritaire</div>
+        <h2 id="todayPriority">—</h2>
+        <p id="todayDescription" style="margin-top:7px">—</p>
+      </div>
+
+      <div class="card c4">
+        <div class="metricLabel">Période</div>
+        <div class="metric" id="periodMetric">1</div>
+        <div class="bar" style="margin-top:12px">
+          <span id="todayProgressBar"></span>
+        </div>
+        <p class="small" id="todayProgressText" style="margin-top:8px"></p>
+      </div>
+
+      <div class="card c8">
+        <h2>Actions</h2>
+        <div id="todayTasks"></div>
+      </div>
+
+      <div class="card c4">
+        <div class="metricLabel">Stratégie actuelle</div>
+        <h2 id="appStrategy">—</h2>
+
+        <div style="height:17px"></div>
+
+        <div class="metricLabel">Compatibilité initiale</div>
+        <div class="metric" id="appCompatibility">—</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PLAN -->
+  <div id="plan" class="appPage" style="display:none">
+
+    <div class="eyebrow">Plan adaptatif</div>
+    <h1 id="planHeading">Période 1.</h1>
+
+    <p class="lead">
+      La suite n'est pas pré-écrite. Elle dépend de ton exécution
+      et des résultats obtenus pendant cette période.
+    </p>
+
+    <div class="grid">
+      <div class="card c8">
+        <h2>Objectifs de validation</h2>
+        <div id="planTasks"></div>
+      </div>
+
+      <div class="card c4">
+        <div class="metricLabel">Progression</div>
+        <div class="metric" id="planProgress">0%</div>
+
+        <div class="bar" style="margin-top:11px">
+          <span id="planProgressBar"></span>
+        </div>
+
+        <p class="small" style="margin-top:11px">
+          Terminer les actions ne suffit pas forcément :
+          CashPilot analyse également les résultats.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRACKING -->
+  <div id="tracking" class="appPage" style="display:none">
+
+    <div class="eyebrow">Résultats réels</div>
+    <h1>Qu'est-ce que le marché te renvoie ?</h1>
+
+    <div class="grid">
+
+      <div class="card c7">
+        <h2>Enregistrer les résultats</h2>
+
+        <div class="formGrid">
+          <div class="field">
+            <label>Personnes / entreprises contactées</label>
+            <input id="contacts" type="number" min="0" value="0">
+          </div>
+
+          <div class="field">
+            <label>Réponses utiles</label>
+            <input id="responses" type="number" min="0" value="0">
+          </div>
+
+          <div class="field">
+            <label>Clients / ventes</label>
+            <input id="sales" type="number" min="0" value="0">
+          </div>
+
+          <div class="field">
+            <label>Revenus (€)</label>
+            <input id="revenue" type="number" min="0" value="0">
+          </div>
+
+          <div class="field">
+            <label>Dépenses (€)</label>
+            <input id="costs" type="number" min="0" value="0">
+          </div>
+
+          <div class="field">
+            <label>Temps investi (heures)</label>
+            <input id="hoursSpent" type="number" min="0" step=".5" value="0">
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn smallBtn" onclick="saveResults()">
+            Enregistrer
+          </button>
+        </div>
+      </div>
+
+      <div class="card c5">
+        <div class="metricLabel">Lecture CashPilot</div>
+        <h2 id="marketReading">Pas encore assez de données.</h2>
+        <p id="marketAdvice" style="margin-top:8px">
+          Exécute le plan puis renseigne ce que tu obtiens.
+        </p>
+
+        <div style="height:20px"></div>
+
+        <div class="metricLabel">Résultat net déclaré</div>
+        <div class="metric" id="profitMetric">0 €</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- REVIEW -->
+  <div id="review" class="appPage" style="display:none">
+
+    <div class="eyebrow">Analyse de période</div>
+    <h1>Continuer, corriger ou changer ?</h1>
+
+    <div class="grid">
+
+      <div class="card c7">
+        <h2>Résumé</h2>
+        <div id="reviewData"></div>
+      </div>
+
+      <div class="card c5 today">
+        <div class="metricLabel">Décision</div>
+        <h2 id="decision">En attente</h2>
+        <p id="decisionText" style="margin-top:7px">
+          Lance l'analyse lorsque tu as suffisamment exécuté la période.
+        </p>
+
+        <div class="actions">
+          <button class="btn smallBtn" onclick="analysePeriod()">
+            Analyser maintenant
+          </button>
+        </div>
+      </div>
+
+      <div id="nextPeriod" class="card c12" style="display:none">
+        <div class="eyebrow">Prochaine étape</div>
+        <h2 id="nextPeriodTitle"></h2>
+        <p id="nextPeriodText" style="margin-top:7px"></p>
+
+        <div class="actions">
+          <button class="btn" onclick="startNextPeriod()">
+            Construire la période suivante →
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- HISTORY -->
+  <div id="history" class="appPage" style="display:none">
+    <div class="eyebrow">Mémoire du projet</div>
+    <h1>Chaque décision reste explicable.</h1>
+
+    <div class="grid">
+      <div class="card c12">
+        <div class="timeline" id="timeline"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE APP -->
+  <div id="profileApp" class="appPage" style="display:none">
+    <div class="eyebrow">Profil vivant</div>
+    <h1>Ce que CashPilot sait de toi.</h1>
+
+    <div class="grid">
+      <div class="card c7">
+        <h2>Profil actuel</h2>
+        <div id="appProfile"></div>
+      </div>
+
+      <div class="card c5">
+        <div class="metricLabel">Confiance du diagnostic</div>
+        <div class="metric" id="appConfidence"></div>
+        <p class="small">
+          Ce niveau indique à quel point CashPilot possède
+          suffisamment d'informations pour comparer les stratégies.
+        </p>
+
+        <div class="actions">
+          <button class="btn secondary smallBtn" onclick="resetAll()">
+            Réinitialiser la démo
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </section>
 
 </main>
 
-<nav class="mobile" id="mobileNav" style="display:none">
-<button onclick="openPage('dashboard')">Accueil</button>
-<button onclick="openPage('plan')">Plan</button>
-<button onclick="openPage('tracking')">Suivi</button>
-<button onclick="openPage('review')">Bilan</button>
-</nav>
-
 <script>
 
-/* ==============================
-   CASH PILOT V6
-   LOCAL FUNCTIONAL DEMO
-================================ */
+/* =========================================================
+   CASHPILOT V6
+   ADAPTIVE HUMAN ↔ BUSINESS MATCHING ENGINE
+   ========================================================= */
 
-const STORAGE="cashpilot-v6";
+const STORE = "cashpilot-v6-deep";
 
-let state=JSON.parse(localStorage.getItem(STORAGE)||"null")||{
-profile:{},
-profileStep:0,
-subscription:null,
-selectedStrategy:null,
-ranking:[],
-period:1,
-tasks:[],
-tracking:{
-revenue:0,
-cost:0,
-time:0,
-contacts:0,
-responses:0,
-sales:0
-},
-history:[],
-connectors:[],
-pendingDecision:null
+let state = JSON.parse(localStorage.getItem(STORE) || "null") || {
+  answers:{},
+  answerHistory:[],
+  asked:[],
+  progress:0,
+  confidence:0,
+  ranking:[],
+  chosen:null,
+  period:1,
+  tasks:[],
+  results:{
+    contacts:0,
+    responses:0,
+    sales:0,
+    revenue:0,
+    costs:0,
+    hours:0
+  },
+  events:[],
+  decision:null
 };
 
 function save(){
-localStorage.setItem(STORAGE,JSON.stringify(state));
+  localStorage.setItem(STORE,JSON.stringify(state));
 }
 
 function show(id){
-document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-window.scrollTo({top:0,behavior:"smooth"});
+  document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-/* ==============================
-   PROFILE QUESTIONS
-================================ */
+/* =========================================================
+   QUESTION BANK
+   weight = information value for progress
+   ========================================================= */
 
-const questions=[
+const QUESTIONS = [
+
+/* CORE */
 
 {
-key:"goal",
-title:"Quel est ton objectif principal ?",
-sub:"On cherche une source de revenus indépendante, pas un emploi.",
-options:[
-["extra","Créer un complément de revenu","Je veux commencer progressivement à côté de ma situation actuelle."],
-["1000","Atteindre environ 1 000 € / mois","Je veux construire une vraie source de revenus secondaire."],
-["2000","Atteindre environ 2 000 € / mois","Je veux développer une activité significative."],
-["full","Construire mon revenu principal","Je veux pouvoir dépendre principalement de mon activité."]
-]
+ id:"goal",
+ category:"Objectif",
+ weight:7,
+ priority:100,
+ title:"Qu'est-ce que tu veux réellement obtenir grâce à ton activité ?",
+ text:"On cherche ton objectif économique réel, pas simplement une idée qui te plaît.",
+ options:[
+  ["extra","Un complément de revenu","Quelques centaines d'euros par mois seraient déjà utiles."],
+  ["1000","Environ 1 000 € / mois","Je veux une vraie source de revenus secondaire."],
+  ["2000","Environ 2 000 € / mois","Je veux développer une activité significative."],
+  ["main","Pouvoir en vivre","Mon objectif est d'en faire mon revenu principal."],
+  ["scale","Construire quelque chose de beaucoup plus gros","Je privilégie le potentiel à long terme."]
+ ]
 },
 
 {
-key:"speed",
-title:"Quand veux-tu obtenir un premier signal réel ?",
-sub:"Un signal peut être un prospect intéressé, une vente ou un premier revenu.",
-options:[
-["fast","Le plus rapidement possible","Je préfère une activité directement monétisable."],
-["month","Dans le premier mois","Je peux consacrer quelques semaines à la validation."],
-["quarter","Dans les 1 à 3 mois","Je peux construire quelque chose de plus progressif."],
-["long","Je privilégie le potentiel long terme","Je peux attendre davantage avant les premiers revenus."]
-]
+ id:"incomeUrgency",
+ category:"Objectif",
+ weight:7,
+ priority:99,
+ title:"À quel point as-tu besoin que l'activité produise rapidement de l'argent ?",
+ text:"Cela change énormément le type de business pertinent.",
+ options:[
+  ["urgent","Très rapidement","J'aimerais obtenir un premier revenu dans les prochaines semaines."],
+  ["soon","Assez rapidement","Un à deux mois me paraît acceptable."],
+  ["patient","Je peux attendre","Je peux construire plusieurs mois avant de gagner réellement."],
+  ["long","Le long terme est prioritaire","Je préfère construire un actif plus lent mais plus scalable."]
+ ]
 },
 
 {
-key:"budget",
-title:"Combien peux-tu investir sans te mettre en difficulté ?",
-sub:"Le moteur pénalise les modèles nécessitant plus de capital que tu n’en disposes.",
-options:[
-["0","0 à 50 €","Je veux quasiment démarrer gratuitement."],
-["200","50 à 200 €","Petit budget de test."],
-["500","200 à 500 €","Je peux financer outils et premiers tests."],
-["2000","500 à 2 000 €","J’ai un capital de départ plus confortable."]
-]
+ id:"weeklyHours",
+ category:"Temps",
+ weight:7,
+ priority:98,
+ title:"Combien d'heures peux-tu réellement consacrer au projet chaque semaine ?",
+ text:"Choisis ce que tu peux tenir dans la durée, pas ton maximum exceptionnel.",
+ options:[
+  ["2","Moins de 3 h","Disponibilité très limitée."],
+  ["5","3 à 6 h","Quelques créneaux dans la semaine."],
+  ["10","7 à 12 h","Une vraie activité parallèle."],
+  ["18","13 à 20 h","Je peux m'investir fortement."],
+  ["30","Plus de 20 h","Le projet peut devenir une priorité."]
+ ]
 },
 
 {
-key:"time",
-title:"Combien d’heures peux-tu réellement donner chaque semaine ?",
-sub:"Pas ton maximum idéal : ce que tu peux tenir plusieurs mois.",
-options:[
-["3","Moins de 3 h","Très peu de disponibilité."],
-["7","3 à 7 h","Quelques créneaux réguliers."],
-["12","7 à 12 h","Une vraie activité parallèle."],
-["20","Plus de 12 h","Je peux fortement m’investir."]
-]
+ id:"capital",
+ category:"Ressources",
+ weight:7,
+ priority:97,
+ title:"Quel montant peux-tu investir au départ sans te mettre en difficulté ?",
+ text:"On distingue le capital disponible du montant que tu peux réellement risquer.",
+ options:[
+  ["0","0 à 50 €","Je veux quasiment démarrer gratuitement."],
+  ["150","50 à 200 €","Petit budget de validation."],
+  ["400","200 à 500 €","Je peux financer plusieurs tests."],
+  ["1000","500 à 1 500 €","J'ai une marge confortable."],
+  ["3000","Plus de 1 500 €","Le capital n'est pas mon principal frein."]
+ ]
 },
 
 {
-key:"digital",
-title:"Quel est ton niveau avec les outils numériques ?",
-sub:"Sites, outils IA, logiciels, automatisations ou plateformes.",
-options:[
-["low","Débutant","Je sais utiliser les outils classiques mais peu plus."],
-["mid","À l’aise","J’apprends rapidement de nouveaux outils."],
-["high","Très à l’aise","Je manipule facilement logiciels, IA et outils web."],
-["builder","Je peux construire","No-code, automatisations, sites ou développement."]
-]
+ id:"lossTolerance",
+ category:"Risque",
+ weight:6,
+ priority:96,
+ title:"Quelle somme accepterais-tu réellement de perdre si le test ne fonctionne pas ?",
+ text:"Cette réponse peut être très différente de ton budget disponible.",
+ options:[
+  ["0","Presque rien","Je veux limiter au maximum le risque financier."],
+  ["100","Moins de 100 €","Je peux accepter une petite perte."],
+  ["300","100 à 300 €","Je peux financer plusieurs essais."],
+  ["1000","Plus de 300 €","J'accepte un vrai budget d'expérimentation."]
+ ]
+},
+
+/* GEOGRAPHY */
+
+{
+ id:"country",
+ category:"Géographie",
+ weight:5,
+ priority:95,
+ title:"Dans quel pays vas-tu principalement développer ton activité ?",
+ text:"La géographie influence le marché disponible et certains modèles de business.",
+ options:[
+  ["france","France","Mon activité sera principalement développée en France."],
+  ["europe","Autre pays européen","Je suis basé ailleurs en Europe."],
+  ["other","Autre","Mon marché principal est hors Europe."]
+ ]
 },
 
 {
-key:"sales",
-title:"Comment te sens-tu avec la vente ?",
-sub:"Beaucoup de business rentables nécessitent de parler à de vraies personnes.",
-options:[
-["avoid","Je préfère éviter","Je suis peu à l’aise avec la prospection et la vente."],
-["written","À l’aise à l’écrit","DM, email et messages me conviennent."],
-["good","À l’aise","Je peux prospecter et échanger avec des clients."],
-["strong","C’est un point fort","Convaincre, négocier et vendre me plaisent."]
-]
+ id:"area",
+ category:"Géographie",
+ weight:7,
+ priority:94,
+ title:"À quoi ressemble la zone dans laquelle tu vis ?",
+ text:"Cette information nous aide à déterminer si un business local peut réellement être pertinent.",
+ options:[
+  ["metro","Grande métropole","Zone dense avec beaucoup d'entreprises et de clients potentiels."],
+  ["city","Ville moyenne","Marché local important mais plus limité qu'une métropole."],
+  ["small","Petite ville","Population et entreprises locales plus limitées."],
+  ["rural","Zone rurale","Habitat dispersé et déplacements plus importants."]
+ ]
 },
 
 {
-key:"creative",
-title:"Quel est ton niveau créatif ?",
-sub:"Vidéo, design, rédaction, contenu ou identité visuelle.",
-options:[
-["low","Faible","Ce n’est pas mon point fort."],
-["mid","Correct","Je peux créer avec des outils simples."],
-["good","Bon","Je suis à l’aise avec la création."],
-["strong","Très bon","C’est une compétence que je peux monétiser."]
-]
+ id:"mobility",
+ category:"Géographie",
+ weight:7,
+ priority:93,
+ title:"Quelle est ta capacité réelle à te déplacer pour ton activité ?",
+ text:"Cela peut rendre certains business physiques très pertinents… ou les éliminer complètement.",
+ options:[
+  ["none","Je ne veux pas me déplacer","L'activité doit pouvoir être faite depuis chez moi."],
+  ["transport","Transports / vélo / à pied","Je peux me déplacer dans une zone limitée."],
+  ["car","J'ai accès à une voiture","Je peux me déplacer régulièrement."],
+  ["wide","Je peux beaucoup me déplacer","Les déplacements ne sont pas un problème."]
+ ]
 },
 
 {
-key:"camera",
-title:"Es-tu prêt à apparaître publiquement ?",
-sub:"Certaines stratégies dépendent fortement de la création de contenu.",
-options:[
-["no","Non","Je préfère rester invisible."],
-["maybe","Si nécessaire","Ce n’est pas naturel mais je peux essayer."],
-["yes","Oui","Caméra et réseaux ne me dérangent pas."]
-]
+ id:"localPreference",
+ category:"Géographie",
+ weight:5,
+ priority:70,
+ depends:a=>a.mobility && a.area,
+ title:"Si un business physique correspondait très bien à ton profil, serais-tu prêt à le faire ?",
+ text:"CashPilot est digital-first, mais ne doit pas éliminer une excellente activité locale par principe.",
+ options:[
+  ["never","Non","Je veux rester entièrement à distance."],
+  ["maybe","Seulement si l'opportunité est vraiment meilleure","Je privilégie le digital."],
+  ["yes","Oui","Physique ou digital, peu importe."],
+  ["prefer","Je préfère même le terrain","J'aime travailler directement avec les gens."]
+ ]
 },
 
 {
-key:"client",
-title:"Quel rapport aux clients te correspond ?",
-sub:"Cela permet de distinguer service, produit et audience.",
-options:[
-["low","Le moins possible","Je préfère construire/vendre sans relation régulière."],
-["async","Principalement à distance","Messages, email et outils digitaux."],
-["direct","Relation directe","Appels et échanges ne me dérangent pas."],
-["love","J’aime la relation client","Je veux utiliser cette compétence."]
-]
+ id:"storage",
+ category:"Géographie",
+ weight:3,
+ priority:35,
+ depends:a=>["maybe","yes","prefer"].includes(a.localPreference),
+ title:"As-tu de l'espace pour stocker du matériel ou des produits ?",
+ text:"Utile uniquement pour certains modèles physiques ou commerciaux.",
+ options:[
+  ["none","Non","Aucun espace disponible."],
+  ["small","Un petit espace","Quelques cartons ou du petit matériel."],
+  ["large","Oui","Garage, pièce ou espace de stockage disponible."]
+ ]
+},
+
+/* EQUIPMENT */
+
+{
+ id:"computer",
+ category:"Ressources",
+ weight:7,
+ priority:92,
+ title:"Quel matériel informatique as-tu réellement à disposition ?",
+ text:"Certains business digitaux deviennent beaucoup plus difficiles sans ordinateur personnel.",
+ options:[
+  ["phone","Principalement un téléphone","Je n'ai pas d'ordinateur utilisable régulièrement."],
+  ["basic","Un ordinateur classique","Navigation, bureautique et outils web fonctionnent correctement."],
+  ["good","Un bon ordinateur","Je peux faire du montage léger, du multitâche et utiliser de nombreux outils."],
+  ["power","Un ordinateur puissant","Création lourde, développement ou montage ne posent pas de problème."]
+ ]
+},
+
+/* SALES */
+
+{
+ id:"coldOutreach",
+ category:"Commercial",
+ weight:8,
+ priority:91,
+ title:"Imagine que tu dois contacter 30 inconnus pour obtenir ton premier client. Quelle est ta réaction ?",
+ text:"Réponds selon ce que tu ferais réellement, pas selon ce qui serait idéal.",
+ options:[
+  ["refuse","Je ne le ferais probablement pas","La prospection froide est un vrai blocage."],
+  ["hard","Ce serait difficile mais possible","Je pourrais le faire avec une méthode claire."],
+  ["fine","Ça ne me dérange pas","Je suis capable de contacter des inconnus."],
+  ["love","Ça me motive","La prospection peut devenir une force."]
+ ]
 },
 
 {
-key:"model",
-title:"Qu’est-ce qui t’attire le plus ?",
-sub:"Choisis ton instinct. CashPilot pourra quand même proposer autre chose si ton profil l’indique.",
-options:[
-["service","Vendre un service","Monétiser une compétence ou résoudre un problème."],
-["product","Créer un produit","Construire quelque chose qui peut être vendu plusieurs fois."],
-["audience","Construire une audience","Contenu, communauté, média ou influence."],
-["system","Construire un système","Automatisation, outil, logiciel ou activité scalable."],
-["open","Je veux surtout le meilleur choix","Je laisse CashPilot comparer."]
-]
+ id:"phoneSales",
+ category:"Commercial",
+ weight:6,
+ priority:78,
+ title:"Serais-tu capable d'appeler un prospect que tu ne connais pas ?",
+ text:"Certains modèles commerciaux deviennent beaucoup plus performants avec le téléphone.",
+ options:[
+  ["never","Non","Je veux éviter les appels commerciaux."],
+  ["warm","Seulement s'il a déjà montré un intérêt","Je préfère les prospects tièdes."],
+  ["yes","Oui","Je peux appeler des prospects."],
+  ["strong","Oui, et je suis à l'aise","Le téléphone peut être un avantage."]
+ ]
 },
 
 {
-key:"b2b",
-title:"À qui préfères-tu vendre ?",
-sub:"Le B2B et le B2C demandent des méthodes très différentes.",
-options:[
-["b2b","Entreprises","Moins de clients mais panier souvent plus élevé."],
-["b2c","Particuliers","Marché large et communication grand public."],
-["either","Peu importe","Je veux la meilleure compatibilité."]
-]
+ id:"negotiation",
+ category:"Commercial",
+ weight:5,
+ priority:65,
+ title:"Comment te sens-tu lorsqu'il faut annoncer un prix et défendre ta valeur ?",
+ text:"La vente ne s'arrête pas à trouver un prospect.",
+ options:[
+  ["bad","Très inconfortable","J'ai du mal à parler d'argent."],
+  ["learning","Je peux apprendre","Ce n'est pas naturel mais je peux progresser."],
+  ["good","À l'aise","Je peux défendre un prix."],
+  ["strong","Très à l'aise","Négocier fait partie de mes forces."]
+ ]
 },
 
 {
-key:"risk",
-title:"Quel niveau d’incertitude acceptes-tu ?",
-sub:"Ici, risque signifie surtout temps ou argent pouvant ne pas produire de résultat.",
-options:[
-["low","Faible","Je veux tester avec très peu de risque."],
-["mid","Modéré","J’accepte plusieurs essais."],
-["high","Élevé","J’accepte davantage d’échecs pour viser plus haut."]
-]
+ id:"rejection",
+ category:"Psychologie",
+ weight:7,
+ priority:89,
+ title:"Si 20 personnes refusent ton offre, qu'est-ce qui te ressemble le plus ?",
+ text:"La tolérance au rejet est déterminante dans certains business.",
+ options:[
+  ["stop","Je risque de perdre ma motivation","Les refus m'affectent beaucoup."],
+  ["question","Je vais beaucoup douter","Je continuerais mais difficilement."],
+  ["analyse","J'analyse et je continue","Le refus est une donnée à comprendre."],
+  ["push","Ça me motive à améliorer","Je supporte très bien le rejet."]
+ ]
+},
+
+/* DIGITAL */
+
+{
+ id:"digitalComfort",
+ category:"Digital",
+ weight:6,
+ priority:90,
+ title:"Quand tu découvres un nouvel outil numérique, comment réagis-tu ?",
+ text:"On mesure ici ta capacité à apprendre, pas seulement ce que tu sais déjà.",
+ options:[
+  ["lost","J'ai rapidement besoin d'aide","Les nouveaux outils me ralentissent."],
+  ["basic","Je finis par comprendre","Je peux apprendre avec des tutoriels."],
+  ["fast","J'apprends vite","Je suis autonome avec les outils numériques."],
+  ["expert","J'adore tester et connecter des outils","Le digital est une vraie force."]
+ ]
 },
 
 {
-key:"patience",
-title:"Si les premières semaines sont difficiles, comment réagis-tu ?",
-sub:"Cette information influence la complexité du projet proposé.",
-options:[
-["low","Je risque de perdre ma motivation","Je veux voir rapidement une progression."],
-["mid","Je peux tenir quelques mois","Si je vois des signaux encourageants."],
-["high","Je suis patient","Je peux construire longtemps avant d’obtenir un résultat."]
-]
+ id:"aiTools",
+ category:"Digital",
+ weight:5,
+ priority:76,
+ title:"Comment utilises-tu aujourd'hui les outils d'IA ?",
+ text:"L'utilisation réelle est plus informative que simplement connaître leur existence.",
+ options:[
+  ["none","Presque jamais","Je connais peu ces outils."],
+  ["chat","Usage simple","Questions, rédaction ou recherche."],
+  ["work","Régulièrement pour travailler","Je sais obtenir des résultats utiles."],
+  ["advanced","De manière avancée","Workflows, automatisations ou usages complexes."]
+ ]
 },
 
 {
-key:"location",
-title:"Où veux-tu principalement travailler ?",
-sub:"CashPilot privilégie le digital, mais garde les modèles physiques lorsqu’ils sont réellement adaptés.",
-options:[
-["home","Depuis chez moi","Je veux une activité entièrement digitale."],
-["hybrid","Principalement chez moi","Quelques déplacements sont acceptables."],
-["any","Peu importe","Je privilégie la meilleure activité."]
-]
+ id:"website",
+ category:"Technique",
+ weight:5,
+ priority:58,
+ title:"Si tu devais créer une page web simple demain, où en serais-tu ?",
+ text:"Pas besoin d'être développeur : on mesure ton autonomie actuelle.",
+ options:[
+  ["never","Je ne saurais pas commencer","Aucune expérience."],
+  ["tutorial","Je pourrais avec un tutoriel","Notions limitées."],
+  ["nocode","Je peux la créer avec du no-code","Je suis autonome."],
+  ["code","Je peux construire techniquement","Développement ou niveau avancé."]
+ ]
+},
+
+{
+ id:"automation",
+ category:"Technique",
+ weight:6,
+ priority:60,
+ title:"As-tu déjà automatisé une tâche entre plusieurs outils ?",
+ text:"Exemple : formulaire → tableur → email → CRM.",
+ options:[
+  ["never","Jamais","Je ne connais pas vraiment l'automatisation."],
+  ["understand","Je comprends le principe","Mais je n'en ai pas vraiment construit."],
+  ["done","Oui, quelques automatisations","Je peux apprendre rapidement."],
+  ["advanced","Oui, régulièrement","C'est une compétence forte."]
+ ]
+},
+
+{
+ id:"spreadsheets",
+ category:"Technique",
+ weight:3,
+ priority:40,
+ title:"Quel est ton niveau avec Excel ou Google Sheets ?",
+ text:"Cela peut révéler une aisance analytique et opérationnelle utile.",
+ options:[
+  ["low","Très basique","Quelques cellules et calculs simples."],
+  ["mid","Correct","Filtres, formules simples, organisation."],
+  ["good","Bon","Je suis autonome sur des tableaux complexes."],
+  ["advanced","Très bon","Analyse, automatisation ou modèles avancés."]
+ ]
+},
+
+/* CREATIVE */
+
+{
+ id:"video",
+ category:"Créatif",
+ weight:5,
+ priority:64,
+ title:"Quel est ton vrai niveau en montage vidéo ?",
+ text:"Pense à ce que tu pourrais livrer à quelqu'un aujourd'hui.",
+ options:[
+  ["none","Aucun","Je n'en fais pas."],
+  ["basic","Basique","Découpe, musique, sous-titres simples."],
+  ["good","Bon","Je peux produire une vidéo propre."],
+  ["paid","Très bon / déjà monétisable","Je pourrais vendre cette compétence."]
+ ]
+},
+
+{
+ id:"design",
+ category:"Créatif",
+ weight:4,
+ priority:55,
+ title:"Et en création visuelle / design ?",
+ text:"Canva, identité visuelle, publicités, miniatures ou interfaces.",
+ options:[
+  ["none","Faible","Ce n'est pas mon domaine."],
+  ["basic","Correct avec des outils simples","Je peux créer quelque chose de propre."],
+  ["good","Bon","J'ai un vrai sens visuel."],
+  ["paid","Très bon / déjà monétisable","Je pourrais facturer cette compétence."]
+ ]
+},
+
+{
+ id:"writing",
+ category:"Créatif",
+ weight:5,
+ priority:57,
+ title:"Comment évalues-tu ta capacité à écrire pour convaincre ou expliquer ?",
+ text:"Emails, publications, pages de vente, scripts ou contenus.",
+ options:[
+  ["weak","Faible","L'écriture n'est pas mon point fort."],
+  ["normal","Correcte","Je communique clairement."],
+  ["good","Bonne","Je sais adapter mon message."],
+  ["strong","Très forte","L'écriture peut être une compétence monétisable."]
+ ]
+},
+
+{
+ id:"camera",
+ category:"Créatif",
+ weight:6,
+ priority:68,
+ title:"Es-tu prêt à montrer ton visage publiquement pour développer une activité ?",
+ text:"Certaines stratégies en dépendent fortement, d'autres pas du tout.",
+ options:[
+  ["never","Non","Je veux rester invisible."],
+  ["rare","Seulement occasionnellement","Ce n'est pas ma préférence."],
+  ["yes","Oui","Cela ne me dérange pas."],
+  ["love","Oui, j'aime ça","Créer une présence publique peut me convenir."]
+ ]
+},
+
+/* EXPERIENCE */
+
+{
+ id:"soldBefore",
+ category:"Expérience",
+ weight:6,
+ priority:87,
+ title:"As-tu déjà réussi à vendre quelque chose à quelqu'un ?",
+ text:"Produit, service, projet personnel ou expérience professionnelle.",
+ options:[
+  ["never","Jamais","Je n'ai aucune expérience de vente réelle."],
+  ["personal","Quelques ventes personnelles","Petite expérience."],
+  ["work","Oui dans mon travail","J'ai déjà vendu professionnellement."],
+  ["business","Oui pour mon propre projet","J'ai déjà obtenu mes propres clients."]
+ ]
+},
+
+{
+ id:"freelance",
+ category:"Expérience",
+ weight:5,
+ priority:66,
+ title:"As-tu déjà été payé directement pour une compétence ?",
+ text:"Même une seule mission est un signal important.",
+ options:[
+  ["never","Non","Jamais."],
+  ["once","Une ou deux fois","Expérience limitée mais réelle."],
+  ["regular","Oui régulièrement","Je connais déjà le fonctionnement du freelance."],
+  ["business","Oui, j'ai déjà développé une activité","Expérience forte."]
+ ]
+},
+
+{
+ id:"businessPast",
+ category:"Expérience",
+ weight:5,
+ priority:63,
+ title:"As-tu déjà essayé de lancer un projet pour gagner de l'argent ?",
+ text:"Un échec apporte aussi des informations utiles.",
+ options:[
+  ["never","Jamais","Ce sera ma première expérience."],
+  ["tried","Oui mais sans résultat","J'ai déjà testé."],
+  ["some","Oui avec quelques résultats","J'ai déjà obtenu des signaux."],
+  ["success","Oui avec de vrais revenus","J'ai déjà construit quelque chose."]
+ ]
+},
+
+/* NETWORK */
+
+{
+ id:"network",
+ category:"Ressources",
+ weight:6,
+ priority:73,
+ title:"Ton entourage te donne-t-il accès à des professionnels ou entreprises ?",
+ text:"Un réseau existant peut réduire énormément la difficulté d'acquisition.",
+ options:[
+  ["none","Très peu","Je pars quasiment de zéro."],
+  ["some","Quelques contacts","Je connais quelques professionnels."],
+  ["good","Un bon réseau","Je peux facilement parler à des entreprises."],
+  ["strong","Un réseau très fort","J'ai accès à beaucoup de décideurs ou clients potentiels."]
+ ]
+},
+
+{
+ id:"audience",
+ category:"Ressources",
+ weight:6,
+ priority:72,
+ title:"Possèdes-tu déjà une audience en ligne ?",
+ text:"Instagram, TikTok, YouTube, LinkedIn, newsletter, communauté…",
+ options:[
+  ["none","Non","Je pars de zéro."],
+  ["small","Petite audience","Moins de quelques milliers de personnes."],
+  ["medium","Audience déjà significative","J'ai une base pouvant être activée."],
+  ["large","Audience importante","La distribution est déjà un avantage."]
+ ]
+},
+
+/* WORK STYLE */
+
+{
+ id:"solo",
+ category:"Mode de travail",
+ weight:5,
+ priority:84,
+ title:"Dans quelle situation travailles-tu le mieux ?",
+ text:"La meilleure activité doit aussi correspondre à ta manière naturelle de fonctionner.",
+ options:[
+  ["alone","Seul pendant longtemps","J'aime produire tranquillement."],
+  ["mixed","Un mélange","Travail seul + interactions."],
+  ["people","Avec beaucoup d'interactions","Les échanges me donnent de l'énergie."]
+ ]
+},
+
+{
+ id:"structure",
+ category:"Psychologie",
+ weight:4,
+ priority:52,
+ title:"Quand personne ne te donne de consignes, arrives-tu à travailler régulièrement ?",
+ text:"L'indépendance demande une vraie capacité d'auto-organisation.",
+ options:[
+  ["hard","Difficilement","J'ai besoin d'un cadre fort."],
+  ["sometimes","Cela dépend","Je peux être irrégulier."],
+  ["good","Oui","Je sais avancer seul."],
+  ["strong","Très bien","Je suis très autonome et discipliné."]
+ ]
+},
+
+{
+ id:"routine",
+ category:"Mode de travail",
+ weight:3,
+ priority:38,
+ title:"Tu préfères quel type de quotidien ?",
+ text:"Certains business deviennent répétitifs, d'autres changent constamment.",
+ options:[
+  ["routine","Des processus répétables","J'aime savoir exactement quoi faire."],
+  ["mixed","Un équilibre","Un peu de structure et de nouveauté."],
+  ["variety","Beaucoup de variété","La répétition me démotive."]
+ ]
+},
+
+{
+ id:"learning",
+ category:"Psychologie",
+ weight:5,
+ priority:69,
+ title:"Serais-tu prêt à apprendre une compétence pendant plusieurs semaines avant de la vendre ?",
+ text:"Cela ouvre ou ferme plusieurs stratégies plus techniques.",
+ options:[
+  ["no","Non","Je veux utiliser ce que je sais déjà faire."],
+  ["little","Un peu","Quelques heures ou jours."],
+  ["yes","Oui","Plusieurs semaines sont acceptables."],
+  ["love","Oui, complètement","Apprendre une compétence difficile ne me dérange pas."]
+ ]
+},
+
+{
+ id:"uncertainty",
+ category:"Risque",
+ weight:5,
+ priority:67,
+ title:"Comment vis-tu le fait de ne pas savoir si tes efforts vont fonctionner ?",
+ text:"L'incertitude entrepreneuriale n'est pas la même chose que le risque financier.",
+ options:[
+  ["bad","Très mal","J'ai besoin de résultats prévisibles."],
+  ["medium","Je peux la supporter un temps","Avec des indicateurs réguliers."],
+  ["good","Plutôt bien","Tester fait partie du processus."],
+  ["high","Très bien","Je suis à l'aise avec l'expérimentation."]
+ ]
+},
+
+/* CLIENTS */
+
+{
+ id:"clientContact",
+ category:"Client",
+ weight:6,
+ priority:82,
+ title:"Combien de contact humain souhaites-tu dans ton activité ?",
+ text:"Une activité peut être rentable mais devenir insupportable si son quotidien ne te correspond pas.",
+ options:[
+  ["minimum","Le minimum possible","Je préfère produit, système ou travail asynchrone."],
+  ["async","Surtout par messages","Email et chat me conviennent."],
+  ["normal","Des échanges réguliers","Appels et rendez-vous sont acceptables."],
+  ["high","Beaucoup","La relation client est une force."]
+ ]
+},
+
+{
+ id:"b2b",
+ category:"Marché",
+ weight:6,
+ priority:81,
+ title:"À qui te vois-tu le plus facilement vendre ?",
+ text:"Ne réfléchis pas seulement à la taille du marché : pense à ton aisance naturelle.",
+ options:[
+  ["business","Des entreprises","Je préfère une relation professionnelle."],
+  ["consumer","Des particuliers","Je comprends mieux les consommateurs."],
+  ["both","Les deux","Je n'ai pas de préférence forte."]
+ ]
+},
+
+{
+ id:"delivery",
+ category:"Client",
+ weight:4,
+ priority:47,
+ title:"Après une vente, combien de travail personnalisé veux-tu fournir ?",
+ text:"Cela différencie fortement service, produit et logiciel.",
+ options:[
+  ["none","Très peu","Je veux vendre quelque chose de reproductible."],
+  ["some","Un peu","Je peux personnaliser légèrement."],
+  ["service","Beaucoup","Fournir une prestation ne me dérange pas."],
+  ["premium","Beaucoup si le prix est élevé","Je préfère peu de clients à forte valeur."]
+ ]
+},
+
+/* SCALE */
+
+{
+ id:"scaleAmbition",
+ category:"Ambition",
+ weight:5,
+ priority:75,
+ title:"À terme, quel type d'activité t'attire le plus ?",
+ text:"Il n'y a pas de bonne réponse : CashPilot cherche ton modèle idéal.",
+ options:[
+  ["solo","Rester seul avec un bon revenu","Simplicité et indépendance."],
+  ["small","Petite structure","Je pourrais déléguer certaines tâches."],
+  ["company","Construire une entreprise","Je veux pouvoir recruter et développer."],
+  ["asset","Créer un actif très scalable","Produit, audience ou logiciel."]
+ ]
+},
+
+{
+ id:"recurring",
+ category:"Économie",
+ weight:4,
+ priority:50,
+ title:"Quelle importance accordes-tu aux revenus récurrents ?",
+ text:"Abonnements et clients récurrents sont plus prévisibles mais demandent souvent davantage de suivi.",
+ options:[
+  ["low","Peu importe","Je regarde surtout le revenu total."],
+  ["nice","Ce serait un avantage","Mais pas obligatoire."],
+  ["high","Important","Je veux construire de la récurrence."],
+  ["critical","Très important","La stabilité est une priorité."]
+ ]
+},
+
+/* ABSOLUTE NO */
+
+{
+ id:"hardNo",
+ category:"Contraintes",
+ weight:9,
+ priority:88,
+ multi:true,
+ title:"Qu'est-ce que tu ne veux vraiment pas faire ?",
+ text:"Tu peux sélectionner plusieurs éléments. Ces refus auront beaucoup de poids dans le moteur.",
+ options:[
+  ["calls","Appels commerciaux","Je ne veux pas vendre par téléphone."],
+  ["cold","Prospection froide","Je ne veux pas contacter des inconnus."],
+  ["face","Montrer mon visage","Je veux rester discret."],
+  ["travel","Déplacements réguliers","Je veux travailler principalement à distance."],
+  ["stock","Stock / logistique","Je ne veux pas gérer de produits physiques."],
+  ["content","Créer du contenu","Je ne veux pas publier régulièrement."],
+  ["clients","Beaucoup de relation client","Je préfère limiter les échanges."],
+  ["money","Risquer de l'argent","Je veux une activité presque sans capital."],
+  ["none","Aucun de ces éléments","Je suis ouvert."]
+ ]
 }
 
 ];
 
-function startProfile(){
-state.profile={};
-state.profileStep=0;
-save();
-show("profile");
-renderQuestion();
-}
+/* =========================================================
+   30 STRATEGIES
+   ========================================================= */
 
-function renderQuestion(){
-
-let i=state.profileStep;
-let q=questions[i];
-let pct=Math.round((i+1)/questions.length*100);
-
-document.getElementById("profileStep").textContent=
-`Question ${i+1} / ${questions.length}`;
-
-document.getElementById("profilePct").textContent=pct+"%";
-document.getElementById("profileBar").style.width=pct+"%";
-
-document.getElementById("question").innerHTML=`
-<div class="eyebrow">Profil CashPilot</div>
-<h1>${q.title}</h1>
-<p>${q.sub}</p>
-<div class="choices">
-${q.options.map(o=>`
-<button class="choice" onclick="answerProfile('${o[0]}')">
-<b>${o[1]}</b>
-<small>${o[2]}</small>
-</button>
-`).join("")}
-</div>
-`;
-
-document.getElementById("backBtn").style.visibility=i?"visible":"hidden";
-}
-
-function answerProfile(value){
-
-let q=questions[state.profileStep];
-state.profile[q.key]=value;
-
-if(state.profileStep<questions.length-1){
-state.profileStep++;
-save();
-renderQuestion();
-}else{
-save();
-runAnalysis();
-}
-}
-
-function profileBack(){
-if(state.profileStep>0){
-state.profileStep--;
-renderQuestion();
-}
-}
-
-/* ==============================
-   STRATEGY CATALOG
-================================ */
-
-const strategies=[
+const STRATEGIES = [
 
 {
-id:"ai_automation",
-name:"Automatisation IA pour TPE / PME",
-family:"Service B2B",
-description:"Identifier des tâches répétitives chez une petite entreprise puis mettre en place des automatisations simples et mesurables.",
-capital:1,time:3,digital:4,sales:3,creative:1,tech:4,
-speed:3,scale:4,b2b:4,client:3,risk:2,patience:2,
-home:4,
-tags:["IA","B2B","Automatisation","Récurrence"]
+ id:"leadgen",
+ name:"Génération de leads B2B",
+ family:"Acquisition",
+ desc:"Trouver et qualifier des prospects pour des entreprises.",
+ req:{computer:2},
+ ideal:{sales:5,digital:3,creative:1,tech:2,capital:1,speed:5,client:3,remote:5,patience:2,scale:4},
+ hard:["cold"],
+ tags:["B2B","Prospection","Remote"]
 },
 
 {
-id:"leadgen",
-name:"Génération de leads B2B",
-family:"Acquisition",
-description:"Trouver et qualifier des prospects pour des entreprises puis facturer la génération de rendez-vous ou de leads.",
-capital:1,time:3,digital:3,sales:4,creative:1,tech:2,
-speed:4,scale:4,b2b:4,client:3,risk:2,patience:2,
-home:4,
-tags:["Prospection","B2B","Vente","Remote"]
+ id:"appointment",
+ name:"Appointment setting B2B",
+ family:"Vente",
+ desc:"Obtenir des rendez-vous commerciaux qualifiés pour des entreprises.",
+ req:{computer:2},
+ ideal:{sales:5,digital:2,creative:1,tech:1,capital:1,speed:5,client:4,remote:5,patience:2,scale:3},
+ hard:["cold"],
+ tags:["Vente","B2B","Téléphone"]
 },
 
 {
-id:"appointment",
-name:"Prise de rendez-vous externalisée",
-family:"Vente",
-description:"Gérer une partie de la prospection et de la prise de rendez-vous pour des indépendants ou entreprises.",
-capital:1,time:3,digital:2,sales:4,creative:1,tech:1,
-speed:4,scale:3,b2b:4,client:4,risk:1,patience:1,
-home:4,
-tags:["Vente","Prospection","Service"]
+ id:"closing",
+ name:"Closing commercial à distance",
+ family:"Vente",
+ desc:"Convertir des prospects déjà intéressés pour le compte d'entreprises.",
+ req:{},
+ ideal:{sales:5,digital:2,creative:1,tech:1,capital:1,speed:4,client:5,remote:5,patience:2,scale:3},
+ hard:["calls"],
+ tags:["Closing","Vente","Remote"]
 },
 
 {
-id:"digital_service",
-name:"Service digital spécialisé",
-family:"Freelance",
-description:"Résoudre un problème précis pour une niche avec une offre simple et facilement compréhensible.",
-capital:1,time:3,digital:3,sales:3,creative:2,tech:2,
-speed:4,scale:3,b2b:3,client:3,risk:1,patience:1,
-home:4,
-tags:["Service","Faible capital","Digital"]
+ id:"automation",
+ name:"Automatisation pour TPE / PME",
+ family:"Automatisation",
+ desc:"Automatiser des tâches répétitives et workflows d'entreprises.",
+ req:{computer:2},
+ ideal:{sales:3,digital:5,creative:1,tech:5,capital:1,speed:3,client:3,remote:5,patience:3,scale:4},
+ hard:[],
+ tags:["Automatisation","B2B","Digital"]
 },
 
 {
-id:"nocode",
-name:"Création de sites / landing pages no-code",
-family:"Création digitale",
-description:"Créer rapidement des sites et pages de conversion pour indépendants et petites entreprises.",
-capital:1,time:3,digital:4,sales:2,creative:3,tech:3,
-speed:3,scale:3,b2b:4,client:3,risk:1,patience:2,
-home:4,
-tags:["No-code","Sites","B2B"]
+ id:"workflow",
+ name:"Optimisation de workflows numériques",
+ family:"Conseil digital",
+ desc:"Auditer puis simplifier les processus et outils d'une entreprise.",
+ req:{computer:2},
+ ideal:{sales:3,digital:5,creative:1,tech:4,capital:1,speed:3,client:4,remote:5,patience:3,scale:4},
+ hard:[],
+ tags:["Productivité","B2B","Conseil"]
 },
 
 {
-id:"shortvideo",
-name:"Montage vidéo short-form spécialisé",
-family:"Création",
-description:"Produire des vidéos courtes pour entreprises, créateurs ou marques avec une spécialisation sectorielle.",
-capital:1,time:3,digital:3,sales:2,creative:4,tech:2,
-speed:4,scale:3,b2b:3,client:2,risk:1,patience:1,
-home:4,
-tags:["Vidéo","Création","Remote"]
+ id:"nocode",
+ name:"Création de sites no-code",
+ family:"Création digitale",
+ desc:"Créer des sites professionnels pour indépendants et entreprises.",
+ req:{computer:2},
+ ideal:{sales:3,digital:4,creative:3,tech:4,capital:1,speed:4,client:3,remote:5,patience:2,scale:3},
+ hard:[],
+ tags:["Sites","No-code","B2B"]
 },
 
 {
-id:"content_b2b",
-name:"Création de contenu B2B",
-family:"Marketing",
-description:"Créer du contenu spécialisé pour dirigeants ou entreprises qui veulent développer leur visibilité.",
-capital:1,time:3,digital:3,sales:2,creative:4,tech:1,
-speed:3,scale:3,b2b:4,client:3,risk:1,patience:2,
-home:4,
-tags:["Contenu","B2B","Marketing"]
+ id:"landing",
+ name:"Landing pages & conversion",
+ family:"Marketing",
+ desc:"Créer des pages dédiées à la conversion d'une offre.",
+ req:{computer:2},
+ ideal:{sales:3,digital:4,creative:3,tech:3,capital:1,speed:4,client:3,remote:5,patience:2,scale:3},
+ hard:[],
+ tags:["Conversion","Web","Marketing"]
 },
 
 {
-id:"social_niche",
-name:"Gestion de réseaux sociaux spécialisée",
-family:"Marketing",
-description:"Gérer la présence sociale d'entreprises d'une niche précise plutôt que proposer une agence généraliste.",
-capital:1,time:4,digital:3,sales:2,creative:4,tech:1,
-speed:3,scale:3,b2b:4,client:3,risk:1,patience:2,
-home:4,
-tags:["Social media","Récurrence","Niche"]
+ id:"email",
+ name:"Email marketing",
+ family:"Marketing",
+ desc:"Créer des campagnes et séquences email pour des entreprises.",
+ req:{computer:2},
+ ideal:{sales:3,digital:4,creative:3,tech:3,capital:1,speed:3,client:3,remote:5,patience:3,scale:4},
+ hard:[],
+ tags:["Email","B2B","Récurrence"]
 },
 
 {
-id:"emailcrm",
-name:"Email marketing & CRM",
-family:"Marketing B2B",
-description:"Aider des entreprises à mieux convertir et relancer leurs prospects ou clients grâce à leurs données existantes.",
-capital:1,time:3,digital:4,sales:3,creative:2,tech:3,
-speed:3,scale:4,b2b:4,client:3,risk:1,patience:2,
-home:4,
-tags:["CRM","Email","B2B","Récurrence"]
+ id:"crm",
+ name:"Mise en place CRM pour PME",
+ family:"Opérations",
+ desc:"Structurer prospects, clients et relances dans un CRM.",
+ req:{computer:2},
+ ideal:{sales:3,digital:5,creative:1,tech:4,capital:1,speed:3,client:3,remote:5,patience:3,scale:4},
+ hard:[],
+ tags:["CRM","Organisation","B2B"]
 },
 
 {
-id:"workflow",
-name:"Optimisation de workflows numériques",
-family:"Conseil digital",
-description:"Analyser les outils et processus d'une petite entreprise afin de réduire les tâches manuelles et les doublons.",
-capital:1,time:3,digital:4,sales:3,creative:1,tech:4,
-speed:3,scale:4,b2b:4,client:3,risk:1,patience:2,
-home:4,
-tags:["Productivité","Automatisation","B2B"]
+ id:"video",
+ name:"Montage vidéo short-form",
+ family:"Création",
+ desc:"Monter des formats courts pour entreprises et créateurs.",
+ req:{computer:2},
+ ideal:{sales:2,digital:4,creative:5,tech:3,capital:1,speed:4,client:2,remote:5,patience:2,scale:3},
+ hard:[],
+ tags:["Vidéo","Création","Remote"]
 },
 
 {
-id:"microagency",
-name:"Micro-agence spécialisée",
-family:"Service scalable",
-description:"Commencer seul avec une prestation précise puis standardiser et déléguer lorsque la demande est validée.",
-capital:2,time:4,digital:3,sales:4,creative:2,tech:2,
-speed:3,scale:5,b2b:4,client:4,risk:2,patience:3,
-home:4,
-tags:["Agence","Scalable","B2B"]
+ id:"ugc",
+ name:"UGC pour marques",
+ family:"Création",
+ desc:"Créer des vidéos destinées aux publicités et réseaux des marques.",
+ req:{},
+ ideal:{sales:2,digital:3,creative:5,tech:2,capital:1,speed:4,client:2,remote:4,patience:2,scale:2},
+ hard:["face"],
+ tags:["UGC","Vidéo","Marques"]
 },
 
 {
-id:"digitalproduct",
-name:"Produit digital spécialisé",
-family:"Produit",
-description:"Créer un produit numérique répondant à un problème précis après validation de la demande.",
-capital:1,time:3,digital:3,sales:2,creative:3,tech:2,
-speed:2,scale:5,b2b:2,client:1,risk:2,patience:4,
-home:4,
-tags:["Produit","Scalable","Digital"]
+ id:"ghostwriting",
+ name:"Ghostwriting B2B",
+ family:"Contenu",
+ desc:"Écrire les publications de dirigeants ou professionnels.",
+ req:{computer:2},
+ ideal:{sales:2,digital:3,creative:5,tech:1,capital:1,speed:4,client:3,remote:5,patience:2,scale:3},
+ hard:[],
+ tags:["Écriture","LinkedIn","B2B"]
 },
 
 {
-id:"newsletter",
-name:"Newsletter / média de niche",
-family:"Audience",
-description:"Construire une audience autour d'un sujet précis puis monétiser progressivement l'attention créée.",
-capital:1,time:3,digital:3,sales:1,creative:4,tech:1,
-speed:1,scale:5,b2b:2,client:1,risk:2,patience:5,
-home:4,
-tags:["Audience","Contenu","Long terme"]
+ id:"social",
+ name:"Social media management spécialisé",
+ family:"Marketing",
+ desc:"Gérer les réseaux sociaux d'entreprises dans une niche.",
+ req:{computer:2},
+ ideal:{sales:3,digital:4,creative:5,tech:2,capital:1,speed:4,client:4,remote:5,patience:2,scale:3},
+ hard:["content"],
+ tags:["Social","Contenu","Récurrence"]
 },
 
 {
-id:"ugc",
-name:"UGC pour marques",
-family:"Création",
-description:"Créer du contenu authentique destiné aux campagnes et réseaux sociaux de marques.",
-capital:1,time:3,digital:2,sales:2,creative:4,tech:1,
-speed:3,scale:2,b2b:3,client:2,risk:1,patience:2,
-home:4,
-tags:["UGC","Vidéo","Marques"]
+ id:"seo_local",
+ name:"SEO local pour TPE",
+ family:"Acquisition",
+ desc:"Améliorer la visibilité locale d'entreprises sur les moteurs de recherche.",
+ req:{computer:2},
+ ideal:{sales:3,digital:4,creative:2,tech:3,capital:1,speed:3,client:3,remote:5,patience:3,scale:4},
+ hard:[],
+ tags:["SEO","Local","B2B"]
 },
 
 {
-id:"affiliate",
-name:"Affiliation avec contenu spécialisé",
-family:"Audience",
-description:"Construire du contenu utile autour d'une niche puis monétiser les recommandations lorsque l'audience existe.",
-capital:1,time:3,digital:3,sales:1,creative:4,tech:2,
-speed:1,scale:5,b2b:1,client:1,risk:2,patience:5,
-home:4,
-tags:["Affiliation","Audience","Long terme"]
+ id:"ads",
+ name:"Gestion d'acquisition publicitaire",
+ family:"Acquisition",
+ desc:"Piloter des campagnes publicitaires pour entreprises.",
+ req:{computer:2},
+ ideal:{sales:3,digital:5,creative:3,tech:4,capital:2,speed:3,client:4,remote:5,patience:3,scale:4},
+ hard:[],
+ tags:["Ads","Acquisition","Data"]
 },
 
 {
-id:"microsaas",
-name:"Micro-SaaS / outil no-code",
-family:"Logiciel",
-description:"Créer un petit outil résolvant un problème très précis puis tester sa volonté de paiement.",
-capital:2,time:4,digital:5,sales:2,creative:2,tech:5,
-speed:1,scale:5,b2b:3,client:2,risk:3,patience:5,
-home:4,
-tags:["SaaS","No-code","Scalable"]
+ id:"specialist",
+ name:"Freelance spécialisé",
+ family:"Service",
+ desc:"Monétiser une compétence forte auprès d'une cible précise.",
+ req:{computer:1},
+ ideal:{sales:3,digital:3,creative:3,tech:3,capital:1,speed:5,client:3,remote:5,patience:2,scale:2},
+ hard:[],
+ tags:["Freelance","Expertise","Service"]
 },
 
 {
-id:"ecommerce",
-name:"E-commerce de niche",
-family:"Commerce",
-description:"Tester une offre ciblée avec une vraie différenciation plutôt que lancer une boutique générique.",
-capital:4,time:4,digital:3,sales:2,creative:3,tech:2,
-speed:2,scale:5,b2b:1,client:2,risk:4,patience:3,
-home:4,
-tags:["Commerce","Produit","Capital"]
+ id:"microagency",
+ name:"Micro-agence spécialisée",
+ family:"Agence",
+ desc:"Standardiser une prestation puis déléguer progressivement.",
+ req:{computer:2},
+ ideal:{sales:5,digital:4,creative:3,tech:3,capital:2,speed:3,client:5,remote:5,patience:4,scale:5},
+ hard:[],
+ tags:["Agence","B2B","Scalable"]
 },
 
 {
-id:"localservice",
-name:"Service local indépendant",
-family:"Service physique",
-description:"Vendre localement une prestation simple lorsque le profil préfère l'action directe et la proximité.",
-capital:1,time:3,digital:1,sales:3,creative:1,tech:1,
-speed:5,scale:2,b2b:2,client:4,risk:1,patience:1,
-home:1,
-tags:["Local","Service","Rapide"]
+ id:"digitalproduct",
+ name:"Produit digital spécialisé",
+ family:"Produit",
+ desc:"Créer une ressource numérique répondant à un problème précis.",
+ req:{computer:2},
+ ideal:{sales:2,digital:4,creative:4,tech:2,capital:1,speed:2,client:1,remote:5,patience:5,scale:5},
+ hard:[],
+ tags:["Produit","Digital","Scalable"]
+},
+
+{
+ id:"course",
+ name:"Formation numérique spécialisée",
+ family:"Éducation",
+ desc:"Transformer une expertise réelle en programme pédagogique.",
+ req:{computer:2},
+ ideal:{sales:3,digital:3,creative:4,tech:2,capital:1,speed:2,client:3,remote:5,patience:4,scale:5},
+ hard:[],
+ tags:["Formation","Expertise","Digital"]
+},
+
+{
+ id:"newsletter",
+ name:"Newsletter de niche",
+ family:"Audience",
+ desc:"Construire une audience spécialisée puis la monétiser.",
+ req:{computer:2},
+ ideal:{sales:1,digital:3,creative:5,tech:1,capital:1,speed:1,client:1,remote:5,patience:5,scale:5},
+ hard:["content"],
+ tags:["Audience","Écriture","Long terme"]
+},
+
+{
+ id:"affiliate",
+ name:"Affiliation spécialisée",
+ family:"Audience",
+ desc:"Créer du contenu utile puis monétiser des recommandations pertinentes.",
+ req:{computer:2},
+ ideal:{sales:1,digital:4,creative:4,tech:2,capital:1,speed:1,client:1,remote:5,patience:5,scale:5},
+ hard:["content"],
+ tags:["Affiliation","Contenu","Audience"]
+},
+
+{
+ id:"community",
+ name:"Communauté payante de niche",
+ family:"Communauté",
+ desc:"Créer un espace à forte valeur pour une communauté spécifique.",
+ req:{computer:2},
+ ideal:{sales:3,digital:3,creative:4,tech:1,capital:1,speed:2,client:5,remote:5,patience:4,scale:4},
+ hard:[],
+ tags:["Communauté","Récurrence","Audience"]
+},
+
+{
+ id:"microsaas",
+ name:"Micro-SaaS",
+ family:"Logiciel",
+ desc:"Construire un petit logiciel résolvant un problème très précis.",
+ req:{computer:2},
+ ideal:{sales:2,digital:5,creative:2,tech:5,capital:2,speed:1,client:2,remote:5,patience:5,scale:5},
+ hard:[],
+ tags:["SaaS","Logiciel","Scalable"]
+},
+
+{
+ id:"nocodeapp",
+ name:"Outil no-code spécialisé",
+ family:"Logiciel",
+ desc:"Créer un outil simple sans développement lourd.",
+ req:{computer:2},
+ ideal:{sales:2,digital:5,creative:2,tech:4,capital:2,speed:2,client:2,remote:5,patience:4,scale:5},
+ hard:[],
+ tags:["No-code","Produit","Digital"]
+},
+
+{
+ id:"ecommerce",
+ name:"E-commerce de niche",
+ family:"Commerce",
+ desc:"Vendre une offre physique différenciée sur un marché ciblé.",
+ req:{},
+ ideal:{sales:3,digital:4,creative:4,tech:2,capital:4,speed:2,client:2,remote:4,patience:4,scale:5},
+ hard:["stock","money"],
+ tags:["E-commerce","Produit","Capital"]
+},
+
+{
+ id:"resale",
+ name:"Revente spécialisée",
+ family:"Commerce",
+ desc:"Acheter, valoriser puis revendre des produits dans une niche maîtrisée.",
+ req:{},
+ ideal:{sales:4,digital:2,creative:1,tech:1,capital:3,speed:4,client:3,remote:2,patience:2,scale:3},
+ hard:["stock"],
+ tags:["Revente","Commerce","Niche"]
+},
+
+{
+ id:"local_b2c",
+ name:"Service local B2C",
+ family:"Local",
+ desc:"Résoudre un besoin concret de particuliers dans une zone géographique proche.",
+ req:{},
+ ideal:{sales:3,digital:1,creative:1,tech:1,capital:1,speed:5,client:5,remote:1,patience:1,scale:2},
+ hard:["travel"],
+ tags:["Local","Service","Rapide"]
+},
+
+{
+ id:"local_b2b",
+ name:"Service local B2B",
+ family:"Local",
+ desc:"Fournir une prestation récurrente à des entreprises locales.",
+ req:{},
+ ideal:{sales:4,digital:2,creative:1,tech:1,capital:2,speed:5,client:5,remote:1,patience:2,scale:3},
+ hard:["travel"],
+ tags:["Local","B2B","Récurrence"]
+},
+
+{
+ id:"broker",
+ name:"Apport d'affaires",
+ family:"Intermédiation",
+ desc:"Mettre en relation clients et prestataires contre rémunération.",
+ req:{},
+ ideal:{sales:5,digital:2,creative:1,tech:1,capital:1,speed:4,client:5,remote:4,patience:2,scale:4},
+ hard:["cold"],
+ tags:["Réseau","Vente","Commission"]
+},
+
+{
+ id:"consulting",
+ name:"Conseil spécialisé",
+ family:"Expertise",
+ desc:"Vendre une expertise ou une capacité d'analyse à forte valeur.",
+ req:{},
+ ideal:{sales:4,digital:3,creative:2,tech:3,capital:1,speed:4,client:5,remote:5,patience:2,scale:3},
+ hard:[],
+ tags:["Conseil","Expertise","B2B"]
 }
 
 ];
 
-/* ==============================
-   SCORING ENGINE
-================================ */
+/* =========================================================
+   VALUE MAPPING
+   ========================================================= */
 
-function profileValues(){
-
-let p=state.profile;
-
-return{
-
-capital:
-p.budget==="0"?1:
-p.budget==="200"?2:
-p.budget==="500"?3:5,
-
-time:
-p.time==="3"?1:
-p.time==="7"?2:
-p.time==="12"?3:5,
-
-digital:
-p.digital==="low"?1:
-p.digital==="mid"?3:
-p.digital==="high"?4:5,
-
-sales:
-p.sales==="avoid"?1:
-p.sales==="written"?2:
-p.sales==="good"?4:5,
-
-creative:
-p.creative==="low"?1:
-p.creative==="mid"?2:
-p.creative==="good"?4:5,
-
-speed:
-p.speed==="fast"?5:
-p.speed==="month"?4:
-p.speed==="quarter"?3:1,
-
-patience:
-p.patience==="low"?1:
-p.patience==="mid"?3:5,
-
-b2b:
-p.b2b==="b2b"?5:
-p.b2b==="b2c"?1:3,
-
-client:
-p.client==="low"?1:
-p.client==="async"?2:
-p.client==="direct"?4:5,
-
-home:
-p.location==="home"?5:
-p.location==="hybrid"?4:3,
-
-risk:
-p.risk==="low"?1:
-p.risk==="mid"?3:5
-
-};
-
+function num(v,map,def=3){
+  return map[v] ?? def;
 }
 
-function closeness(a,b){
-return Math.max(0,5-Math.abs(a-b));
+function buildHuman(){
+
+  const a=state.answers;
+
+  const hardNo=Array.isArray(a.hardNo)?a.hardNo:[];
+
+  return{
+
+    capital:num(a.capital,{
+      "0":1,"150":2,"400":3,"1000":4,"3000":5
+    }),
+
+    time:num(a.weeklyHours,{
+      "2":1,"5":2,"10":3,"18":4,"30":5
+    }),
+
+    speed:num(a.incomeUrgency,{
+      urgent:5,soon:4,patient:2,long:1
+    }),
+
+    sales:average([
+      num(a.coldOutreach,{refuse:1,hard:2,fine:4,love:5}),
+      num(a.phoneSales,{never:1,warm:2,yes:4,strong:5}),
+      num(a.negotiation,{bad:1,learning:2,good:4,strong:5}),
+      num(a.soldBefore,{never:1,personal:2,work:4,business:5})
+    ]),
+
+    digital:average([
+      num(a.digitalComfort,{lost:1,basic:2,fast:4,expert:5}),
+      num(a.aiTools,{none:1,chat:2,work:4,advanced:5})
+    ]),
+
+    tech:average([
+      num(a.website,{never:1,tutorial:2,nocode:4,code:5}),
+      num(a.automation,{never:1,understand:2,done:4,advanced:5}),
+      num(a.spreadsheets,{low:1,mid:2,good:4,advanced:5})
+    ]),
+
+    creative:average([
+      num(a.video,{none:1,basic:2,good:4,paid:5}),
+      num(a.design,{none:1,basic:2,good:4,paid:5}),
+      num(a.writing,{weak:1,normal:2,good:4,strong:5})
+    ]),
+
+    client:num(a.clientContact,{
+      minimum:1,async:2,normal:4,high:5
+    }),
+
+    patience:average([
+      num(a.incomeUrgency,{urgent:1,soon:2,patient:4,long:5}),
+      num(a.uncertainty,{bad:1,medium:2,good:4,high:5}),
+      num(a.learning,{no:1,little:2,yes:4,love:5})
+    ]),
+
+    remote:
+      a.localPreference==="never" ? 5 :
+      a.localPreference==="maybe" ? 4 :
+      a.localPreference==="yes" ? 3 :
+      a.localPreference==="prefer" ? 1 :
+      a.mobility==="none" ? 5 : 3,
+
+    scale:
+      num(a.scaleAmbition,{
+        solo:2,small:3,company:5,asset:5
+      }),
+
+    computer:
+      num(a.computer,{
+        phone:1,basic:2,good:4,power:5
+      }),
+
+    rejection:
+      num(a.rejection,{
+        stop:1,question:2,analyse:4,push:5
+      }),
+
+    autonomy:
+      num(a.structure,{
+        hard:1,sometimes:2,good:4,strong:5
+      }),
+
+    network:
+      num(a.network,{
+        none:1,some:2,good:4,strong:5
+      }),
+
+    audience:
+      num(a.audience,{
+        none:1,small:2,medium:4,large:5
+      }),
+
+    geoLocal:
+      localPotential(a),
+
+    hardNo
+  };
 }
 
-function scoreStrategy(s){
-
-let v=profileValues();
-let score=0;
-let max=0;
-
-function add(value,target,weight){
-score+=closeness(value,target)*weight;
-max+=5*weight;
+function average(arr){
+  const valid=arr.filter(x=>Number.isFinite(x));
+  if(!valid.length)return 3;
+  return valid.reduce((a,b)=>a+b,0)/valid.length;
 }
 
-add(v.capital,s.capital,1.5);
-add(v.time,s.time,1.2);
-add(v.digital,s.digital,1.5);
-add(v.sales,s.sales,1.3);
-add(v.creative,s.creative,.8);
-add(v.speed,s.speed,1.3);
-add(v.patience,s.patience,1);
-add(v.b2b,s.b2b,1);
-add(v.client,s.client,.8);
-add(v.home,s.home,1.4);
-add(v.risk,s.risk,1);
+function localPotential(a){
 
-if(state.profile.model==="service" &&
-["Service B2B","Freelance","Vente","Marketing B2B","Conseil digital"].includes(s.family)){
-score+=7;max+=7;
+  let score=3;
+
+  if(a.area==="metro")score=5;
+  if(a.area==="city")score=4;
+  if(a.area==="small")score=3;
+  if(a.area==="rural")score=2;
+
+  if(a.mobility==="none")score-=2;
+  if(a.mobility==="car")score+=1;
+  if(a.mobility==="wide")score+=1;
+
+  return Math.max(1,Math.min(5,score));
 }
 
-if(state.profile.model==="product" &&
-["Produit","Commerce","Logiciel"].includes(s.family)){
-score+=7;max+=7;
+/* =========================================================
+   ADAPTIVE QUESTION ENGINE
+   ========================================================= */
+
+function startDiagnostic(){
+
+  state.answers={};
+  state.answerHistory=[];
+  state.asked=[];
+  state.progress=0;
+  state.confidence=0;
+  state.ranking=[];
+  state.chosen=null;
+
+  save();
+  show("diagnostic");
+  renderNextQuestion();
 }
 
-if(state.profile.model==="audience" &&
-["Audience","Création","Marketing"].includes(s.family)){
-score+=7;max+=7;
+function eligibleQuestions(){
+
+  return QUESTIONS.filter(q=>{
+    if(state.asked.includes(q.id))return false;
+    if(q.depends && !q.depends(state.answers))return false;
+    return true;
+  });
 }
 
-if(state.profile.model==="system" &&
-["Logiciel","Service scalable","Conseil digital"].includes(s.family)){
-score+=7;max+=7;
+function nextQuestion(){
+
+  const available=eligibleQuestions();
+
+  if(!available.length)return null;
+
+  /* First questions are high-priority foundations.
+     Later we boost questions that discriminate top strategies. */
+
+  if(state.asked.length<8){
+    return [...available].sort((a,b)=>b.priority-a.priority)[0];
+  }
+
+  const ranking=calculateRanking(false);
+  const top=ranking.filter(x=>!x.eliminated).slice(0,5);
+
+  let best=null;
+  let bestValue=-Infinity;
+
+  for(const q of available){
+
+    let value=q.priority*.15 + q.weight;
+
+    if(top.length>=2){
+      value += discriminationValue(q,top);
+    }
+
+    if(q.category==="Géographie" &&
+       top.some(x=>["Local","Commerce"].includes(x.family))){
+      value+=8;
+    }
+
+    if(q.category==="Commercial" &&
+       top.some(x=>["Vente","Acquisition","Agence","Intermédiation"].includes(x.family))){
+      value+=8;
+    }
+
+    if(q.category==="Technique" &&
+       top.some(x=>["Logiciel","Automatisation","Conseil digital"].includes(x.family))){
+      value+=8;
+    }
+
+    if(q.category==="Créatif" &&
+       top.some(x=>["Création","Contenu","Audience"].includes(x.family))){
+      value+=8;
+    }
+
+    if(value>bestValue){
+      bestValue=value;
+      best=q;
+    }
+  }
+
+  return best;
 }
 
-if(state.profile.camera==="no" &&
-["UGC","Audience"].includes(s.family)){
-score-=5;
+function discriminationValue(q,top){
+
+  const categoryMap={
+    Commercial:"sales",
+    Digital:"digital",
+    Technique:"tech",
+    Créatif:"creative",
+    Client:"client",
+    "Mode de travail":"remote",
+    Risque:"capital",
+    Objectif:"speed",
+    Ambition:"scale",
+    Géographie:"remote"
+  };
+
+  const dimension=categoryMap[q.category];
+  if(!dimension)return 0;
+
+  const values=top.map(s=>s.ideal?.[dimension]).filter(Number.isFinite);
+
+  if(values.length<2)return 0;
+
+  return (Math.max(...values)-Math.min(...values))*3;
 }
 
-if(state.profile.location==="home" && s.home<3){
-score-=12;
+function calculateProgress(){
+
+  const answered=QUESTIONS.filter(q=>state.answers[q.id]!==undefined);
+
+  let gained=answered.reduce((sum,q)=>sum+q.weight,0);
+
+  /* Core diagnostic weight target.
+     User does not see question count. */
+
+  let pct=Math.round((gained/135)*100);
+
+  const ranking=calculateRanking(false);
+  const viable=ranking.filter(x=>!x.eliminated);
+
+  if(viable.length){
+
+    const top=viable[0];
+    const second=viable[1];
+
+    if(top && second){
+
+      const gap=top.score-second.score;
+
+      if(gap>=8)pct+=7;
+      else if(gap>=5)pct+=4;
+
+    }
+  }
+
+  return Math.max(2,Math.min(100,pct));
 }
 
-let pct=Math.round(score/max*100);
-return Math.max(35,Math.min(96,pct));
+function calculateConfidence(){
 
+  const a=state.answers;
+
+  let c=0;
+
+  const major=[
+    "goal","incomeUrgency","weeklyHours","capital",
+    "area","mobility","computer","coldOutreach",
+    "digitalComfort","rejection","hardNo",
+    "clientContact","b2b"
+  ];
+
+  major.forEach(k=>{
+    if(a[k]!==undefined)c+=5;
+  });
+
+  const extras=Object.keys(a).length;
+  c+=Math.min(25,extras*1.1);
+
+  const ranking=calculateRanking(false);
+  const viable=ranking.filter(x=>!x.eliminated);
+
+  if(viable.length>=2){
+
+    const gap=viable[0].score-viable[1].score;
+
+    if(gap>=10)c+=10;
+    else if(gap>=6)c+=7;
+    else if(gap>=3)c+=4;
+  }
+
+  return Math.round(Math.min(96,c));
 }
 
-function runAnalysis(){
+function shouldFinish(){
 
-show("analysis");
+  state.progress=calculateProgress();
+  state.confidence=calculateConfidence();
 
-let v=profileValues();
+  const ranking=calculateRanking(false);
+  const viable=ranking.filter(x=>!x.eliminated);
 
-document.getElementById("scanProfile").textContent="Complet";
-document.getElementById("scanConstraints").textContent=
-(state.profile.budget==="0"?"Capital faible":"Budget intégré");
+  if(!viable.length)return false;
 
-document.getElementById("scanDigital").textContent=
-state.profile.location==="home"?"Prioritaire":"Flexible";
+  const top=viable[0];
+  const second=viable[1];
 
-state.ranking=strategies
-.map(s=>({...s,score:scoreStrategy(s)}))
-.sort((a,b)=>b.score-a.score);
+  const enoughCore=
+    state.answers.goal &&
+    state.answers.weeklyHours &&
+    state.answers.capital &&
+    state.answers.area &&
+    state.answers.mobility &&
+    state.answers.computer &&
+    state.answers.coldOutreach &&
+    state.answers.digitalComfort &&
+    state.answers.hardNo;
 
-state.selectedStrategy=state.ranking[0].id;
+  if(!enoughCore)return false;
 
-save();
+  if(
+    state.progress>=82 &&
+    state.confidence>=78 &&
+    top.score>=80 &&
+    (!second || top.score-second.score>=3)
+  ){
+    return true;
+  }
 
-setTimeout(showResults,1600);
+  if(state.progress>=96 && state.confidence>=85){
+    return true;
+  }
+
+  return false;
 }
 
-function showResults(){
+function renderNextQuestion(){
 
-show("results");
+  state.progress=calculateProgress();
+  state.confidence=calculateConfidence();
 
-let top=state.ranking.slice(0,3);
+  updateProgress();
 
-document.getElementById("topStrategies").innerHTML=
-top.map((s,i)=>`
+  if(shouldFinish()){
+    finishDiagnostic();
+    return;
+  }
 
-<div class="card strategy-card ${i===0?"c12":"c6"}">
+  const q=nextQuestion();
 
-<div class="ranknum">#${i+1} COMPATIBILITÉ</div>
+  if(!q){
+    finishDiagnostic();
+    return;
+  }
 
-<span class="badge ${i===0?"green":""}">
-${s.family}
-</span>
-
-<h2>${s.name}</h2>
-
-<p>${s.description}</p>
-
-<div style="height:14px"></div>
-
-<div class="score">
-${s.score}<small>/100</small>
-</div>
-
-<div class="reasons">
-
-<div class="reason">
-<b>Pourquoi elle remonte</b>
-<p>${reasonFor(s)}</p>
-</div>
-
-<div class="reason">
-<b>Point de vigilance</b>
-<p>${warningFor(s)}</p>
-</div>
-
-</div>
-
-<div class="chips">
-${s.tags.map(t=>`<span class="chip">${t}</span>`).join("")}
-</div>
-
-</div>
-
-`).join("");
-
-save();
+  renderQuestion(q);
 }
 
-function reasonFor(s){
+function renderQuestion(q){
 
-let p=state.profile;
-let reasons=[];
+  const container=document.getElementById("questionContainer");
 
-if(s.home>=4 && p.location==="home")
-reasons.push("entièrement réalisable depuis chez toi");
+  document.getElementById("infoGain").textContent=
+    q.weight>=7
+    ? "Cette réponse est importante pour le diagnostic."
+    : "";
 
-if(s.capital<=2 && ["0","200"].includes(p.budget))
-reasons.push("compatible avec ton capital limité");
+  let html=`
+    <div class="eyebrow">${q.category}</div>
+    <h1>${q.title}</h1>
+    <p class="questionText">${q.text}</p>
+  `;
 
-if(s.sales>=4 && ["good","strong"].includes(p.sales))
-reasons.push("valorise ton aisance commerciale");
+  if(q.type==="text"){
 
-if(s.digital>=4 && ["high","builder"].includes(p.digital))
-reasons.push("valorise ton niveau digital");
+    html+=`
+      <input class="cityInput" id="textAnswer" placeholder="Ta réponse">
+      <div class="actions">
+        <button class="btn" onclick="answerText('${q.id}')">Continuer →</button>
+      </div>
+    `;
 
-if(s.creative>=4 && ["good","strong"].includes(p.creative))
-reasons.push("utilise directement ta compétence créative");
+  } else if(q.multi){
 
-if(s.speed>=4 && p.speed==="fast")
-reasons.push("peut être testée rapidement");
+    html+=`
+      <div class="options">
+        ${q.options.map(o=>`
+          <button class="option multiOption"
+                  id="multi_${o[0]}"
+                  onclick="toggleMulti('${q.id}','${o[0]}')">
+            <span class="fakeCheck"></span>
+            <span>
+              <strong>${o[1]}</strong>
+              <small>${o[2]}</small>
+            </span>
+          </button>
+        `).join("")}
+      </div>
 
-if(!reasons.length)
-reasons.push("présente un bon équilibre global avec tes réponses");
+      <div class="actions">
+        <button class="btn" onclick="confirmMulti('${q.id}')">
+          Continuer →
+        </button>
+      </div>
+    `;
 
-return reasons.slice(0,3).join(", ")+".";
+  } else {
+
+    html+=`
+      <div class="options">
+        ${q.options.map(o=>`
+          <button class="option"
+                  onclick="answer('${q.id}','${o[0]}')">
+            <strong>${o[1]}</strong>
+            <small>${o[2]}</small>
+          </button>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  container.innerHTML=html;
+
+  document.getElementById("backButton").style.visibility=
+    state.answerHistory.length ? "visible" : "hidden";
+
+  state.currentQuestion=q.id;
 }
 
-function warningFor(s){
+function answer(id,value){
 
-if(s.sales>=4 && ["avoid","written"].includes(state.profile.sales))
-return "Cette stratégie demande davantage de prospection que ton niveau de confort actuel.";
+  state.answerHistory.push({
+    id,
+    previous:state.answers[id]
+  });
 
-if(s.patience>=4 && state.profile.patience==="low")
-return "Les résultats peuvent demander plus de patience que tu ne le souhaites.";
+  state.answers[id]=value;
 
-if(s.capital>=4)
-return "Le risque financier initial est supérieur aux stratégies de service.";
+  if(!state.asked.includes(id))state.asked.push(id);
 
-if(s.digital>=4 && state.profile.digital==="low")
-return "Une montée en compétence digitale serait nécessaire.";
-
-return "La compatibilité ne garantit aucun résultat : la demande devra être validée sur le terrain.";
+  save();
+  renderNextQuestion();
 }
 
-/* ==============================
-   SUBSCRIPTION
-================================ */
+let multiTemp=[];
 
-function showPricing(){
-show("pricing");
+function toggleMulti(id,value){
+
+  if(value==="none"){
+    multiTemp=["none"];
+  }else{
+    multiTemp=multiTemp.filter(x=>x!=="none");
+
+    if(multiTemp.includes(value)){
+      multiTemp=multiTemp.filter(x=>x!==value);
+    }else{
+      multiTemp.push(value);
+    }
+  }
+
+  document.querySelectorAll("[id^='multi_']").forEach(el=>{
+    const v=el.id.replace("multi_","");
+    el.classList.toggle("selected",multiTemp.includes(v));
+    const check=el.querySelector(".fakeCheck");
+    if(check)check.textContent=multiTemp.includes(v)?"✓":"";
+  });
 }
 
-function subscribe(tier){
+function confirmMulti(id){
 
-state.subscription=tier;
+  if(!multiTemp.length)return;
 
-if(!state.tasks.length){
-createInitialPlan();
+  state.answerHistory.push({
+    id,
+    previous:state.answers[id]
+  });
+
+  state.answers[id]=[...multiTemp];
+  multiTemp=[];
+
+  if(!state.asked.includes(id))state.asked.push(id);
+
+  save();
+  renderNextQuestion();
 }
 
-state.history.push({
-period:state.period,
-title:"Stratégie sélectionnée",
-text:getCurrentStrategy().name+" — "+getCurrentScore()+"/100 de compatibilité.",
-date:new Date().toLocaleDateString("fr-FR")
-});
+function goBack(){
 
-save();
-openDemo();
+  const last=state.answerHistory.pop();
+  if(!last)return;
+
+  state.asked=state.asked.filter(x=>x!==last.id);
+
+  if(last.previous===undefined){
+    delete state.answers[last.id];
+  }else{
+    state.answers[last.id]=last.previous;
+  }
+
+  state.currentQuestion=last.id;
+
+  const q=QUESTIONS.find(x=>x.id===last.id);
+
+  state.progress=calculateProgress();
+  state.confidence=calculateConfidence();
+
+  updateProgress();
+  renderQuestion(q);
+  save();
 }
 
-function getCurrentStrategy(){
-return strategies.find(s=>s.id===state.selectedStrategy)||strategies[0];
+function updateProgress(){
+
+  document.getElementById("progressPercent").textContent=
+    state.progress+" %";
+
+  document.getElementById("progressBar").style.width=
+    state.progress+"%";
 }
 
-function getCurrentScore(){
-let x=state.ranking.find(s=>s.id===state.selectedStrategy);
-return x?x.score:scoreStrategy(getCurrentStrategy());
+/* =========================================================
+   SCORING
+   ========================================================= */
+
+function similarity(human,ideal){
+  return Math.max(0,100-(Math.abs(human-ideal)*22));
 }
 
-/* ==============================
-   ADAPTIVE PLAN
-================================ */
+function calculateRanking(store=true){
 
-function createInitialPlan(){
+  const h=buildHuman();
 
-let s=getCurrentStrategy();
+  const ranking=STRATEGIES.map(s=>scoreStrategy(s,h))
+    .sort((a,b)=>{
+      if(a.eliminated!==b.eliminated)return a.eliminated?1:-1;
+      return b.score-a.score;
+    });
 
-let common=[
-{
-title:"Définir une cible précise",
-desc:"Choisis un type de client suffisamment précis pour pouvoir le rechercher et lui parler.",
-done:false
-},
-{
-title:"Formuler une offre test",
-desc:"Décris le problème traité, le résultat attendu et une proposition simple.",
-done:false
-},
-{
-title:"Construire une liste de 10 prospects",
-desc:"Pas de publicité pour l’instant : cherche 10 personnes ou entreprises réellement compatibles.",
-done:false
-},
-{
-title:"Contacter les premiers prospects",
-desc:"Obtiens de vraies réactions avant d’optimiser ton projet.",
-done:false
-}
-];
+  if(store){
+    state.ranking=ranking;
+    save();
+  }
 
-if(["digitalproduct","microsaas","ecommerce","newsletter","affiliate"].includes(s.id)){
-
-common=[
-{
-title:"Choisir un problème précis",
-desc:"Définis un problème réel pour un groupe de personnes identifiable.",
-done:false
-},
-{
-title:"Identifier 10 utilisateurs potentiels",
-desc:"Trouve des personnes correspondant exactement à la cible.",
-done:false
-},
-{
-title:"Tester l’intérêt avant de construire",
-desc:"Présente la proposition et collecte des réactions concrètes.",
-done:false
-},
-{
-title:"Obtenir un premier signal",
-desc:"Cherche une inscription, précommande, conversation ou intention réelle.",
-done:false
-}
-];
-
+  return ranking;
 }
 
-state.tasks=common;
-save();
+function scoreStrategy(s,h){
+
+  let eliminated=false;
+  let eliminationReasons=[];
+
+  /* Equipment requirement */
+
+  if(s.req?.computer && h.computer<s.req.computer){
+    eliminated=true;
+    eliminationReasons.push("matériel informatique insuffisant");
+  }
+
+  /* Explicit refusals */
+
+  for(const refusal of h.hardNo){
+
+    if(s.hard?.includes(refusal)){
+      eliminated=true;
+      eliminationReasons.push("incompatible avec un refus déclaré");
+    }
+  }
+
+  /* Strong local incompatibility */
+
+  if(
+    s.family==="Local" &&
+    state.answers.mobility==="none"
+  ){
+    eliminated=true;
+    eliminationReasons.push("mobilité incompatible");
+  }
+
+  /* Scores */
+
+  const dims={
+    human:[],
+    skills:[],
+    resources:[],
+    geography:[],
+    acquisition:[],
+    economics:[]
+  };
+
+  function push(group,hv,sv,weight=1){
+    if(!Number.isFinite(hv)||!Number.isFinite(sv))return;
+    dims[group].push({
+      value:similarity(hv,sv),
+      weight
+    });
+  }
+
+  push("skills",h.digital,s.ideal.digital,1.1);
+  push("skills",h.tech,s.ideal.tech,1.1);
+  push("skills",h.creative,s.ideal.creative,.8);
+
+  push("human",h.client,s.ideal.client,1);
+  push("human",h.patience,s.ideal.patience,1);
+  push("human",h.scale,s.ideal.scale,.7);
+  push("human",h.autonomy,4,.6);
+
+  push("resources",h.capital,s.ideal.capital,1.4);
+  push("resources",h.time,3,.8);
+
+  push("geography",h.remote,s.ideal.remote,1.3);
+
+  if(s.family==="Local"){
+    push("geography",h.geoLocal,5,1.5);
+  }
+
+  push("acquisition",h.sales,s.ideal.sales,1.5);
+  push("acquisition",h.rejection,
+    s.ideal.sales>=4?5:3,1.2);
+
+  push("economics",h.speed,s.ideal.speed,1.3);
+
+  const sub={};
+
+  Object.keys(dims).forEach(k=>{
+    sub[k]=weightedAverage(dims[k]);
+  });
+
+  /* Extra real-profile modifiers */
+
+  let modifier=0;
+
+  if(["Vente","Acquisition","Intermédiation","Agence"].includes(s.family)){
+    modifier+=(h.network-3)*2;
+  }
+
+  if(["Audience","Contenu","Création"].includes(s.family)){
+    modifier+=(h.audience-3)*2;
+  }
+
+  if(
+    ["digitalproduct","course","newsletter","affiliate"].includes(s.id) &&
+    state.answers.incomeUrgency==="urgent"
+  ){
+    modifier-=8;
+  }
+
+  if(
+    ["microsaas","nocodeapp"].includes(s.id) &&
+    ["no","little"].includes(state.answers.learning)
+  ){
+    modifier-=8;
+  }
+
+  if(
+    ["ecommerce","resale"].includes(s.id) &&
+    ["0","150"].includes(state.answers.capital)
+  ){
+    modifier-=12;
+  }
+
+  if(
+    ["leadgen","appointment","broker"].includes(s.id) &&
+    state.answers.coldOutreach==="love"
+  ){
+    modifier+=6;
+  }
+
+  if(
+    s.id==="closing" &&
+    state.answers.phoneSales==="strong"
+  ){
+    modifier+=7;
+  }
+
+  if(
+    s.id==="video" &&
+    state.answers.video==="paid"
+  ){
+    modifier+=9;
+  }
+
+  if(
+    s.id==="ghostwriting" &&
+    state.answers.writing==="strong"
+  ){
+    modifier+=9;
+  }
+
+  if(
+    s.id==="automation" &&
+    state.answers.automation==="advanced"
+  ){
+    modifier+=10;
+  }
+
+  if(
+    s.id==="nocode" &&
+    ["nocode","code"].includes(state.answers.website)
+  ){
+    modifier+=8;
+  }
+
+  if(
+    s.id==="ugc" &&
+    state.answers.camera==="love"
+  ){
+    modifier+=8;
+  }
+
+  if(
+    s.family==="Local" &&
+    state.answers.localPreference==="prefer"
+  ){
+    modifier+=10;
+  }
+
+  const weights={
+    human:1.15,
+    skills:1.2,
+    resources:1.15,
+    geography:1,
+    acquisition:1.25,
+    economics:1.1
+  };
+
+  let total=0;
+  let totalWeight=0;
+
+  Object.keys(weights).forEach(k=>{
+    if(Number.isFinite(sub[k])){
+      total+=sub[k]*weights[k];
+      totalWeight+=weights[k];
+    }
+  });
+
+  let score=totalWeight?total/totalWeight:50;
+
+  score+=modifier;
+
+  /* A critical weakness cannot disappear in the average */
+
+  if(sub.acquisition<45 && s.ideal.sales>=4){
+    score=Math.min(score,72);
+  }
+
+  if(sub.geography<45 && s.family==="Local"){
+    score=Math.min(score,68);
+  }
+
+  if(sub.resources<42){
+    score=Math.min(score,70);
+  }
+
+  if(eliminated){
+    score=Math.min(score,38);
+  }
+
+  score=Math.round(Math.max(20,Math.min(96,score)));
+
+  return{
+    ...s,
+    score,
+    sub,
+    eliminated,
+    eliminationReasons
+  };
+}
+
+function weightedAverage(arr){
+
+  if(!arr.length)return null;
+
+  let sum=0;
+  let w=0;
+
+  arr.forEach(x=>{
+    sum+=x.value*x.weight;
+    w+=x.weight;
+  });
+
+  return Math.round(sum/w);
+}
+
+/* =========================================================
+   FINISH + RESULTS
+   ========================================================= */
+
+function finishDiagnostic(){
+
+  state.progress=100;
+  state.confidence=Math.max(state.confidence,calculateConfidence());
+  calculateRanking(true);
+
+  save();
+
+  show("analysis");
+
+  document.getElementById("analysisStrategies").textContent=
+    STRATEGIES.length;
+
+  document.getElementById("analysisCompleteness").textContent=
+    state.progress+" %";
+
+  document.getElementById("analysisConfidence").textContent=
+    state.confidence+" %";
+
+  setTimeout(renderResults,1500);
+}
+
+function renderResults(){
+
+  show("results");
+
+  const viable=state.ranking.filter(x=>!x.eliminated);
+  const winner=viable[0] || state.ranking[0];
+
+  const strong=winner.score>=80;
+
+  document.getElementById("winner").innerHTML=`
+
+    <div class="grid">
+
+      <div class="card topResult c8">
+
+        <span class="badge ${strong?"green":"orange"}">
+          ${strong?"Forte compatibilité":"Compatibilité à confirmer"}
+        </span>
+
+        <div style="height:10px"></div>
+
+        <div class="eyebrow">#1 · ${winner.family}</div>
+
+        <h2 style="font-size:27px">${winner.name}</h2>
+
+        <p style="margin-top:8px">${winner.desc}</p>
+
+        <div class="bigScore">
+          ${winner.score}<small>% compatible</small>
+        </div>
+
+        <div class="subscores">
+          ${subscoreBox("Humain",winner.sub.human)}
+          ${subscoreBox("Compétences",winner.sub.skills)}
+          ${subscoreBox("Ressources",winner.sub.resources)}
+          ${subscoreBox("Géographie",winner.sub.geography)}
+          ${subscoreBox("Acquisition",winner.sub.acquisition)}
+        </div>
+
+      </div>
+
+      <div class="card c4">
+
+        <div class="metricLabel">Confiance du diagnostic</div>
+        <div class="metric">${state.confidence}%</div>
+
+        <div class="bar" style="margin-top:10px">
+          <span style="width:${state.confidence}%"></span>
+        </div>
+
+        <div style="height:19px"></div>
+
+        <div class="reason">
+          <strong>Pourquoi cette stratégie ?</strong>
+          <p>${winnerReasons(winner)}</p>
+        </div>
+
+        <div class="reason">
+          <strong>Principal point de vigilance</strong>
+          <p>${winnerWarning(winner)}</p>
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+  document.getElementById("topRanking").innerHTML=
+    viable.slice(1,6).map((s,i)=>strategyRow(s,i+2)).join("");
+
+  document.getElementById("fullRanking").innerHTML=
+    state.ranking.map((s,i)=>strategyRow(s,i+1,true)).join("");
+
+  renderProfileSummary();
+
+  state.chosen=winner.id;
+  save();
+}
+
+function subscoreBox(label,value){
+
+  return`
+    <div class="subscore">
+      <span>${label}</span>
+      <strong>${value ?? "—"}%</strong>
+    </div>
+  `;
+}
+
+function strategyRow(s,rank,full=false){
+
+  return`
+    <div class="strategyRow ${s.eliminated?"eliminated":""}">
+      <div class="rank">#${rank}</div>
+
+      <div>
+        <h3>${s.name}</h3>
+        <p>
+          ${s.family}
+          ${s.eliminated
+            ?" · incompatible : "+s.eliminationReasons.join(", ")
+            :full
+              ?" · "+s.tags.join(" · ")
+              :""
+          }
+        </p>
+      </div>
+
+      <div class="rowScore">
+        ${s.score}%
+      </div>
+    </div>
+  `;
+}
+
+function winnerReasons(s){
+
+  const parts=[];
+
+  if(s.sub.skills>=80)
+    parts.push("tes compétences correspondent bien au modèle");
+
+  if(s.sub.acquisition>=80)
+    parts.push("ton profil commercial est compatible avec son acquisition");
+
+  if(s.sub.resources>=80)
+    parts.push("tes ressources sont suffisantes pour le tester");
+
+  if(s.sub.geography>=80)
+    parts.push("ton environnement de travail ne constitue pas un frein");
+
+  if(s.sub.human>=80)
+    parts.push("son quotidien correspond bien à ta manière de fonctionner");
+
+  if(!parts.length)
+    return "Cette stratégie présente actuellement le meilleur équilibre entre tes contraintes et ses exigences.";
+
+  return capitalize(parts.slice(0,3).join(", "))+".";
+}
+
+function winnerWarning(s){
+
+  const entries=[
+    ["Acquisition",s.sub.acquisition],
+    ["Ressources",s.sub.resources],
+    ["Compétences",s.sub.skills],
+    ["Géographie",s.sub.geography],
+    ["Profil humain",s.sub.human]
+  ].filter(x=>Number.isFinite(x[1]))
+   .sort((a,b)=>a[1]-b[1]);
+
+  if(!entries.length)
+    return "Le marché devra être validé avant tout investissement important.";
+
+  return `${entries[0][0]} : ${entries[0][1]} %. C'est actuellement la dimension la moins compatible et celle qu'il faudra surveiller pendant la validation.`;
+}
+
+function capitalize(s){
+  return s.charAt(0).toUpperCase()+s.slice(1);
+}
+
+/* =========================================================
+   PROFILE SUMMARY
+   ========================================================= */
+
+function renderProfileSummary(){
+
+  const h=buildHuman();
+
+  const facts=[
+    ["Capital",level(h.capital)],
+    ["Disponibilité",level(h.time)],
+    ["Commercial",level(h.sales)],
+    ["Digital",level(h.digital)],
+    ["Technique",level(h.tech)],
+    ["Créatif",level(h.creative)],
+    ["Relation client",level(h.client)],
+    ["Patience",level(h.patience)],
+    ["Tolérance au rejet",level(h.rejection)],
+    ["Réseau",level(h.network)]
+  ];
+
+  document.getElementById("profileSummary").innerHTML=
+    facts.map(x=>`
+      <div class="profileFact">
+        <span>${x[0]}</span>
+        <strong>${x[1]}</strong>
+      </div>
+    `).join("");
+}
+
+function level(v){
+
+  if(v>=4.5)return "Très élevé";
+  if(v>=3.6)return "Élevé";
+  if(v>=2.6)return "Intermédiaire";
+  if(v>=1.6)return "Faible";
+  return "Très faible";
+}
+
+/* =========================================================
+   PROJECT ACTIVATION
+   ========================================================= */
+
+function activateProject(){
+
+  const strategy=state.ranking.find(x=>x.id===state.chosen);
+
+  state.period=1;
+  state.results={
+    contacts:0,
+    responses:0,
+    sales:0,
+    revenue:0,
+    costs:0,
+    hours:0
+  };
+
+  state.tasks=initialTasks(strategy);
+
+  state.events=[
+    {
+      title:"Diagnostic terminé",
+      text:`${strategy.name} sélectionné avec ${strategy.score}% de compatibilité et ${state.confidence}% de confiance.`,
+      date:new Date().toLocaleDateString("fr-FR")
+    }
+  ];
+
+  save();
+
+  show("app");
+  renderApp();
+}
+
+function initialTasks(s){
+
+  if(["Audience","Contenu","Création"].includes(s.family)){
+
+    return[
+      {
+        title:"Définir une niche précise",
+        desc:"Choisis une audience identifiable avec un besoin ou intérêt commun.",
+        done:false
+      },
+      {
+        title:"Analyser 10 contenus ou acteurs existants",
+        desc:"Comprends ce qui attire déjà l'attention dans cette niche.",
+        done:false
+      },
+      {
+        title:"Créer un premier contenu test",
+        desc:"Produis une première version sans chercher la perfection.",
+        done:false
+      },
+      {
+        title:"Publier et mesurer la réaction",
+        desc:"Observe vues, interactions et conversations réelles.",
+        done:false
+      },
+      {
+        title:"Identifier le signal le plus fort",
+        desc:"Note ce qui semble réellement intéresser le marché.",
+        done:false
+      }
+    ];
+  }
+
+  if(["Logiciel","Produit"].includes(s.family)){
+
+    return[
+      {
+        title:"Définir un problème très précis",
+        desc:"Pas encore de construction : formule d'abord le problème.",
+        done:false
+      },
+      {
+        title:"Trouver 10 utilisateurs potentiels",
+        desc:"Identifie de vraies personnes confrontées à ce problème.",
+        done:false
+      },
+      {
+        title:"Parler à 5 utilisateurs",
+        desc:"Vérifie comment ils résolvent actuellement le problème.",
+        done:false
+      },
+      {
+        title:"Tester une proposition",
+        desc:"Présente la solution avant de construire le produit complet.",
+        done:false
+      },
+      {
+        title:"Obtenir un signal d'intention",
+        desc:"Cherche une inscription, précommande ou engagement concret.",
+        done:false
+      }
+    ];
+  }
+
+  if(s.family==="Local"){
+
+    return[
+      {
+        title:"Définir une zone de prospection",
+        desc:"Choisis un rayon réaliste selon ta mobilité.",
+        done:false
+      },
+      {
+        title:"Identifier 15 clients potentiels",
+        desc:"Construis une vraie liste locale.",
+        done:false
+      },
+      {
+        title:"Créer une offre simple",
+        desc:"Un problème, une prestation, un prix test.",
+        done:false
+      },
+      {
+        title:"Contacter 10 prospects locaux",
+        desc:"Téléphone, visite ou message selon le marché.",
+        done:false
+      },
+      {
+        title:"Obtenir un premier retour réel",
+        desc:"Mesure l'intérêt avant d'investir davantage.",
+        done:false
+      }
+    ];
+  }
+
+  return[
+    {
+      title:"Choisir une cible très précise",
+      desc:"Définis exactement le type de client que tu veux aider.",
+      done:false
+    },
+    {
+      title:"Identifier un problème monétisable",
+      desc:"Le problème doit être suffisamment important pour justifier un paiement.",
+      done:false
+    },
+    {
+      title:"Construire une offre test",
+      desc:"Résultat proposé, périmètre, méthode et prix de validation.",
+      done:false
+    },
+    {
+      title:"Trouver 15 prospects réels",
+      desc:"Pas de personas fictifs : une liste de vraies personnes ou entreprises.",
+      done:false
+    },
+    {
+      title:"Contacter les 10 premiers prospects",
+      desc:"L'objectif est d'obtenir une réaction du marché.",
+      done:false
+    }
+  ];
+}
+
+/* =========================================================
+   APP
+   ========================================================= */
+
+function openAppPage(id,button){
+
+  document.querySelectorAll(".appPage")
+    .forEach(x=>x.style.display="none");
+
+  document.getElementById(id).style.display="block";
+
+  document.querySelectorAll(".appNav button")
+    .forEach(x=>x.classList.remove("active"));
+
+  if(button)button.classList.add("active");
+
+  renderApp();
+}
+
+function completion(){
+
+  if(!state.tasks.length)return 0;
+
+  return Math.round(
+    state.tasks.filter(x=>x.done).length /
+    state.tasks.length * 100
+  );
 }
 
 function toggleTask(i){
 
-state.tasks[i].done=!state.tasks[i].done;
-save();
-renderApp();
+  state.tasks[i].done=!state.tasks[i].done;
+
+  state.events.push({
+    title:state.tasks[i].done
+      ?"Action terminée"
+      :"Action réouverte",
+    text:state.tasks[i].title,
+    date:new Date().toLocaleDateString("fr-FR")
+  });
+
+  save();
+  renderApp();
 }
 
-function taskHTML(t,i){
-return`
-<div class="task">
-<div class="tick ${t.done?"done":""}" onclick="toggleTask(${i})">
-${t.done?"✓":""}
-</div>
-<div>
-<h3>${t.title}</h3>
-<p>${t.desc}</p>
-</div>
-<span class="${t.done?"status":"tag"}">
-${t.done?"Terminé":"À faire"}
-</span>
-</div>`;
+function renderTask(t,i){
+
+  return`
+    <div class="task">
+
+      <div class="checkbox ${t.done?"done":""}"
+           onclick="toggleTask(${i})">
+        ${t.done?"✓":""}
+      </div>
+
+      <div>
+        <h3>${t.title}</h3>
+        <p>${t.desc}</p>
+      </div>
+
+      <span class="taskStatus">
+        ${t.done?"Terminé":"À faire"}
+      </span>
+
+    </div>
+  `;
 }
-
-function completion(){
-if(!state.tasks.length)return 0;
-return Math.round(state.tasks.filter(x=>x.done).length/state.tasks.length*100);
-}
-
-/* ==============================
-   TRACKING
-================================ */
-
-function saveTracking(){
-
-let ids={
-revenue:"revenueInput",
-cost:"costInput",
-time:"timeInput",
-contacts:"contactsInput",
-responses:"responsesInput",
-sales:"salesInput"
-};
-
-Object.keys(ids).forEach(k=>{
-let value=parseFloat(document.getElementById(ids[k]).value);
-if(!isNaN(value))state.tracking[k]=value;
-});
-
-save();
-renderApp();
-openPage("tracking");
-}
-
-function trackingInterpretation(){
-
-let t=state.tracking;
-
-if(t.contacts===0 && t.sales===0 && t.revenue===0)
-return[
-"Pas encore de signal mesurable.",
-"Exécute les premières actions du plan avant de modifier la stratégie."
-];
-
-if(t.sales>0 || t.revenue>0)
-return[
-"Un premier signal économique existe.",
-"Ne change pas immédiatement de stratégie. Cherche maintenant à vérifier si ce résultat peut être reproduit."
-];
-
-if(t.contacts>=10 && t.responses===0)
-return[
-"Le canal ne produit pas encore de réponse.",
-"Le moteur devra vérifier la cible, le message ou le canal avant d’augmenter le volume."
-];
-
-if(t.responses>0)
-return[
-"Des personnes réagissent à la proposition.",
-"Analyse leurs objections et cherche maintenant à convertir ce signal en résultat économique."
-];
-
-return[
-"Le test est en cours.",
-"Continue jusqu’à obtenir un échantillon suffisant avant de tirer une conclusion."
-];
-}
-
-/* ==============================
-   PERIOD REVIEW
-================================ */
-
-function runReview(){
-
-let c=completion();
-let t=state.tracking;
-
-let decision;
-let title;
-let desc;
-
-if(c<50){
-
-decision="repeat";
-title="Répéter et simplifier";
-desc="Trop peu d’actions ont été exécutées. CashPilot conserve le cœur de la période au lieu de te faire avancer artificiellement.";
-
-}
-
-else if(c===100 && (t.sales>0 || t.revenue>0) && state.period===1){
-
-decision="accelerate";
-title="Accélérer";
-desc="La période est terminée et un signal économique existe. La prochaine étape va chercher à reproduire ce résultat.";
-
-}
-
-else if(t.contacts>=10 && t.responses===0){
-
-decision="correct";
-title="Corriger";
-desc="L’exécution est suffisante mais le signal est faible. La prochaine période doit corriger la cible, le message ou le canal.";
-
-}
-
-else if(t.responses>0 && t.sales===0){
-
-decision="improve";
-title="Améliorer la conversion";
-desc="Le marché réagit, mais la proposition ne convertit pas encore suffisamment. On conserve la stratégie et on travaille l’offre.";
-
-}
-
-else if(c>=75){
-
-decision="continue";
-title="Continuer";
-desc="L’exécution est correcte. CashPilot conserve la direction tout en augmentant progressivement le niveau de validation.";
-
-}
-
-else{
-
-decision="repeat";
-title="Consolider";
-desc="La période n’est pas suffisamment avancée pour justifier un changement de direction.";
-
-}
-
-state.pendingDecision=decision;
-
-document.getElementById("decisionTitle").textContent=title;
-document.getElementById("decisionDesc").textContent=desc;
-
-document.getElementById("nextPeriodBox").style.display="block";
-document.getElementById("nextPeriodTitle").textContent=
-"Prochaine période · "+title;
-
-document.getElementById("nextPeriodDesc").textContent=
-nextPeriodDescription(decision);
-
-save();
-}
-
-function nextPeriodDescription(d){
-
-const map={
-repeat:"Les actions non terminées restent prioritaires. Les objectifs sont réduits pour retrouver une exécution régulière.",
-accelerate:"Augmenter le volume du test et chercher à reproduire le premier résultat sans augmenter fortement les coûts.",
-correct:"Tester une nouvelle version de la cible ou du message sur un petit échantillon avant toute accélération.",
-improve:"Travailler la proposition, les objections et la conversion sans changer de marché trop rapidement.",
-continue:"Poursuivre la validation avec un échantillon plus important et mesurer la répétabilité."
-};
-
-return map[d];
-}
-
-function acceptNextPeriod(){
-
-let d=state.pendingDecision;
-
-state.history.push({
-period:state.period,
-title:"Bilan période "+state.period,
-text:
-"Décision : "+
-document.getElementById("decisionTitle").textContent+
-". Revenus "+state.tracking.revenue+
-" €, "+state.tracking.contacts+
-" contacts, "+state.tracking.sales+" vente(s).",
-date:new Date().toLocaleDateString("fr-FR")
-});
-
-state.period++;
-
-if(d==="repeat"){
-
-state.tasks=state.tasks.map(t=>({...t,done:false}));
-
-}
-
-else if(d==="accelerate"){
-
-state.tasks=[
-{
-title:"Reproduire le premier résultat",
-desc:"Cherche un deuxième client ou une deuxième vente avec la même proposition.",
-done:false
-},
-{
-title:"Contacter 20 prospects qualifiés",
-desc:"Augmente le volume sans modifier plusieurs variables à la fois.",
-done:false
-},
-{
-title:"Mesurer le taux de réponse",
-desc:"Compare contacts, réponses, conversations et ventes.",
-done:false
-},
-{
-title:"Identifier ce qui est reproductible",
-desc:"Sépare le hasard du processus réellement répétable.",
-done:false
-}
-];
-
-}
-
-else if(d==="correct"){
-
-state.tasks=[
-{
-title:"Analyser les 10 contacts précédents",
-desc:"Vérifie cible, canal et qualité des prospects.",
-done:false
-},
-{
-title:"Réécrire la proposition",
-desc:"Rends le résultat proposé plus clair et spécifique.",
-done:false
-},
-{
-title:"Tester sur 5 nouveaux prospects",
-desc:"Petit échantillon pour éviter de répéter une erreur à grande échelle.",
-done:false
-},
-{
-title:"Comparer les deux versions",
-desc:"Mesure laquelle produit davantage de réponses.",
-done:false
-}
-];
-
-}
-
-else if(d==="improve"){
-
-state.tasks=[
-{
-title:"Lister les objections reçues",
-desc:"Regroupe les raisons qui empêchent la conversion.",
-done:false
-},
-{
-title:"Améliorer l’offre",
-desc:"Corrige la proposition sans changer complètement de stratégie.",
-done:false
-},
-{
-title:"Recontacter les prospects intéressés",
-desc:"Teste la nouvelle version auprès des personnes ayant déjà réagi.",
-done:false
-},
-{
-title:"Chercher la première conversion",
-desc:"L’objectif est maintenant de transformer l’intérêt en résultat économique.",
-done:false
-}
-];
-
-}
-
-else{
-
-state.tasks=[
-{
-title:"Augmenter l’échantillon",
-desc:"Obtiens davantage de données sur le même marché.",
-done:false
-},
-{
-title:"Mesurer les résultats",
-desc:"Continue à suivre temps, réponses, ventes et revenus.",
-done:false
-},
-{
-title:"Identifier le meilleur canal",
-desc:"Concentre progressivement les efforts là où le signal est le plus fort.",
-done:false
-},
-{
-title:"Préparer le prochain bilan",
-desc:"La prochaine décision dépendra de la répétabilité du résultat.",
-done:false
-}
-];
-
-}
-
-state.tracking={
-revenue:0,cost:0,time:0,
-contacts:0,responses:0,sales:0
-};
-
-state.pendingDecision=null;
-
-save();
-renderApp();
-openPage("dashboard");
-}
-
-/* ==============================
-   CONNECTOR DEMO
-================================ */
-
-function toggleConnector(name,button){
-
-if(state.connectors.includes(name)){
-
-state.connectors=state.connectors.filter(x=>x!==name);
-button.textContent="Connecter";
-button.className="btn secondary sm";
-
-}else{
-
-state.connectors.push(name);
-button.textContent="Connecté";
-button.className="btn sm";
-
-}
-
-save();
-renderConnectorEvents();
-}
-
-function renderConnectorEvents(){
-
-let box=document.getElementById("connectorEvents");
-if(!box)return;
-
-if(!state.connectors.length){
-box.innerHTML="<p>Aucun connecteur actif.</p>";
-return;
-}
-
-box.innerHTML=state.connectors.map(c=>`
-
-<div class="connector">
-<div>
-<h3>${c}</h3>
-<p>${connectorText(c)}</p>
-</div>
-<span class="connector-state">SIMULÉ</span>
-</div>
-
-`).join("");
-}
-
-function connectorText(c){
-
-const map={
-Stripe:"0 nouvelle transaction détectée aujourd’hui.",
-Shopify:"0 nouvelle commande détectée aujourd’hui.",
-Calendrier:"2 h de travail projet détectées cette semaine.",
-CRM:"3 contacts commerciaux détectés cette semaine."
-};
-
-return map[c]||"Connecteur actif.";
-}
-
-/* ==============================
-   APP RENDER
-================================ */
-
-function openDemo(){
-
-if(!state.selectedStrategy){
-
-state.profile={
-goal:"1000",
-speed:"month",
-budget:"200",
-time:"12",
-digital:"high",
-sales:"good",
-creative:"mid",
-camera:"no",
-client:"async",
-model:"open",
-b2b:"b2b",
-risk:"mid",
-patience:"mid",
-location:"home"
-};
-
-state.ranking=strategies
-.map(s=>({...s,score:scoreStrategy(s)}))
-.sort((a,b)=>b.score-a.score);
-
-state.selectedStrategy=state.ranking[0].id;
-state.subscription="advanced";
-
-createInitialPlan();
-
-state.history.push({
-period:1,
-title:"Démo créée",
-text:"Profil de démonstration initialisé automatiquement.",
-date:new Date().toLocaleDateString("fr-FR")
-});
-
-save();
-}
-
-show("app");
-document.getElementById("mobileNav").style.display="";
-renderApp();
-openPage("dashboard");
-}
-
-function openPage(id){
-
-document.querySelectorAll(".appPage").forEach(x=>x.style.display="none");
-document.getElementById(id).style.display="block";
-
-document.querySelectorAll("[data-page]").forEach(x=>
-x.classList.toggle("on",x.dataset.page===id)
-);
-
-renderApp();
-window.scrollTo({top:0,behavior:"smooth"});
-}
-
-document.querySelectorAll("[data-page]").forEach(b=>{
-b.onclick=()=>openPage(b.dataset.page);
-});
 
 function renderApp(){
 
-let s=getCurrentStrategy();
-let score=getCurrentScore();
-let pct=completion();
-let read=trackingInterpretation();
+  const strategy=state.ranking.find(x=>x.id===state.chosen);
+  if(!strategy)return;
 
-document.getElementById("currentStrategy").textContent=s.name;
-document.getElementById("currentFit").textContent=
-score+"/100 de compatibilité avec ton profil.";
+  const pct=completion();
+  const next=state.tasks.find(x=>!x.done);
 
-document.getElementById("priorityTitle").textContent=
-state.tasks.find(x=>!x.done)?.title||"Période terminée";
+  document.getElementById("todayPriority").textContent=
+    next ? next.title : "Période prête pour le bilan";
 
-document.getElementById("priorityDesc").textContent=
-state.tasks.find(x=>!x.done)?.desc||
-"Passe au bilan pour construire la suite.";
+  document.getElementById("todayDescription").textContent=
+    next
+      ? next.desc
+      : "Toutes les actions sont terminées. Analyse maintenant les résultats obtenus.";
 
-document.getElementById("dashRevenue").textContent=
-state.tracking.revenue+" €";
+  document.getElementById("periodMetric").textContent=
+    state.period;
 
-document.getElementById("dashCost").textContent=
-state.tracking.cost+" €";
+  document.getElementById("todayProgressBar").style.width=
+    pct+"%";
 
-document.getElementById("dashProfit").textContent=
-(state.tracking.revenue-state.tracking.cost)+" €";
+  document.getElementById("todayProgressText").textContent=
+    `${state.tasks.filter(x=>x.done).length}/${state.tasks.length} actions terminées`;
 
-document.getElementById("dashTime").textContent=
-state.tracking.time+"h";
+  document.getElementById("todayTasks").innerHTML=
+    state.tasks.map(renderTask).join("");
 
-document.getElementById("progressMetric").textContent=pct+"%";
-document.getElementById("taskBar").style.width=pct+"%";
+  document.getElementById("planTasks").innerHTML=
+    state.tasks.map(renderTask).join("");
 
-document.getElementById("periodState").textContent=
-pct===100
-?"Toutes les actions sont terminées. Lance le bilan."
-:pct>=50
-?"La période avance. Continue avant de modifier la stratégie."
-:"Exécute d’abord les actions prioritaires.";
+  document.getElementById("planProgress").textContent=
+    pct+"%";
 
-document.getElementById("dashTasks").innerHTML=
-state.tasks.map(taskHTML).join("");
+  document.getElementById("planProgressBar").style.width=
+    pct+"%";
 
-document.getElementById("planTasks").innerHTML=
-state.tasks.map(taskHTML).join("");
+  document.getElementById("planHeading").textContent=
+    `Période ${state.period} · ${strategy.name}`;
 
-document.getElementById("planTitle").textContent=
-"Période "+state.period+" · "+s.name;
+  document.getElementById("appStrategy").textContent=
+    strategy.name;
 
-document.getElementById("periodNumber").textContent=
-state.period;
+  document.getElementById("appCompatibility").textContent=
+    strategy.score+"%";
 
-document.getElementById("planTier").textContent=
-state.subscription==="premium"
-?"Premium · mois"
-:state.subscription==="advanced"
-?"Avancé · 2 périodes"
-:"Essentiel · semaine";
+  renderResultsTracking();
+  renderReview();
+  renderTimeline();
+  renderAppProfile();
 
-document.getElementById("trackingReading").textContent=read[0];
-document.getElementById("trackingAdvice").textContent=read[1];
-
-document.getElementById("hourValue").textContent=
-state.tracking.time>0
-?((state.tracking.revenue-state.tracking.cost)/state.tracking.time).toFixed(1)+" €/h"
-:"—";
-
-document.getElementById("reviewSummary").innerHTML=`
-<div class="reason">
-<b>Exécution</b>
-<p>${pct}% des actions terminées.</p>
-</div>
-<div class="reason">
-<b>Acquisition</b>
-<p>${state.tracking.contacts} contacts · ${state.tracking.responses} réponses.</p>
-</div>
-<div class="reason">
-<b>Résultat économique</b>
-<p>${state.tracking.sales} vente(s) · ${state.tracking.revenue} € de revenus.</p>
-</div>
-`;
-
-renderHistory();
-renderProfileView();
-renderConnectorEvents();
-
-save();
+  save();
 }
 
-function renderHistory(){
+/* =========================================================
+   TRACKING
+   ========================================================= */
 
-let el=document.getElementById("historyTimeline");
-if(!el)return;
+function saveResults(){
 
-if(!state.history.length){
-el.innerHTML="<p>Aucune décision enregistrée.</p>";
-return;
+  state.results={
+    contacts:+document.getElementById("contacts").value || 0,
+    responses:+document.getElementById("responses").value || 0,
+    sales:+document.getElementById("sales").value || 0,
+    revenue:+document.getElementById("revenue").value || 0,
+    costs:+document.getElementById("costs").value || 0,
+    hours:+document.getElementById("hoursSpent").value || 0
+  };
+
+  state.events.push({
+    title:"Résultats mis à jour",
+    text:`${state.results.contacts} contacts · ${state.results.responses} réponses · ${state.results.sales} vente(s) · ${state.results.revenue} €.`,
+    date:new Date().toLocaleDateString("fr-FR")
+  });
+
+  save();
+  renderApp();
 }
 
-el.innerHTML=[...state.history].reverse().map(h=>`
-<div class="event">
-<h3>${h.title}</h3>
-<p>${h.text}</p>
-<p class="small">${h.date}</p>
-</div>
-`).join("");
+function renderResultsTracking(){
+
+  const r=state.results;
+
+  const fields={
+    contacts:r.contacts,
+    responses:r.responses,
+    sales:r.sales,
+    revenue:r.revenue,
+    costs:r.costs,
+    hoursSpent:r.hours
+  };
+
+  Object.keys(fields).forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.value=fields[id];
+  });
+
+  let title="Pas encore assez de données.";
+  let advice="Exécute le plan puis renseigne ce que tu obtiens.";
+
+  if(r.sales>0 || r.revenue>0){
+    title="Premier signal économique détecté.";
+    advice="Le prochain objectif est de vérifier si ce résultat peut être reproduit.";
+  }
+  else if(r.contacts>=10 && r.responses===0){
+    title="L'acquisition ne produit pas encore de signal.";
+    advice="Il faut probablement corriger la cible, le message ou le canal avant d'augmenter le volume.";
+  }
+  else if(r.responses>0 && r.sales===0){
+    title="Le marché réagit, mais ne convertit pas encore.";
+    advice="La stratégie n'est pas forcément mauvaise : l'offre ou la conversion doit être travaillée.";
+  }
+  else if(r.contacts>0){
+    title="Le test marché a commencé.";
+    advice="Continue jusqu'à obtenir un échantillon suffisamment significatif.";
+  }
+
+  document.getElementById("marketReading").textContent=title;
+  document.getElementById("marketAdvice").textContent=advice;
+
+  document.getElementById("profitMetric").textContent=
+    (r.revenue-r.costs)+" €";
 }
 
-function renderProfileView(){
+/* =========================================================
+   REVIEW / ADAPTATION
+   ========================================================= */
 
-let el=document.getElementById("profileData");
-if(!el)return;
+function renderReview(){
 
-let labels={
-goal:"Objectif",
-speed:"Vitesse recherchée",
-budget:"Budget",
-time:"Temps disponible",
-digital:"Niveau digital",
-sales:"Vente",
-creative:"Création",
-camera:"Caméra / visibilité",
-client:"Relation client",
-model:"Modèle préféré",
-b2b:"Marché",
-risk:"Risque",
-patience:"Patience",
-location:"Lieu de travail"
-};
+  const r=state.results;
+  const pct=completion();
 
-el.innerHTML=Object.keys(labels).map(k=>{
+  document.getElementById("reviewData").innerHTML=`
 
-let q=questions.find(x=>x.key===k);
-let option=q?.options.find(o=>o[0]===state.profile[k]);
+    <div class="reason">
+      <strong>Exécution</strong>
+      <p>${pct}% du plan réalisé.</p>
+    </div>
 
-return`
-<div class="reason">
-<b>${labels[k]}</b>
-<p>${option?option[1]:"—"}</p>
-</div>
-`;
+    <div class="reason">
+      <strong>Acquisition</strong>
+      <p>${r.contacts} contacts · ${r.responses} réponses.</p>
+    </div>
 
-}).join("");
+    <div class="reason">
+      <strong>Résultat commercial</strong>
+      <p>${r.sales} vente(s) · ${r.revenue} € de revenus.</p>
+    </div>
 
-document.getElementById("profileScore").innerHTML=
-getCurrentScore()+'<small>/100</small>';
+    <div class="reason">
+      <strong>Investissement</strong>
+      <p>${r.costs} € · ${r.hours} h de travail.</p>
+    </div>
+  `;
 }
 
-function resetDemo(){
+function analysePeriod(){
 
-if(confirm("Réinitialiser tout CashPilot V6 ?")){
+  const r=state.results;
+  const pct=completion();
 
-localStorage.removeItem(STORAGE);
-location.reload();
+  let decision;
+  let title;
+  let text;
 
+  if(pct<50){
+
+    decision="repeat";
+    title="RÉPÉTER";
+    text="Le problème principal est actuellement l'exécution. Changer de stratégie maintenant donnerait trop peu d'informations.";
+
+  }
+
+  else if((r.sales>0 || r.revenue>0) && pct>=80){
+
+    decision="accelerate";
+    title="ACCÉLÉRER";
+    text="Un signal économique existe et l'exécution est suffisante. La prochaine période doit tester la répétabilité.";
+
+  }
+
+  else if(r.contacts>=10 && r.responses===0){
+
+    decision="correct";
+    title="CORRIGER";
+    text="Tu as suffisamment exécuté pour constater un problème d'acquisition. On corrige avant d'augmenter le volume.";
+
+  }
+
+  else if(r.responses>=2 && r.sales===0){
+
+    decision="convert";
+    title="AMÉLIORER L'OFFRE";
+    text="Le marché répond mais ne convertit pas encore. La stratégie reste pertinente, mais la proposition doit évoluer.";
+
+  }
+
+  else if(pct>=80){
+
+    decision="continue";
+    title="CONTINUER";
+    text="L'exécution est bonne mais le signal reste insuffisant pour accélérer ou abandonner.";
+
+  }
+
+  else{
+
+    decision="repeat";
+    title="CONSOLIDER";
+    text="Il manque encore suffisamment d'exécution ou de données pour prendre une décision fiable.";
+  }
+
+  state.decision=decision;
+
+  document.getElementById("decision").textContent=title;
+  document.getElementById("decisionText").textContent=text;
+
+  document.getElementById("nextPeriod").style.display="block";
+  document.getElementById("nextPeriodTitle").textContent=
+    `CashPilot recommande : ${title}`;
+
+  document.getElementById("nextPeriodText").textContent=text;
+
+  state.events.push({
+    title:"Analyse de période",
+    text:`Décision : ${title}. ${text}`,
+    date:new Date().toLocaleDateString("fr-FR")
+  });
+
+  save();
 }
+
+function startNextPeriod(){
+
+  const d=state.decision;
+
+  state.period++;
+
+  if(d==="accelerate"){
+
+    state.tasks=[
+      {
+        title:"Reproduire le premier résultat",
+        desc:"Obtiens une deuxième vente ou un deuxième client avec une méthode similaire.",
+        done:false
+      },
+      {
+        title:"Augmenter le volume de test",
+        desc:"Double progressivement le nombre de prospects sans changer toutes les variables.",
+        done:false
+      },
+      {
+        title:"Mesurer le taux de réponse",
+        desc:"Compare contacts, réponses et conversions.",
+        done:false
+      },
+      {
+        title:"Identifier ce qui est reproductible",
+        desc:"Sépare le hasard du processus réellement répétable.",
+        done:false
+      }
+    ];
+
+  }
+
+  else if(d==="correct"){
+
+    state.tasks=[
+      {
+        title:"Analyser les prospects précédents",
+        desc:"Vérifie si la cible était réellement qualifiée.",
+        done:false
+      },
+      {
+        title:"Créer une nouvelle version du message",
+        desc:"Rends le problème et le résultat proposé plus spécifiques.",
+        done:false
+      },
+      {
+        title:"Tester sur 5 nouveaux prospects",
+        desc:"Petit échantillon avant toute augmentation du volume.",
+        done:false
+      },
+      {
+        title:"Comparer les taux de réponse",
+        desc:"Garde la version produisant le meilleur signal.",
+        done:false
+      }
+    ];
+
+  }
+
+  else if(d==="convert"){
+
+    state.tasks=[
+      {
+        title:"Lister les objections reçues",
+        desc:"Comprends précisément pourquoi les personnes intéressées n'achètent pas.",
+        done:false
+      },
+      {
+        title:"Modifier l'offre",
+        desc:"Travaille résultat, prix, preuve ou réduction du risque.",
+        done:false
+      },
+      {
+        title:"Recontacter les prospects intéressés",
+        desc:"Présente la nouvelle version.",
+        done:false
+      },
+      {
+        title:"Chercher la première conversion",
+        desc:"L'objectif est maintenant un vrai signal économique.",
+        done:false
+      }
+    ];
+
+  }
+
+  else if(d==="continue"){
+
+    state.tasks=[
+      {
+        title:"Augmenter légèrement l'échantillon",
+        desc:"Continue le test avec davantage de données.",
+        done:false
+      },
+      {
+        title:"Mesurer chaque réaction",
+        desc:"Note les réponses positives, négatives et objections.",
+        done:false
+      },
+      {
+        title:"Identifier le canal le plus efficace",
+        desc:"Concentre progressivement les efforts.",
+        done:false
+      },
+      {
+        title:"Chercher un signal économique",
+        desc:"La prochaine étape doit produire une validation plus forte.",
+        done:false
+      }
+    ];
+
+  }
+
+  else{
+
+    state.tasks=state.tasks.map(t=>({
+      ...t,
+      done:false
+    }));
+  }
+
+  state.results={
+    contacts:0,
+    responses:0,
+    sales:0,
+    revenue:0,
+    costs:0,
+    hours:0
+  };
+
+  state.events.push({
+    title:`Période ${state.period} créée`,
+    text:"Le plan a été adapté à partir de la période précédente.",
+    date:new Date().toLocaleDateString("fr-FR")
+  });
+
+  state.decision=null;
+
+  save();
+  renderApp();
+
+  const first=document.querySelector(".appNav button");
+  openAppPage("today",first);
 }
 
-/* ==============================
-   RESTORE SESSION
-================================ */
+/* =========================================================
+   HISTORY
+   ========================================================= */
 
-if(state.selectedStrategy){
-document.getElementById("demoStatus").textContent=
-"V6 · Session sauvegardée";
+function renderTimeline(){
+
+  const el=document.getElementById("timeline");
+  if(!el)return;
+
+  if(!state.events.length){
+    el.innerHTML="<p>Aucun événement.</p>";
+    return;
+  }
+
+  el.innerHTML=[...state.events].reverse().map(e=>`
+
+    <div class="timelineItem">
+      <h3>${e.title}</h3>
+      <p>${e.text}</p>
+      <p class="small">${e.date}</p>
+    </div>
+
+  `).join("");
+}
+
+/* =========================================================
+   PROFILE APP
+   ========================================================= */
+
+function renderAppProfile(){
+
+  const h=buildHuman();
+
+  const facts=[
+    ["Commercial",level(h.sales)],
+    ["Digital",level(h.digital)],
+    ["Technique",level(h.tech)],
+    ["Créatif",level(h.creative)],
+    ["Tolérance au rejet",level(h.rejection)],
+    ["Autonomie",level(h.autonomy)],
+    ["Réseau",level(h.network)],
+    ["Audience",level(h.audience)],
+    ["Potentiel local",level(h.geoLocal)],
+    ["Préférence remote",level(h.remote)]
+  ];
+
+  const el=document.getElementById("appProfile");
+
+  if(el){
+    el.innerHTML=facts.map(x=>`
+      <div class="profileFact">
+        <span>${x[0]}</span>
+        <strong>${x[1]}</strong>
+      </div>
+    `).join("");
+  }
+
+  const conf=document.getElementById("appConfidence");
+  if(conf)conf.textContent=state.confidence+"%";
+}
+
+/* =========================================================
+   TEST PROFILE
+   ========================================================= */
+
+function loadTestProfile(){
+
+  state.answers={
+    goal:"2000",
+    incomeUrgency:"soon",
+    weeklyHours:"18",
+    capital:"150",
+    lossTolerance:"100",
+    country:"france",
+    area:"city",
+    mobility:"none",
+    localPreference:"never",
+    computer:"good",
+    coldOutreach:"fine",
+    phoneSales:"warm",
+    negotiation:"good",
+    rejection:"analyse",
+    digitalComfort:"expert",
+    aiTools:"work",
+    website:"nocode",
+    automation:"done",
+    spreadsheets:"good",
+    video:"basic",
+    design:"basic",
+    writing:"good",
+    camera:"never",
+    soldBefore:"work",
+    freelance:"once",
+    businessPast:"tried",
+    network:"some",
+    audience:"none",
+    solo:"mixed",
+    structure:"good",
+    routine:"mixed",
+    learning:"yes",
+    uncertainty:"good",
+    clientContact:"async",
+    b2b:"business",
+    delivery:"service",
+    scaleAmbition:"small",
+    recurring:"high",
+    hardNo:["face","travel","stock"]
+  };
+
+  state.asked=Object.keys(state.answers);
+  state.answerHistory=[];
+  state.progress=100;
+  state.confidence=92;
+
+  calculateRanking(true);
+
+  save();
+  show("analysis");
+
+  document.getElementById("analysisStrategies").textContent=STRATEGIES.length;
+  document.getElementById("analysisCompleteness").textContent="100 %";
+  document.getElementById("analysisConfidence").textContent="92 %";
+
+  setTimeout(renderResults,900);
+}
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+function resetAll(){
+
+  if(confirm("Réinitialiser complètement la démo CashPilot V6 ?")){
+    localStorage.removeItem(STORE);
+    location.reload();
+  }
 }
 
 </script>

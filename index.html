@@ -1,1174 +1,13 @@
-<!doctype html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#080B14">
-<title>CashPilot — V6</title>
-
-<style>
-:root{
-  --bg:#080B14;
-  --bg2:#0D1220;
-  --card:#101625;
-  --card2:#151B2D;
-  --line:#242B42;
-  --text:#F7F8FC;
-  --muted:#929BB4;
-  --purple:#7C5CFF;
-  --purple2:#9C88FF;
-  --yellow:#FFD84D;
-  --orange:#FF8A3D;
-  --green:#5DDBA3;
-  --red:#FF7185;
-  --blue:#66A8FF;
-}
-
-*{box-sizing:border-box}
-html{background:var(--bg)}
-body{
-  margin:0;
-  min-height:100vh;
-  color:var(--text);
-  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  -webkit-font-smoothing:antialiased;
-  background:
-    radial-gradient(circle at 100% -5%,rgba(124,92,255,.17),transparent 28%),
-    radial-gradient(circle at -10% 70%,rgba(255,138,61,.07),transparent 22%),
-    var(--bg);
-}
-
-button,input,select{font:inherit}
-button{cursor:pointer}
-button:active{transform:scale(.985)}
-
-header{
-  height:64px;
-  padding:0 18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:rgba(8,11,20,.91);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.logo{
-  font-weight:950;
-  font-size:22px;
-  letter-spacing:-1.2px;
-}
-.logo span{color:var(--yellow)}
-
-.demoBadge{
-  font-size:9px;
-  color:#ADB5CD;
-  border:1px solid var(--line);
-  padding:7px 10px;
-  border-radius:999px;
-  background:#101523;
-}
-
-main{
-  max-width:1120px;
-  margin:auto;
-  padding:32px 16px 110px;
-}
-
-.screen{display:none}
-.screen.active{
-  display:block;
-  animation:fade .25s ease;
-}
-@keyframes fade{
-  from{opacity:0;transform:translateY(7px)}
-  to{opacity:1;transform:none}
-}
-
-.eyebrow{
-  font-size:9px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:#7F89A6;
-  font-weight:850;
-  margin-bottom:10px;
-}
-
-h1{
-  margin:0;
-  font-size:43px;
-  line-height:1.04;
-  letter-spacing:-2px;
-}
-
-h2{
-  margin:0;
-  font-size:21px;
-  letter-spacing:-.7px;
-}
-
-h3{
-  margin:0;
-  font-size:14px;
-}
-
-p{
-  margin:0;
-  color:var(--muted);
-  line-height:1.55;
-}
-
-.lead{
-  font-size:15px;
-  max-width:720px;
-  margin-top:14px;
-}
-
-.small{font-size:10px}
-.yellow{color:var(--yellow)}
-.green{color:var(--green)}
-.red{color:var(--red)}
-.purple{color:var(--purple2)}
-
-.btn{
-  border:0;
-  border-radius:12px;
-  padding:13px 17px;
-  font-weight:850;
-  background:linear-gradient(135deg,var(--yellow),var(--orange));
-  color:#111;
-}
-
-.btn.secondary{
-  background:#12182A;
-  color:#fff;
-  border:1px solid var(--line);
-}
-
-.btn.purple{
-  background:var(--purple);
-  color:#fff;
-}
-
-.btn.smallBtn{
-  padding:9px 11px;
-  font-size:10px;
-}
-
-.actions{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:22px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  gap:12px;
-  margin-top:24px;
-}
-
-.card{
-  background:linear-gradient(145deg,#111727,#0E1321);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:18px;
-}
-
-.c3{grid-column:span 3}
-.c4{grid-column:span 4}
-.c5{grid-column:span 5}
-.c6{grid-column:span 6}
-.c7{grid-column:span 7}
-.c8{grid-column:span 8}
-.c12{grid-column:span 12}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  padding:5px 8px;
-  border-radius:999px;
-  background:#29234D;
-  color:#C8BFFF;
-  font-size:8px;
-  font-weight:800;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-}
-
-.badge.green{
-  background:#153126;
-  color:#7BE7B8;
-}
-.badge.orange{
-  background:#3A261B;
-  color:#FFB17B;
-}
-.badge.red{
-  background:#361B24;
-  color:#FF9CAC;
-}
-
-.metric{
-  font-size:30px;
-  font-weight:950;
-  letter-spacing:-1.4px;
-}
-
-.metricLabel{
-  font-size:8px;
-  color:#7F89A7;
-  text-transform:uppercase;
-  letter-spacing:.11em;
-  font-weight:800;
-  margin-bottom:7px;
-}
-
-.bar{
-  height:7px;
-  border-radius:999px;
-  background:#171D30;
-  overflow:hidden;
-}
-
-.bar span{
-  height:100%;
-  display:block;
-  border-radius:inherit;
-  background:linear-gradient(90deg,var(--purple),var(--yellow),var(--orange));
-  transition:.35s ease;
-}
-
-/* LANDING */
-
-.hero{
-  padding:58px 0 20px;
-}
-
-.hero h1{
-  max-width:880px;
-  font-size:50px;
-}
-
-.heroGrid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-top:38px;
-}
-
-.heroBox{
-  background:#0D1220;
-  border:1px solid var(--line);
-  padding:17px;
-  border-radius:16px;
-}
-
-.heroBox strong{
-  display:block;
-  margin:7px 0;
-  font-size:13px;
-}
-
-.heroBox p{font-size:10px}
-
-/* DIAGNOSTIC */
-
-.diagnostic{
-  max-width:760px;
-  margin:0 auto;
-}
-
-.progressTop{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:9px;
-}
-
-.progressTop span{
-  font-size:10px;
-  color:#8993AF;
-}
-
-.progressLarge{
-  height:6px;
-  background:#171D30;
-  border-radius:999px;
-  overflow:hidden;
-  margin-bottom:37px;
-}
-
-.progressLarge span{
-  height:100%;
-  display:block;
-  width:0;
-  background:linear-gradient(90deg,var(--purple),var(--yellow),var(--orange));
-  transition:.45s cubic-bezier(.2,.8,.2,1);
-}
-
-.question{
-  min-height:430px;
-}
-
-.question h1{
-  font-size:35px;
-  max-width:700px;
-}
-
-.questionText{
-  margin-top:11px;
-  font-size:13px;
-  max-width:650px;
-}
-
-.options{
-  display:grid;
-  gap:9px;
-  margin-top:24px;
-}
-
-.option{
-  width:100%;
-  border:1px solid var(--line);
-  border-radius:15px;
-  background:#0F1524;
-  color:white;
-  padding:16px;
-  text-align:left;
-  transition:.16s ease;
-}
-
-.option:hover{
-  background:#161A35;
-  border-color:#6455B9;
-}
-
-.option strong{
-  display:block;
-  font-size:13px;
-}
-
-.option small{
-  display:block;
-  color:#8993AF;
-  margin-top:5px;
-  line-height:1.4;
-}
-
-.multiOption{
-  display:flex;
-  gap:11px;
-  align-items:flex-start;
-}
-
-.fakeCheck{
-  width:21px;
-  height:21px;
-  flex:0 0 21px;
-  border-radius:6px;
-  border:1px solid #4A536F;
-  display:grid;
-  place-items:center;
-}
-
-.option.selected{
-  border-color:var(--purple);
-  background:#181633;
-}
-
-.option.selected .fakeCheck{
-  background:var(--purple);
-  border-color:var(--purple);
-}
-
-.cityInput{
-  width:100%;
-  margin-top:24px;
-  background:#0E1423;
-  border:1px solid var(--line);
-  color:#fff;
-  padding:16px;
-  border-radius:14px;
-  outline:none;
-}
-
-.cityInput:focus{border-color:var(--purple)}
-
-.diagnosticFooter{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-top:18px;
-}
-
-.infoGain{
-  font-size:9px;
-  color:#707B99;
-}
-
-/* ANALYSIS */
-
-.analysisBox{
-  max-width:760px;
-  text-align:center;
-  margin:70px auto;
-}
-
-.spinner{
-  width:56px;
-  height:56px;
-  margin:27px auto;
-  border-radius:50%;
-  border:4px solid #20263A;
-  border-top-color:var(--yellow);
-  animation:spin .8s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-.analysisGrid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-top:24px;
-}
-
-.analysisItem{
-  padding:13px;
-  border-radius:12px;
-  background:#0E1422;
-  border:1px solid var(--line);
-  font-size:9px;
-  color:#808AA6;
-}
-
-.analysisItem strong{
-  display:block;
-  color:#fff;
-  margin-top:5px;
-  font-size:13px;
-}
-
-/* RESULTS */
-
-.resultHero{
-  padding:15px 0 10px;
-}
-
-.topResult{
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 100% 0,rgba(124,92,255,.22),transparent 32%),
-    linear-gradient(145deg,#15162D,#101522);
-}
-
-.topResult:after{
-  content:"";
-  position:absolute;
-  width:150px;
-  height:150px;
-  background:rgba(255,216,77,.08);
-  filter:blur(30px);
-  border-radius:50%;
-  right:-60px;
-  bottom:-80px;
-}
-
-.bigScore{
-  font-size:51px;
-  font-weight:950;
-  letter-spacing:-3px;
-  margin:11px 0 2px;
-}
-
-.bigScore small{
-  font-size:11px;
-  letter-spacing:0;
-  color:#8E97B2;
-}
-
-.subscores{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:8px;
-  margin-top:17px;
-}
-
-.subscore{
-  background:#0C1120;
-  border:1px solid #232940;
-  padding:10px;
-  border-radius:11px;
-}
-
-.subscore span{
-  display:block;
-  font-size:8px;
-  color:#7F89A6;
-  margin-bottom:5px;
-}
-
-.subscore strong{
-  font-size:14px;
-}
-
-.reason{
-  padding:11px 0;
-  border-top:1px solid #232940;
-}
-
-.reason:first-child{border-top:0}
-
-.reason strong{
-  display:block;
-  font-size:11px;
-  margin-bottom:4px;
-}
-
-.reason p{font-size:10px}
-
-.strategyRow{
-  display:grid;
-  grid-template-columns:45px 1fr auto;
-  gap:12px;
-  align-items:center;
-  padding:14px 0;
-  border-top:1px solid #22283D;
-}
-
-.strategyRow:first-child{border-top:0}
-
-.rank{
-  width:37px;
-  height:37px;
-  border-radius:11px;
-  background:#181D30;
-  display:grid;
-  place-items:center;
-  font-size:11px;
-  font-weight:900;
-}
-
-.strategyRow p{font-size:9px}
-
-.rowScore{
-  font-size:18px;
-  font-weight:950;
-}
-
-.eliminated{
-  opacity:.45;
-}
-
-/* DEBUG PROFILE */
-
-.profileFact{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  padding:11px 0;
-  border-top:1px solid #232940;
-}
-
-.profileFact:first-child{border-top:0}
-
-.profileFact span{
-  font-size:10px;
-  color:#8E97B2;
-}
-
-.profileFact strong{
-  font-size:10px;
-  text-align:right;
-}
-
-/* APP */
-
-.appNav{
-  display:flex;
-  gap:6px;
-  overflow:auto;
-  scrollbar-width:none;
-  margin-bottom:27px;
-}
-
-.appNav::-webkit-scrollbar{display:none}
-
-.appNav button{
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:9px 12px;
-  background:#0E1422;
-  color:#838DA9;
-  font-size:10px;
-  white-space:nowrap;
-}
-
-.appNav button.active{
-  background:#1A2035;
-  color:#fff;
-  border-color:#3A4364;
-}
-
-.task{
-  display:grid;
-  grid-template-columns:28px 1fr auto;
-  gap:10px;
-  padding:15px 0;
-  border-top:1px solid #22283D;
-  align-items:start;
-}
-
-.task:first-child{border-top:0}
-
-.checkbox{
-  width:24px;
-  height:24px;
-  border:1px solid #515A77;
-  border-radius:7px;
-  display:grid;
-  place-items:center;
-  cursor:pointer;
-}
-
-.checkbox.done{
-  background:var(--yellow);
-  border-color:var(--yellow);
-  color:#111;
-  font-weight:950;
-}
-
-.task p{font-size:10px}
-
-.taskStatus{
-  font-size:8px;
-  color:#929CB8;
-  background:#171D30;
-  border-radius:999px;
-  padding:5px 7px;
-}
-
-.today{
-  background:
-    radial-gradient(circle at 90% 0,rgba(255,216,77,.10),transparent 32%),
-    linear-gradient(145deg,#15182A,#101522);
-}
-
-.formGrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.field{margin-top:11px}
-
-.field label{
-  display:block;
-  color:#808AA7;
-  font-size:9px;
-  margin-bottom:6px;
-}
-
-.field input{
-  width:100%;
-  border:1px solid var(--line);
-  background:#0B101D;
-  color:white;
-  padding:12px;
-  border-radius:10px;
-  outline:none;
-}
-
-.timeline{
-  border-left:1px solid #343C59;
-  padding-left:19px;
-  margin-left:8px;
-}
-
-.timelineItem{
-  position:relative;
-  padding-bottom:20px;
-}
-
-.timelineItem:before{
-  content:"";
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:var(--yellow);
-  position:absolute;
-  left:-23.5px;
-  top:4px;
-}
-
-.timelineItem p{font-size:10px}
-
-@media(max-width:760px){
-  main{padding:24px 13px 90px}
-  header{height:60px;padding:0 13px}
-  h1{font-size:34px}
-  .hero{padding-top:35px}
-  .hero h1{font-size:38px}
-  .heroGrid{grid-template-columns:1fr}
-  .question h1{font-size:29px}
-  .question{min-height:470px}
-  .analysisGrid{grid-template-columns:1fr 1fr}
-  .c3,.c4,.c5,.c6,.c7,.c8{grid-column:span 12}
-  .subscores{grid-template-columns:1fr 1fr}
-  .formGrid{grid-template-columns:1fr}
-  .strategyRow{grid-template-columns:38px 1fr auto}
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <div class="logo">cash<span>pilot</span>.</div>
-  <div class="demoBadge">V6 · Diagnostic adaptatif</div>
-</header>
-
-<main>
-
-<!-- LANDING -->
-<section id="landing" class="screen active">
-  <div class="hero">
-    <div class="eyebrow">CashPilot V6</div>
-
-    <h1>
-      Le bon business ne dépend pas seulement
-      du marché. Il dépend de <span class="yellow">toi.</span>
-    </h1>
-
-    <p class="lead">
-      CashPilot analyse ton profil, tes compétences, ton environnement,
-      tes ressources et ta manière de travailler pour identifier les
-      modèles de business réellement compatibles avec toi.
-    </p>
-
-    <div class="actions">
-      <button class="btn" onclick="startDiagnostic()">
-        Construire mon profil →
-      </button>
-      <button class="btn secondary" onclick="loadTestProfile()">
-        Charger un profil test
-      </button>
-    </div>
-
-    <div class="heroGrid">
-      <div class="heroBox">
-        <div class="eyebrow">Humain</div>
-        <strong>Comprendre la personne</strong>
-        <p>
-          Compétences, comportement, argent, temps, environnement,
-          motivation, expérience et contraintes.
-        </p>
-      </div>
-
-      <div class="heroBox">
-        <div class="eyebrow">CashPilot</div>
-        <strong>Créer la correspondance</strong>
-        <p>
-          Élimination des incompatibilités puis comparaison
-          multidimensionnelle des stratégies.
-        </p>
-      </div>
-
-      <div class="heroBox">
-        <div class="eyebrow">Business</div>
-        <strong>Choisir une activité réaliste</strong>
-        <p>
-          Pas le business le plus tendance : celui présentant
-          la meilleure adéquation avec la personne.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DIAGNOSTIC -->
-<section id="diagnostic" class="screen">
-  <div class="diagnostic">
-
-    <div class="progressTop">
-      <span>Construction de ton profil</span>
-      <strong id="progressPercent">0 %</strong>
-    </div>
-
-    <div class="progressLarge">
-      <span id="progressBar"></span>
-    </div>
-
-    <div id="questionContainer" class="question"></div>
-
-    <div class="diagnosticFooter">
-      <button id="backButton"
-              class="btn secondary smallBtn"
-              onclick="goBack()">
-        ← Retour
-      </button>
-
-      <span class="infoGain" id="infoGain"></span>
-    </div>
-
-  </div>
-</section>
-
-<!-- ANALYSIS -->
-<section id="analysis" class="screen">
-  <div class="analysisBox">
-
-    <div class="eyebrow">Diagnostic terminé</div>
-    <h1>Recherche de la meilleure correspondance.</h1>
-
-    <div class="spinner"></div>
-
-    <p>
-      CashPilot compare ton profil aux contraintes,
-      exigences et avantages de chaque stratégie.
-    </p>
-
-    <div class="analysisGrid">
-      <div class="analysisItem">
-        Stratégies
-        <strong id="analysisStrategies">30</strong>
-      </div>
-
-      <div class="analysisItem">
-        Profil
-        <strong id="analysisCompleteness">—</strong>
-      </div>
-
-      <div class="analysisItem">
-        Confiance
-        <strong id="analysisConfidence">—</strong>
-      </div>
-
-      <div class="analysisItem">
-        Compétences
-        <strong>analysées</strong>
-      </div>
-
-      <div class="analysisItem">
-        Contraintes
-        <strong>vérifiées</strong>
-      </div>
-
-      <div class="analysisItem">
-        Géographie
-        <strong id="analysisGeo">intégrée</strong>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- RESULTS -->
-<section id="results" class="screen">
-
-  <div class="resultHero">
-    <div class="eyebrow">Diagnostic CashPilot</div>
-    <h1>Ton meilleur ajustement actuel.</h1>
-    <p class="lead">
-      La compatibilité mesure l'adéquation entre ton profil et le modèle.
-      Elle ne représente pas une garantie de revenus ou de réussite.
-    </p>
-  </div>
-
-  <div id="winner"></div>
-
-  <div class="grid">
-
-    <div class="card c7">
-      <div class="eyebrow">Top correspondances</div>
-      <h2>Les alternatives les plus proches</h2>
-      <div id="topRanking"></div>
-    </div>
-
-    <div class="card c5">
-      <div class="eyebrow">Diagnostic</div>
-      <h2>Ce que CashPilot a compris</h2>
-      <div id="profileSummary"></div>
-    </div>
-
-    <div class="card c12">
-      <div class="eyebrow">Stress-test du moteur</div>
-      <h2>Classement complet des 30 stratégies</h2>
-      <p class="small" style="margin-top:7px">
-        Cette vue est conservée dans la démo pour vérifier que le classement
-        change réellement entre plusieurs profils.
-      </p>
-      <div id="fullRanking" style="margin-top:15px"></div>
-    </div>
-
-  </div>
-
-  <div class="actions">
-    <button class="btn" onclick="activateProject()">
-      Choisir la stratégie n°1 →
-    </button>
-
-    <button class="btn secondary" onclick="startDiagnostic()">
-      Tester un autre profil
-    </button>
-  </div>
-
-</section>
-
-<!-- APP -->
-<section id="app" class="screen">
-
-  <div class="appNav">
-    <button class="active" onclick="openAppPage('today',this)">Aujourd'hui</button>
-    <button onclick="openAppPage('plan',this)">Plan</button>
-    <button onclick="openAppPage('tracking',this)">Résultats</button>
-    <button onclick="openAppPage('review',this)">Bilan</button>
-    <button onclick="openAppPage('history',this)">Historique</button>
-    <button onclick="openAppPage('profileApp',this)">Profil</button>
-  </div>
-
-  <!-- TODAY -->
-  <div id="today" class="appPage">
-
-    <div class="eyebrow">Aujourd'hui</div>
-    <h1>Une priorité claire.</h1>
-
-    <div class="grid">
-
-      <div class="card today c8">
-        <div class="metricLabel">Action prioritaire</div>
-        <h2 id="todayPriority">—</h2>
-        <p id="todayDescription" style="margin-top:7px">—</p>
-      </div>
-
-      <div class="card c4">
-        <div class="metricLabel">Période</div>
-        <div class="metric" id="periodMetric">1</div>
-        <div class="bar" style="margin-top:12px">
-          <span id="todayProgressBar"></span>
-        </div>
-        <p class="small" id="todayProgressText" style="margin-top:8px"></p>
-      </div>
-
-      <div class="card c8">
-        <h2>Actions</h2>
-        <div id="todayTasks"></div>
-      </div>
-
-      <div class="card c4">
-        <div class="metricLabel">Stratégie actuelle</div>
-        <h2 id="appStrategy">—</h2>
-
-        <div style="height:17px"></div>
-
-        <div class="metricLabel">Compatibilité initiale</div>
-        <div class="metric" id="appCompatibility">—</div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- PLAN -->
-  <div id="plan" class="appPage" style="display:none">
-
-    <div class="eyebrow">Plan adaptatif</div>
-    <h1 id="planHeading">Période 1.</h1>
-
-    <p class="lead">
-      La suite n'est pas pré-écrite. Elle dépend de ton exécution
-      et des résultats obtenus pendant cette période.
-    </p>
-
-    <div class="grid">
-      <div class="card c8">
-        <h2>Objectifs de validation</h2>
-        <div id="planTasks"></div>
-      </div>
-
-      <div class="card c4">
-        <div class="metricLabel">Progression</div>
-        <div class="metric" id="planProgress">0%</div>
-
-        <div class="bar" style="margin-top:11px">
-          <span id="planProgressBar"></span>
-        </div>
-
-        <p class="small" style="margin-top:11px">
-          Terminer les actions ne suffit pas forcément :
-          CashPilot analyse également les résultats.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- TRACKING -->
-  <div id="tracking" class="appPage" style="display:none">
-
-    <div class="eyebrow">Résultats réels</div>
-    <h1>Qu'est-ce que le marché te renvoie ?</h1>
-
-    <div class="grid">
-
-      <div class="card c7">
-        <h2>Enregistrer les résultats</h2>
-
-        <div class="formGrid">
-          <div class="field">
-            <label>Personnes / entreprises contactées</label>
-            <input id="contacts" type="number" min="0" value="0">
-          </div>
-
-          <div class="field">
-            <label>Réponses utiles</label>
-            <input id="responses" type="number" min="0" value="0">
-          </div>
-
-          <div class="field">
-            <label>Clients / ventes</label>
-            <input id="sales" type="number" min="0" value="0">
-          </div>
-
-          <div class="field">
-            <label>Revenus (€)</label>
-            <input id="revenue" type="number" min="0" value="0">
-          </div>
-
-          <div class="field">
-            <label>Dépenses (€)</label>
-            <input id="costs" type="number" min="0" value="0">
-          </div>
-
-          <div class="field">
-            <label>Temps investi (heures)</label>
-            <input id="hoursSpent" type="number" min="0" step=".5" value="0">
-          </div>
-        </div>
-
-        <div class="actions">
-          <button class="btn smallBtn" onclick="saveResults()">
-            Enregistrer
-          </button>
-        </div>
-      </div>
-
-      <div class="card c5">
-        <div class="metricLabel">Lecture CashPilot</div>
-        <h2 id="marketReading">Pas encore assez de données.</h2>
-        <p id="marketAdvice" style="margin-top:8px">
-          Exécute le plan puis renseigne ce que tu obtiens.
-        </p>
-
-        <div style="height:20px"></div>
-
-        <div class="metricLabel">Résultat net déclaré</div>
-        <div class="metric" id="profitMetric">0 €</div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- REVIEW -->
-  <div id="review" class="appPage" style="display:none">
-
-    <div class="eyebrow">Analyse de période</div>
-    <h1>Continuer, corriger ou changer ?</h1>
-
-    <div class="grid">
-
-      <div class="card c7">
-        <h2>Résumé</h2>
-        <div id="reviewData"></div>
-      </div>
-
-      <div class="card c5 today">
-        <div class="metricLabel">Décision</div>
-        <h2 id="decision">En attente</h2>
-        <p id="decisionText" style="margin-top:7px">
-          Lance l'analyse lorsque tu as suffisamment exécuté la période.
-        </p>
-
-        <div class="actions">
-          <button class="btn smallBtn" onclick="analysePeriod()">
-            Analyser maintenant
-          </button>
-        </div>
-      </div>
-
-      <div id="nextPeriod" class="card c12" style="display:none">
-        <div class="eyebrow">Prochaine étape</div>
-        <h2 id="nextPeriodTitle"></h2>
-        <p id="nextPeriodText" style="margin-top:7px"></p>
-
-        <div class="actions">
-          <button class="btn" onclick="startNextPeriod()">
-            Construire la période suivante →
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- HISTORY -->
-  <div id="history" class="appPage" style="display:none">
-    <div class="eyebrow">Mémoire du projet</div>
-    <h1>Chaque décision reste explicable.</h1>
-
-    <div class="grid">
-      <div class="card c12">
-        <div class="timeline" id="timeline"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROFILE APP -->
-  <div id="profileApp" class="appPage" style="display:none">
-    <div class="eyebrow">Profil vivant</div>
-    <h1>Ce que CashPilot sait de toi.</h1>
-
-    <div class="grid">
-      <div class="card c7">
-        <h2>Profil actuel</h2>
-        <div id="appProfile"></div>
-      </div>
-
-      <div class="card c5">
-        <div class="metricLabel">Confiance du diagnostic</div>
-        <div class="metric" id="appConfidence"></div>
-        <p class="small">
-          Ce niveau indique à quel point CashPilot possède
-          suffisamment d'informations pour comparer les stratégies.
-        </p>
-
-        <div class="actions">
-          <button class="btn secondary smallBtn" onclick="resetAll()">
-            Réinitialiser la démo
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</section>
-
-</main>
-
 <script>
 
 /* =========================================================
-   CASHPILOT V6
-   ADAPTIVE HUMAN ↔ BUSINESS MATCHING ENGINE
+   CASHPILOT V6.1
+   STABLE ADAPTIVE HUMAN ↔ BUSINESS MATCHING ENGINE
    ========================================================= */
 
 const STORE = "cashpilot-v6-deep";
 
-let state = JSON.parse(localStorage.getItem(STORE) || "null") || {
+const DEFAULT_STATE = {
   answers:{},
   answerHistory:[],
   asked:[],
@@ -1187,27 +26,80 @@ let state = JSON.parse(localStorage.getItem(STORE) || "null") || {
     hours:0
   },
   events:[],
-  decision:null
+  decision:null,
+  currentQuestion:null
 };
 
+function freshState(){
+  return JSON.parse(JSON.stringify(DEFAULT_STATE));
+}
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORE);
+
+    if(!raw) return freshState();
+
+    const parsed = JSON.parse(raw);
+
+    return {
+      ...freshState(),
+      ...parsed,
+      answers: parsed.answers || {},
+      answerHistory: Array.isArray(parsed.answerHistory)
+        ? parsed.answerHistory : [],
+      asked: Array.isArray(parsed.asked)
+        ? parsed.asked : [],
+      ranking: Array.isArray(parsed.ranking)
+        ? parsed.ranking : [],
+      tasks: Array.isArray(parsed.tasks)
+        ? parsed.tasks : [],
+      events: Array.isArray(parsed.events)
+        ? parsed.events : [],
+      results:{
+        ...DEFAULT_STATE.results,
+        ...(parsed.results || {})
+      }
+    };
+  }
+  catch(error){
+    console.warn("CashPilot : ancien état local invalide.",error);
+    localStorage.removeItem(STORE);
+    return freshState();
+  }
+}
+
+let state = loadState();
+
 function save(){
-  localStorage.setItem(STORE,JSON.stringify(state));
+  try{
+    localStorage.setItem(STORE,JSON.stringify(state));
+  }catch(error){
+    console.warn("CashPilot : sauvegarde locale impossible.",error);
+  }
 }
 
 function show(id){
-  document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  window.scrollTo({top:0,behavior:"smooth"});
+  document.querySelectorAll(".screen")
+    .forEach(x=>x.classList.remove("active"));
+
+  const target=document.getElementById(id);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 }
 
 /* =========================================================
    QUESTION BANK
-   weight = information value for progress
    ========================================================= */
 
 const QUESTIONS = [
-
-/* CORE */
 
 {
  id:"goal",
@@ -1287,8 +179,6 @@ const QUESTIONS = [
  ]
 },
 
-/* GEOGRAPHY */
-
 {
  id:"country",
  category:"Géographie",
@@ -1338,7 +228,7 @@ const QUESTIONS = [
  category:"Géographie",
  weight:5,
  priority:70,
- depends:a=>a.mobility && a.area,
+ depends:a=>a.mobility!==undefined && a.area!==undefined,
  title:"Si un business physique correspondait très bien à ton profil, serais-tu prêt à le faire ?",
  text:"CashPilot est digital-first, mais ne doit pas éliminer une excellente activité locale par principe.",
  options:[
@@ -1364,8 +254,6 @@ const QUESTIONS = [
  ]
 },
 
-/* EQUIPMENT */
-
 {
  id:"computer",
  category:"Ressources",
@@ -1380,8 +268,6 @@ const QUESTIONS = [
   ["power","Un ordinateur puissant","Création lourde, développement ou montage ne posent pas de problème."]
  ]
 },
-
-/* SALES */
 
 {
  id:"coldOutreach",
@@ -1442,8 +328,6 @@ const QUESTIONS = [
   ["push","Ça me motive à améliorer","Je supporte très bien le rejet."]
  ]
 },
-
-/* DIGITAL */
 
 {
  id:"digitalComfort",
@@ -1520,8 +404,6 @@ const QUESTIONS = [
  ]
 },
 
-/* CREATIVE */
-
 {
  id:"video",
  category:"Créatif",
@@ -1582,8 +464,6 @@ const QUESTIONS = [
  ]
 },
 
-/* EXPERIENCE */
-
 {
  id:"soldBefore",
  category:"Expérience",
@@ -1629,8 +509,6 @@ const QUESTIONS = [
  ]
 },
 
-/* NETWORK */
-
 {
  id:"network",
  category:"Ressources",
@@ -1660,8 +538,6 @@ const QUESTIONS = [
   ["large","Audience importante","La distribution est déjà un avantage."]
  ]
 },
-
-/* WORK STYLE */
 
 {
  id:"solo",
@@ -1736,8 +612,6 @@ const QUESTIONS = [
  ]
 },
 
-/* CLIENTS */
-
 {
  id:"clientContact",
  category:"Client",
@@ -1782,8 +656,6 @@ const QUESTIONS = [
  ]
 },
 
-/* SCALE */
-
 {
  id:"scaleAmbition",
  category:"Ambition",
@@ -1814,8 +686,6 @@ const QUESTIONS = [
  ]
 },
 
-/* ABSOLUTE NO */
-
 {
  id:"hardNo",
  category:"Contraintes",
@@ -1845,398 +715,162 @@ const QUESTIONS = [
 
 const STRATEGIES = [
 
-{
- id:"leadgen",
- name:"Génération de leads B2B",
- family:"Acquisition",
- desc:"Trouver et qualifier des prospects pour des entreprises.",
- req:{computer:2},
- ideal:{sales:5,digital:3,creative:1,tech:2,capital:1,speed:5,client:3,remote:5,patience:2,scale:4},
- hard:["cold"],
- tags:["B2B","Prospection","Remote"]
-},
+{id:"leadgen",name:"Génération de leads B2B",family:"Acquisition",desc:"Trouver et qualifier des prospects pour des entreprises.",req:{computer:2},ideal:{sales:5,digital:3,creative:1,tech:2,capital:1,speed:5,client:3,remote:5,patience:2,scale:4},hard:["cold"],tags:["B2B","Prospection","Remote"]},
 
-{
- id:"appointment",
- name:"Appointment setting B2B",
- family:"Vente",
- desc:"Obtenir des rendez-vous commerciaux qualifiés pour des entreprises.",
- req:{computer:2},
- ideal:{sales:5,digital:2,creative:1,tech:1,capital:1,speed:5,client:4,remote:5,patience:2,scale:3},
- hard:["cold"],
- tags:["Vente","B2B","Téléphone"]
-},
+{id:"appointment",name:"Appointment setting B2B",family:"Vente",desc:"Obtenir des rendez-vous commerciaux qualifiés pour des entreprises.",req:{computer:2},ideal:{sales:5,digital:2,creative:1,tech:1,capital:1,speed:5,client:4,remote:5,patience:2,scale:3},hard:["cold"],tags:["Vente","B2B","Téléphone"]},
 
-{
- id:"closing",
- name:"Closing commercial à distance",
- family:"Vente",
- desc:"Convertir des prospects déjà intéressés pour le compte d'entreprises.",
- req:{},
- ideal:{sales:5,digital:2,creative:1,tech:1,capital:1,speed:4,client:5,remote:5,patience:2,scale:3},
- hard:["calls"],
- tags:["Closing","Vente","Remote"]
-},
+{id:"closing",name:"Closing commercial à distance",family:"Vente",desc:"Convertir des prospects déjà intéressés pour le compte d'entreprises.",req:{},ideal:{sales:5,digital:2,creative:1,tech:1,capital:1,speed:4,client:5,remote:5,patience:2,scale:3},hard:["calls"],tags:["Closing","Vente","Remote"]},
 
-{
- id:"automation",
- name:"Automatisation pour TPE / PME",
- family:"Automatisation",
- desc:"Automatiser des tâches répétitives et workflows d'entreprises.",
- req:{computer:2},
- ideal:{sales:3,digital:5,creative:1,tech:5,capital:1,speed:3,client:3,remote:5,patience:3,scale:4},
- hard:[],
- tags:["Automatisation","B2B","Digital"]
-},
+{id:"automation",name:"Automatisation pour TPE / PME",family:"Automatisation",desc:"Automatiser des tâches répétitives et workflows d'entreprises.",req:{computer:2},ideal:{sales:3,digital:5,creative:1,tech:5,capital:1,speed:3,client:3,remote:5,patience:3,scale:4},hard:[],tags:["Automatisation","B2B","Digital"]},
 
-{
- id:"workflow",
- name:"Optimisation de workflows numériques",
- family:"Conseil digital",
- desc:"Auditer puis simplifier les processus et outils d'une entreprise.",
- req:{computer:2},
- ideal:{sales:3,digital:5,creative:1,tech:4,capital:1,speed:3,client:4,remote:5,patience:3,scale:4},
- hard:[],
- tags:["Productivité","B2B","Conseil"]
-},
+{id:"workflow",name:"Optimisation de workflows numériques",family:"Conseil digital",desc:"Auditer puis simplifier les processus et outils d'une entreprise.",req:{computer:2},ideal:{sales:3,digital:5,creative:1,tech:4,capital:1,speed:3,client:4,remote:5,patience:3,scale:4},hard:[],tags:["Productivité","B2B","Conseil"]},
 
-{
- id:"nocode",
- name:"Création de sites no-code",
- family:"Création digitale",
- desc:"Créer des sites professionnels pour indépendants et entreprises.",
- req:{computer:2},
- ideal:{sales:3,digital:4,creative:3,tech:4,capital:1,speed:4,client:3,remote:5,patience:2,scale:3},
- hard:[],
- tags:["Sites","No-code","B2B"]
-},
+{id:"nocode",name:"Création de sites no-code",family:"Création digitale",desc:"Créer des sites professionnels pour indépendants et entreprises.",req:{computer:2},ideal:{sales:3,digital:4,creative:3,tech:4,capital:1,speed:4,client:3,remote:5,patience:2,scale:3},hard:[],tags:["Sites","No-code","B2B"]},
 
-{
- id:"landing",
- name:"Landing pages & conversion",
- family:"Marketing",
- desc:"Créer des pages dédiées à la conversion d'une offre.",
- req:{computer:2},
- ideal:{sales:3,digital:4,creative:3,tech:3,capital:1,speed:4,client:3,remote:5,patience:2,scale:3},
- hard:[],
- tags:["Conversion","Web","Marketing"]
-},
+{id:"landing",name:"Landing pages & conversion",family:"Marketing",desc:"Créer des pages dédiées à la conversion d'une offre.",req:{computer:2},ideal:{sales:3,digital:4,creative:3,tech:3,capital:1,speed:4,client:3,remote:5,patience:2,scale:3},hard:[],tags:["Conversion","Web","Marketing"]},
 
-{
- id:"email",
- name:"Email marketing",
- family:"Marketing",
- desc:"Créer des campagnes et séquences email pour des entreprises.",
- req:{computer:2},
- ideal:{sales:3,digital:4,creative:3,tech:3,capital:1,speed:3,client:3,remote:5,patience:3,scale:4},
- hard:[],
- tags:["Email","B2B","Récurrence"]
-},
+{id:"email",name:"Email marketing",family:"Marketing",desc:"Créer des campagnes et séquences email pour des entreprises.",req:{computer:2},ideal:{sales:3,digital:4,creative:3,tech:3,capital:1,speed:3,client:3,remote:5,patience:3,scale:4},hard:[],tags:["Email","B2B","Récurrence"]},
 
-{
- id:"crm",
- name:"Mise en place CRM pour PME",
- family:"Opérations",
- desc:"Structurer prospects, clients et relances dans un CRM.",
- req:{computer:2},
- ideal:{sales:3,digital:5,creative:1,tech:4,capital:1,speed:3,client:3,remote:5,patience:3,scale:4},
- hard:[],
- tags:["CRM","Organisation","B2B"]
-},
+{id:"crm",name:"Mise en place CRM pour PME",family:"Opérations",desc:"Structurer prospects, clients et relances dans un CRM.",req:{computer:2},ideal:{sales:3,digital:5,creative:1,tech:4,capital:1,speed:3,client:3,remote:5,patience:3,scale:4},hard:[],tags:["CRM","Organisation","B2B"]},
 
-{
- id:"video",
- name:"Montage vidéo short-form",
- family:"Création",
- desc:"Monter des formats courts pour entreprises et créateurs.",
- req:{computer:2},
- ideal:{sales:2,digital:4,creative:5,tech:3,capital:1,speed:4,client:2,remote:5,patience:2,scale:3},
- hard:[],
- tags:["Vidéo","Création","Remote"]
-},
+{id:"video",name:"Montage vidéo short-form",family:"Création",desc:"Monter des formats courts pour entreprises et créateurs.",req:{computer:2},ideal:{sales:2,digital:4,creative:5,tech:3,capital:1,speed:4,client:2,remote:5,patience:2,scale:3},hard:[],tags:["Vidéo","Création","Remote"]},
 
-{
- id:"ugc",
- name:"UGC pour marques",
- family:"Création",
- desc:"Créer des vidéos destinées aux publicités et réseaux des marques.",
- req:{},
- ideal:{sales:2,digital:3,creative:5,tech:2,capital:1,speed:4,client:2,remote:4,patience:2,scale:2},
- hard:["face"],
- tags:["UGC","Vidéo","Marques"]
-},
+{id:"ugc",name:"UGC pour marques",family:"Création",desc:"Créer des vidéos destinées aux publicités et réseaux des marques.",req:{},ideal:{sales:2,digital:3,creative:5,tech:2,capital:1,speed:4,client:2,remote:4,patience:2,scale:2},hard:["face"],tags:["UGC","Vidéo","Marques"]},
 
-{
- id:"ghostwriting",
- name:"Ghostwriting B2B",
- family:"Contenu",
- desc:"Écrire les publications de dirigeants ou professionnels.",
- req:{computer:2},
- ideal:{sales:2,digital:3,creative:5,tech:1,capital:1,speed:4,client:3,remote:5,patience:2,scale:3},
- hard:[],
- tags:["Écriture","LinkedIn","B2B"]
-},
+{id:"ghostwriting",name:"Ghostwriting B2B",family:"Contenu",desc:"Écrire les publications de dirigeants ou professionnels.",req:{computer:2},ideal:{sales:2,digital:3,creative:5,tech:1,capital:1,speed:4,client:3,remote:5,patience:2,scale:3},hard:[],tags:["Écriture","LinkedIn","B2B"]},
 
-{
- id:"social",
- name:"Social media management spécialisé",
- family:"Marketing",
- desc:"Gérer les réseaux sociaux d'entreprises dans une niche.",
- req:{computer:2},
- ideal:{sales:3,digital:4,creative:5,tech:2,capital:1,speed:4,client:4,remote:5,patience:2,scale:3},
- hard:["content"],
- tags:["Social","Contenu","Récurrence"]
-},
+{id:"social",name:"Social media management spécialisé",family:"Marketing",desc:"Gérer les réseaux sociaux d'entreprises dans une niche.",req:{computer:2},ideal:{sales:3,digital:4,creative:5,tech:2,capital:1,speed:4,client:4,remote:5,patience:2,scale:3},hard:["content"],tags:["Social","Contenu","Récurrence"]},
 
-{
- id:"seo_local",
- name:"SEO local pour TPE",
- family:"Acquisition",
- desc:"Améliorer la visibilité locale d'entreprises sur les moteurs de recherche.",
- req:{computer:2},
- ideal:{sales:3,digital:4,creative:2,tech:3,capital:1,speed:3,client:3,remote:5,patience:3,scale:4},
- hard:[],
- tags:["SEO","Local","B2B"]
-},
+{id:"seo_local",name:"SEO local pour TPE",family:"Acquisition",desc:"Améliorer la visibilité locale d'entreprises sur les moteurs de recherche.",req:{computer:2},ideal:{sales:3,digital:4,creative:2,tech:3,capital:1,speed:3,client:3,remote:5,patience:3,scale:4},hard:[],tags:["SEO","Local","B2B"]},
 
-{
- id:"ads",
- name:"Gestion d'acquisition publicitaire",
- family:"Acquisition",
- desc:"Piloter des campagnes publicitaires pour entreprises.",
- req:{computer:2},
- ideal:{sales:3,digital:5,creative:3,tech:4,capital:2,speed:3,client:4,remote:5,patience:3,scale:4},
- hard:[],
- tags:["Ads","Acquisition","Data"]
-},
+{id:"ads",name:"Gestion d'acquisition publicitaire",family:"Acquisition",desc:"Piloter des campagnes publicitaires pour entreprises.",req:{computer:2},ideal:{sales:3,digital:5,creative:3,tech:4,capital:2,speed:3,client:4,remote:5,patience:3,scale:4},hard:[],tags:["Ads","Acquisition","Data"]},
 
-{
- id:"specialist",
- name:"Freelance spécialisé",
- family:"Service",
- desc:"Monétiser une compétence forte auprès d'une cible précise.",
- req:{computer:1},
- ideal:{sales:3,digital:3,creative:3,tech:3,capital:1,speed:5,client:3,remote:5,patience:2,scale:2},
- hard:[],
- tags:["Freelance","Expertise","Service"]
-},
+{id:"specialist",name:"Freelance spécialisé",family:"Service",desc:"Monétiser une compétence forte auprès d'une cible précise.",req:{computer:1},ideal:{sales:3,digital:3,creative:3,tech:3,capital:1,speed:5,client:3,remote:5,patience:2,scale:2},hard:[],tags:["Freelance","Expertise","Service"]},
 
-{
- id:"microagency",
- name:"Micro-agence spécialisée",
- family:"Agence",
- desc:"Standardiser une prestation puis déléguer progressivement.",
- req:{computer:2},
- ideal:{sales:5,digital:4,creative:3,tech:3,capital:2,speed:3,client:5,remote:5,patience:4,scale:5},
- hard:[],
- tags:["Agence","B2B","Scalable"]
-},
+{id:"microagency",name:"Micro-agence spécialisée",family:"Agence",desc:"Standardiser une prestation puis déléguer progressivement.",req:{computer:2},ideal:{sales:5,digital:4,creative:3,tech:3,capital:2,speed:3,client:5,remote:5,patience:4,scale:5},hard:[],tags:["Agence","B2B","Scalable"]},
 
-{
- id:"digitalproduct",
- name:"Produit digital spécialisé",
- family:"Produit",
- desc:"Créer une ressource numérique répondant à un problème précis.",
- req:{computer:2},
- ideal:{sales:2,digital:4,creative:4,tech:2,capital:1,speed:2,client:1,remote:5,patience:5,scale:5},
- hard:[],
- tags:["Produit","Digital","Scalable"]
-},
+{id:"digitalproduct",name:"Produit digital spécialisé",family:"Produit",desc:"Créer une ressource numérique répondant à un problème précis.",req:{computer:2},ideal:{sales:2,digital:4,creative:4,tech:2,capital:1,speed:2,client:1,remote:5,patience:5,scale:5},hard:[],tags:["Produit","Digital","Scalable"]},
 
-{
- id:"course",
- name:"Formation numérique spécialisée",
- family:"Éducation",
- desc:"Transformer une expertise réelle en programme pédagogique.",
- req:{computer:2},
- ideal:{sales:3,digital:3,creative:4,tech:2,capital:1,speed:2,client:3,remote:5,patience:4,scale:5},
- hard:[],
- tags:["Formation","Expertise","Digital"]
-},
+{id:"course",name:"Formation numérique spécialisée",family:"Éducation",desc:"Transformer une expertise réelle en programme pédagogique.",req:{computer:2},ideal:{sales:3,digital:3,creative:4,tech:2,capital:1,speed:2,client:3,remote:5,patience:4,scale:5},hard:[],tags:["Formation","Expertise","Digital"]},
 
-{
- id:"newsletter",
- name:"Newsletter de niche",
- family:"Audience",
- desc:"Construire une audience spécialisée puis la monétiser.",
- req:{computer:2},
- ideal:{sales:1,digital:3,creative:5,tech:1,capital:1,speed:1,client:1,remote:5,patience:5,scale:5},
- hard:["content"],
- tags:["Audience","Écriture","Long terme"]
-},
+{id:"newsletter",name:"Newsletter de niche",family:"Audience",desc:"Construire une audience spécialisée puis la monétiser.",req:{computer:2},ideal:{sales:1,digital:3,creative:5,tech:1,capital:1,speed:1,client:1,remote:5,patience:5,scale:5},hard:["content"],tags:["Audience","Écriture","Long terme"]},
 
-{
- id:"affiliate",
- name:"Affiliation spécialisée",
- family:"Audience",
- desc:"Créer du contenu utile puis monétiser des recommandations pertinentes.",
- req:{computer:2},
- ideal:{sales:1,digital:4,creative:4,tech:2,capital:1,speed:1,client:1,remote:5,patience:5,scale:5},
- hard:["content"],
- tags:["Affiliation","Contenu","Audience"]
-},
+{id:"affiliate",name:"Affiliation spécialisée",family:"Audience",desc:"Créer du contenu utile puis monétiser des recommandations pertinentes.",req:{computer:2},ideal:{sales:1,digital:4,creative:4,tech:2,capital:1,speed:1,client:1,remote:5,patience:5,scale:5},hard:["content"],tags:["Affiliation","Contenu","Audience"]},
 
-{
- id:"community",
- name:"Communauté payante de niche",
- family:"Communauté",
- desc:"Créer un espace à forte valeur pour une communauté spécifique.",
- req:{computer:2},
- ideal:{sales:3,digital:3,creative:4,tech:1,capital:1,speed:2,client:5,remote:5,patience:4,scale:4},
- hard:[],
- tags:["Communauté","Récurrence","Audience"]
-},
+{id:"community",name:"Communauté payante de niche",family:"Communauté",desc:"Créer un espace à forte valeur pour une communauté spécifique.",req:{computer:2},ideal:{sales:3,digital:3,creative:4,tech:1,capital:1,speed:2,client:5,remote:5,patience:4,scale:4},hard:[],tags:["Communauté","Récurrence","Audience"]},
 
-{
- id:"microsaas",
- name:"Micro-SaaS",
- family:"Logiciel",
- desc:"Construire un petit logiciel résolvant un problème très précis.",
- req:{computer:2},
- ideal:{sales:2,digital:5,creative:2,tech:5,capital:2,speed:1,client:2,remote:5,patience:5,scale:5},
- hard:[],
- tags:["SaaS","Logiciel","Scalable"]
-},
+{id:"microsaas",name:"Micro-SaaS",family:"Logiciel",desc:"Construire un petit logiciel résolvant un problème très précis.",req:{computer:2},ideal:{sales:2,digital:5,creative:2,tech:5,capital:2,speed:1,client:2,remote:5,patience:5,scale:5},hard:[],tags:["SaaS","Logiciel","Scalable"]},
 
-{
- id:"nocodeapp",
- name:"Outil no-code spécialisé",
- family:"Logiciel",
- desc:"Créer un outil simple sans développement lourd.",
- req:{computer:2},
- ideal:{sales:2,digital:5,creative:2,tech:4,capital:2,speed:2,client:2,remote:5,patience:4,scale:5},
- hard:[],
- tags:["No-code","Produit","Digital"]
-},
+{id:"nocodeapp",name:"Outil no-code spécialisé",family:"Logiciel",desc:"Créer un outil simple sans développement lourd.",req:{computer:2},ideal:{sales:2,digital:5,creative:2,tech:4,capital:2,speed:2,client:2,remote:5,patience:4,scale:5},hard:[],tags:["No-code","Produit","Digital"]},
 
-{
- id:"ecommerce",
- name:"E-commerce de niche",
- family:"Commerce",
- desc:"Vendre une offre physique différenciée sur un marché ciblé.",
- req:{},
- ideal:{sales:3,digital:4,creative:4,tech:2,capital:4,speed:2,client:2,remote:4,patience:4,scale:5},
- hard:["stock","money"],
- tags:["E-commerce","Produit","Capital"]
-},
+{id:"ecommerce",name:"E-commerce de niche",family:"Commerce",desc:"Vendre une offre physique différenciée sur un marché ciblé.",req:{},ideal:{sales:3,digital:4,creative:4,tech:2,capital:4,speed:2,client:2,remote:4,patience:4,scale:5},hard:["stock","money"],tags:["E-commerce","Produit","Capital"]},
 
-{
- id:"resale",
- name:"Revente spécialisée",
- family:"Commerce",
- desc:"Acheter, valoriser puis revendre des produits dans une niche maîtrisée.",
- req:{},
- ideal:{sales:4,digital:2,creative:1,tech:1,capital:3,speed:4,client:3,remote:2,patience:2,scale:3},
- hard:["stock"],
- tags:["Revente","Commerce","Niche"]
-},
+{id:"resale",name:"Revente spécialisée",family:"Commerce",desc:"Acheter, valoriser puis revendre des produits dans une niche maîtrisée.",req:{},ideal:{sales:4,digital:2,creative:1,tech:1,capital:3,speed:4,client:3,remote:2,patience:2,scale:3},hard:["stock"],tags:["Revente","Commerce","Niche"]},
 
-{
- id:"local_b2c",
- name:"Service local B2C",
- family:"Local",
- desc:"Résoudre un besoin concret de particuliers dans une zone géographique proche.",
- req:{},
- ideal:{sales:3,digital:1,creative:1,tech:1,capital:1,speed:5,client:5,remote:1,patience:1,scale:2},
- hard:["travel"],
- tags:["Local","Service","Rapide"]
-},
+{id:"local_b2c",name:"Service local B2C",family:"Local",desc:"Résoudre un besoin concret de particuliers dans une zone géographique proche.",req:{},ideal:{sales:3,digital:1,creative:1,tech:1,capital:1,speed:5,client:5,remote:1,patience:1,scale:2},hard:["travel"],tags:["Local","Service","Rapide"]},
 
-{
- id:"local_b2b",
- name:"Service local B2B",
- family:"Local",
- desc:"Fournir une prestation récurrente à des entreprises locales.",
- req:{},
- ideal:{sales:4,digital:2,creative:1,tech:1,capital:2,speed:5,client:5,remote:1,patience:2,scale:3},
- hard:["travel"],
- tags:["Local","B2B","Récurrence"]
-},
+{id:"local_b2b",name:"Service local B2B",family:"Local",desc:"Fournir une prestation récurrente à des entreprises locales.",req:{},ideal:{sales:4,digital:2,creative:1,tech:1,capital:2,speed:5,client:5,remote:1,patience:2,scale:3},hard:["travel"],tags:["Local","B2B","Récurrence"]},
 
-{
- id:"broker",
- name:"Apport d'affaires",
- family:"Intermédiation",
- desc:"Mettre en relation clients et prestataires contre rémunération.",
- req:{},
- ideal:{sales:5,digital:2,creative:1,tech:1,capital:1,speed:4,client:5,remote:4,patience:2,scale:4},
- hard:["cold"],
- tags:["Réseau","Vente","Commission"]
-},
+{id:"broker",name:"Apport d'affaires",family:"Intermédiation",desc:"Mettre en relation clients et prestataires contre rémunération.",req:{},ideal:{sales:5,digital:2,creative:1,tech:1,capital:1,speed:4,client:5,remote:4,patience:2,scale:4},hard:["cold"],tags:["Réseau","Vente","Commission"]},
 
-{
- id:"consulting",
- name:"Conseil spécialisé",
- family:"Expertise",
- desc:"Vendre une expertise ou une capacité d'analyse à forte valeur.",
- req:{},
- ideal:{sales:4,digital:3,creative:2,tech:3,capital:1,speed:4,client:5,remote:5,patience:2,scale:3},
- hard:[],
- tags:["Conseil","Expertise","B2B"]
-}
+{id:"consulting",name:"Conseil spécialisé",family:"Expertise",desc:"Vendre une expertise ou une capacité d'analyse à forte valeur.",req:{},ideal:{sales:4,digital:3,creative:2,tech:3,capital:1,speed:4,client:5,remote:5,patience:2,scale:3},hard:[],tags:["Conseil","Expertise","B2B"]}
 
 ];
 
 /* =========================================================
-   VALUE MAPPING
+   SAFE VALUE MAPPING
+   IMPORTANT:
+   unanswered questions are no longer treated as "average".
    ========================================================= */
 
-function num(v,map,def=3){
-  return map[v] ?? def;
+function mapped(value,map){
+  if(value===undefined || value===null) return null;
+  return Object.prototype.hasOwnProperty.call(map,value)
+    ? map[value]
+    : null;
+}
+
+function averageKnown(arr){
+  const valid=arr.filter(Number.isFinite);
+  if(!valid.length) return null;
+  return valid.reduce((a,b)=>a+b,0)/valid.length;
+}
+
+function fallback(value,def=3){
+  return Number.isFinite(value) ? value : def;
+}
+
+function localPotential(a){
+
+  if(a.area===undefined) return null;
+
+  let score={
+    metro:5,
+    city:4,
+    small:3,
+    rural:2
+  }[a.area] ?? 3;
+
+  if(a.mobility!==undefined){
+    if(a.mobility==="none") score-=2;
+    if(a.mobility==="car") score+=1;
+    if(a.mobility==="wide") score+=1;
+  }
+
+  return Math.max(1,Math.min(5,score));
 }
 
 function buildHuman(){
 
   const a=state.answers;
-
-  const hardNo=Array.isArray(a.hardNo)?a.hardNo:[];
+  const hardNo=Array.isArray(a.hardNo) ? a.hardNo : [];
 
   return{
 
-    capital:num(a.capital,{
+    capital:mapped(a.capital,{
       "0":1,"150":2,"400":3,"1000":4,"3000":5
     }),
 
-    time:num(a.weeklyHours,{
+    time:mapped(a.weeklyHours,{
       "2":1,"5":2,"10":3,"18":4,"30":5
     }),
 
-    speed:num(a.incomeUrgency,{
+    speed:mapped(a.incomeUrgency,{
       urgent:5,soon:4,patient:2,long:1
     }),
 
-    sales:average([
-      num(a.coldOutreach,{refuse:1,hard:2,fine:4,love:5}),
-      num(a.phoneSales,{never:1,warm:2,yes:4,strong:5}),
-      num(a.negotiation,{bad:1,learning:2,good:4,strong:5}),
-      num(a.soldBefore,{never:1,personal:2,work:4,business:5})
+    sales:averageKnown([
+      mapped(a.coldOutreach,{refuse:1,hard:2,fine:4,love:5}),
+      mapped(a.phoneSales,{never:1,warm:2,yes:4,strong:5}),
+      mapped(a.negotiation,{bad:1,learning:2,good:4,strong:5}),
+      mapped(a.soldBefore,{never:1,personal:2,work:4,business:5})
     ]),
 
-    digital:average([
-      num(a.digitalComfort,{lost:1,basic:2,fast:4,expert:5}),
-      num(a.aiTools,{none:1,chat:2,work:4,advanced:5})
+    digital:averageKnown([
+      mapped(a.digitalComfort,{lost:1,basic:2,fast:4,expert:5}),
+      mapped(a.aiTools,{none:1,chat:2,work:4,advanced:5})
     ]),
 
-    tech:average([
-      num(a.website,{never:1,tutorial:2,nocode:4,code:5}),
-      num(a.automation,{never:1,understand:2,done:4,advanced:5}),
-      num(a.spreadsheets,{low:1,mid:2,good:4,advanced:5})
+    tech:averageKnown([
+      mapped(a.website,{never:1,tutorial:2,nocode:4,code:5}),
+      mapped(a.automation,{never:1,understand:2,done:4,advanced:5}),
+      mapped(a.spreadsheets,{low:1,mid:2,good:4,advanced:5})
     ]),
 
-    creative:average([
-      num(a.video,{none:1,basic:2,good:4,paid:5}),
-      num(a.design,{none:1,basic:2,good:4,paid:5}),
-      num(a.writing,{weak:1,normal:2,good:4,strong:5})
+    creative:averageKnown([
+      mapped(a.video,{none:1,basic:2,good:4,paid:5}),
+      mapped(a.design,{none:1,basic:2,good:4,paid:5}),
+      mapped(a.writing,{weak:1,normal:2,good:4,strong:5})
     ]),
 
-    client:num(a.clientContact,{
+    client:mapped(a.clientContact,{
       minimum:1,async:2,normal:4,high:5
     }),
 
-    patience:average([
-      num(a.incomeUrgency,{urgent:1,soon:2,patient:4,long:5}),
-      num(a.uncertainty,{bad:1,medium:2,good:4,high:5}),
-      num(a.learning,{no:1,little:2,yes:4,love:5})
+    patience:averageKnown([
+      mapped(a.incomeUrgency,{urgent:1,soon:2,patient:4,long:5}),
+      mapped(a.uncertainty,{bad:1,medium:2,good:4,high:5}),
+      mapped(a.learning,{no:1,little:2,yes:4,love:5})
     ]),
 
     remote:
@@ -2244,518 +878,94 @@ function buildHuman(){
       a.localPreference==="maybe" ? 4 :
       a.localPreference==="yes" ? 3 :
       a.localPreference==="prefer" ? 1 :
-      a.mobility==="none" ? 5 : 3,
+      a.mobility==="none" ? 5 :
+      a.mobility!==undefined ? 3 :
+      null,
 
-    scale:
-      num(a.scaleAmbition,{
-        solo:2,small:3,company:5,asset:5
-      }),
+    scale:mapped(a.scaleAmbition,{
+      solo:2,small:3,company:5,asset:5
+    }),
 
-    computer:
-      num(a.computer,{
-        phone:1,basic:2,good:4,power:5
-      }),
+    computer:mapped(a.computer,{
+      phone:1,basic:2,good:4,power:5
+    }),
 
-    rejection:
-      num(a.rejection,{
-        stop:1,question:2,analyse:4,push:5
-      }),
+    rejection:mapped(a.rejection,{
+      stop:1,question:2,analyse:4,push:5
+    }),
 
-    autonomy:
-      num(a.structure,{
-        hard:1,sometimes:2,good:4,strong:5
-      }),
+    autonomy:mapped(a.structure,{
+      hard:1,sometimes:2,good:4,strong:5
+    }),
 
-    network:
-      num(a.network,{
-        none:1,some:2,good:4,strong:5
-      }),
+    network:mapped(a.network,{
+      none:1,some:2,good:4,strong:5
+    }),
 
-    audience:
-      num(a.audience,{
-        none:1,small:2,medium:4,large:5
-      }),
+    audience:mapped(a.audience,{
+      none:1,small:2,medium:4,large:5
+    }),
 
-    geoLocal:
-      localPotential(a),
+    geoLocal:localPotential(a),
 
     hardNo
   };
 }
 
-function average(arr){
-  const valid=arr.filter(x=>Number.isFinite(x));
-  if(!valid.length)return 3;
-  return valid.reduce((a,b)=>a+b,0)/valid.length;
-}
-
-function localPotential(a){
-
-  let score=3;
-
-  if(a.area==="metro")score=5;
-  if(a.area==="city")score=4;
-  if(a.area==="small")score=3;
-  if(a.area==="rural")score=2;
-
-  if(a.mobility==="none")score-=2;
-  if(a.mobility==="car")score+=1;
-  if(a.mobility==="wide")score+=1;
-
-  return Math.max(1,Math.min(5,score));
-}
-
 /* =========================================================
-   ADAPTIVE QUESTION ENGINE
-   ========================================================= */
-
-function startDiagnostic(){
-
-  state.answers={};
-  state.answerHistory=[];
-  state.asked=[];
-  state.progress=0;
-  state.confidence=0;
-  state.ranking=[];
-  state.chosen=null;
-
-  save();
-  show("diagnostic");
-  renderNextQuestion();
-}
-
-function eligibleQuestions(){
-
-  return QUESTIONS.filter(q=>{
-    if(state.asked.includes(q.id))return false;
-    if(q.depends && !q.depends(state.answers))return false;
-    return true;
-  });
-}
-
-function nextQuestion(){
-
-  const available=eligibleQuestions();
-
-  if(!available.length)return null;
-
-  /* First questions are high-priority foundations.
-     Later we boost questions that discriminate top strategies. */
-
-  if(state.asked.length<8){
-    return [...available].sort((a,b)=>b.priority-a.priority)[0];
-  }
-
-  const ranking=calculateRanking(false);
-  const top=ranking.filter(x=>!x.eliminated).slice(0,5);
-
-  let best=null;
-  let bestValue=-Infinity;
-
-  for(const q of available){
-
-    let value=q.priority*.15 + q.weight;
-
-    if(top.length>=2){
-      value += discriminationValue(q,top);
-    }
-
-    if(q.category==="Géographie" &&
-       top.some(x=>["Local","Commerce"].includes(x.family))){
-      value+=8;
-    }
-
-    if(q.category==="Commercial" &&
-       top.some(x=>["Vente","Acquisition","Agence","Intermédiation"].includes(x.family))){
-      value+=8;
-    }
-
-    if(q.category==="Technique" &&
-       top.some(x=>["Logiciel","Automatisation","Conseil digital"].includes(x.family))){
-      value+=8;
-    }
-
-    if(q.category==="Créatif" &&
-       top.some(x=>["Création","Contenu","Audience"].includes(x.family))){
-      value+=8;
-    }
-
-    if(value>bestValue){
-      bestValue=value;
-      best=q;
-    }
-  }
-
-  return best;
-}
-
-function discriminationValue(q,top){
-
-  const categoryMap={
-    Commercial:"sales",
-    Digital:"digital",
-    Technique:"tech",
-    Créatif:"creative",
-    Client:"client",
-    "Mode de travail":"remote",
-    Risque:"capital",
-    Objectif:"speed",
-    Ambition:"scale",
-    Géographie:"remote"
-  };
-
-  const dimension=categoryMap[q.category];
-  if(!dimension)return 0;
-
-  const values=top.map(s=>s.ideal?.[dimension]).filter(Number.isFinite);
-
-  if(values.length<2)return 0;
-
-  return (Math.max(...values)-Math.min(...values))*3;
-}
-
-function calculateProgress(){
-
-  const answered=QUESTIONS.filter(q=>state.answers[q.id]!==undefined);
-
-  let gained=answered.reduce((sum,q)=>sum+q.weight,0);
-
-  /* Core diagnostic weight target.
-     User does not see question count. */
-
-  let pct=Math.round((gained/135)*100);
-
-  const ranking=calculateRanking(false);
-  const viable=ranking.filter(x=>!x.eliminated);
-
-  if(viable.length){
-
-    const top=viable[0];
-    const second=viable[1];
-
-    if(top && second){
-
-      const gap=top.score-second.score;
-
-      if(gap>=8)pct+=7;
-      else if(gap>=5)pct+=4;
-
-    }
-  }
-
-  return Math.max(2,Math.min(100,pct));
-}
-
-function calculateConfidence(){
-
-  const a=state.answers;
-
-  let c=0;
-
-  const major=[
-    "goal","incomeUrgency","weeklyHours","capital",
-    "area","mobility","computer","coldOutreach",
-    "digitalComfort","rejection","hardNo",
-    "clientContact","b2b"
-  ];
-
-  major.forEach(k=>{
-    if(a[k]!==undefined)c+=5;
-  });
-
-  const extras=Object.keys(a).length;
-  c+=Math.min(25,extras*1.1);
-
-  const ranking=calculateRanking(false);
-  const viable=ranking.filter(x=>!x.eliminated);
-
-  if(viable.length>=2){
-
-    const gap=viable[0].score-viable[1].score;
-
-    if(gap>=10)c+=10;
-    else if(gap>=6)c+=7;
-    else if(gap>=3)c+=4;
-  }
-
-  return Math.round(Math.min(96,c));
-}
-
-function shouldFinish(){
-
-  state.progress=calculateProgress();
-  state.confidence=calculateConfidence();
-
-  const ranking=calculateRanking(false);
-  const viable=ranking.filter(x=>!x.eliminated);
-
-  if(!viable.length)return false;
-
-  const top=viable[0];
-  const second=viable[1];
-
-  const enoughCore=
-    state.answers.goal &&
-    state.answers.weeklyHours &&
-    state.answers.capital &&
-    state.answers.area &&
-    state.answers.mobility &&
-    state.answers.computer &&
-    state.answers.coldOutreach &&
-    state.answers.digitalComfort &&
-    state.answers.hardNo;
-
-  if(!enoughCore)return false;
-
-  if(
-    state.progress>=82 &&
-    state.confidence>=78 &&
-    top.score>=80 &&
-    (!second || top.score-second.score>=3)
-  ){
-    return true;
-  }
-
-  if(state.progress>=96 && state.confidence>=85){
-    return true;
-  }
-
-  return false;
-}
-
-function renderNextQuestion(){
-
-  state.progress=calculateProgress();
-  state.confidence=calculateConfidence();
-
-  updateProgress();
-
-  if(shouldFinish()){
-    finishDiagnostic();
-    return;
-  }
-
-  const q=nextQuestion();
-
-  if(!q){
-    finishDiagnostic();
-    return;
-  }
-
-  renderQuestion(q);
-}
-
-function renderQuestion(q){
-
-  const container=document.getElementById("questionContainer");
-
-  document.getElementById("infoGain").textContent=
-    q.weight>=7
-    ? "Cette réponse est importante pour le diagnostic."
-    : "";
-
-  let html=`
-    <div class="eyebrow">${q.category}</div>
-    <h1>${q.title}</h1>
-    <p class="questionText">${q.text}</p>
-  `;
-
-  if(q.type==="text"){
-
-    html+=`
-      <input class="cityInput" id="textAnswer" placeholder="Ta réponse">
-      <div class="actions">
-        <button class="btn" onclick="answerText('${q.id}')">Continuer →</button>
-      </div>
-    `;
-
-  } else if(q.multi){
-
-    html+=`
-      <div class="options">
-        ${q.options.map(o=>`
-          <button class="option multiOption"
-                  id="multi_${o[0]}"
-                  onclick="toggleMulti('${q.id}','${o[0]}')">
-            <span class="fakeCheck"></span>
-            <span>
-              <strong>${o[1]}</strong>
-              <small>${o[2]}</small>
-            </span>
-          </button>
-        `).join("")}
-      </div>
-
-      <div class="actions">
-        <button class="btn" onclick="confirmMulti('${q.id}')">
-          Continuer →
-        </button>
-      </div>
-    `;
-
-  } else {
-
-    html+=`
-      <div class="options">
-        ${q.options.map(o=>`
-          <button class="option"
-                  onclick="answer('${q.id}','${o[0]}')">
-            <strong>${o[1]}</strong>
-            <small>${o[2]}</small>
-          </button>
-        `).join("")}
-      </div>
-    `;
-  }
-
-  container.innerHTML=html;
-
-  document.getElementById("backButton").style.visibility=
-    state.answerHistory.length ? "visible" : "hidden";
-
-  state.currentQuestion=q.id;
-}
-
-function answer(id,value){
-
-  state.answerHistory.push({
-    id,
-    previous:state.answers[id]
-  });
-
-  state.answers[id]=value;
-
-  if(!state.asked.includes(id))state.asked.push(id);
-
-  save();
-  renderNextQuestion();
-}
-
-let multiTemp=[];
-
-function toggleMulti(id,value){
-
-  if(value==="none"){
-    multiTemp=["none"];
-  }else{
-    multiTemp=multiTemp.filter(x=>x!=="none");
-
-    if(multiTemp.includes(value)){
-      multiTemp=multiTemp.filter(x=>x!==value);
-    }else{
-      multiTemp.push(value);
-    }
-  }
-
-  document.querySelectorAll("[id^='multi_']").forEach(el=>{
-    const v=el.id.replace("multi_","");
-    el.classList.toggle("selected",multiTemp.includes(v));
-    const check=el.querySelector(".fakeCheck");
-    if(check)check.textContent=multiTemp.includes(v)?"✓":"";
-  });
-}
-
-function confirmMulti(id){
-
-  if(!multiTemp.length)return;
-
-  state.answerHistory.push({
-    id,
-    previous:state.answers[id]
-  });
-
-  state.answers[id]=[...multiTemp];
-  multiTemp=[];
-
-  if(!state.asked.includes(id))state.asked.push(id);
-
-  save();
-  renderNextQuestion();
-}
-
-function goBack(){
-
-  const last=state.answerHistory.pop();
-  if(!last)return;
-
-  state.asked=state.asked.filter(x=>x!==last.id);
-
-  if(last.previous===undefined){
-    delete state.answers[last.id];
-  }else{
-    state.answers[last.id]=last.previous;
-  }
-
-  state.currentQuestion=last.id;
-
-  const q=QUESTIONS.find(x=>x.id===last.id);
-
-  state.progress=calculateProgress();
-  state.confidence=calculateConfidence();
-
-  updateProgress();
-  renderQuestion(q);
-  save();
-}
-
-function updateProgress(){
-
-  document.getElementById("progressPercent").textContent=
-    state.progress+" %";
-
-  document.getElementById("progressBar").style.width=
-    state.progress+"%";
-}
-
-/* =========================================================
-   SCORING
+   PURE SCORING
+   No save()
+   No state mutation
+   No recursive progress calculation
    ========================================================= */
 
 function similarity(human,ideal){
+  if(!Number.isFinite(human) || !Number.isFinite(ideal)) return null;
   return Math.max(0,100-(Math.abs(human-ideal)*22));
 }
 
-function calculateRanking(store=true){
+function weightedAverage(arr){
 
-  const h=buildHuman();
+  if(!arr.length) return null;
 
-  const ranking=STRATEGIES.map(s=>scoreStrategy(s,h))
-    .sort((a,b)=>{
-      if(a.eliminated!==b.eliminated)return a.eliminated?1:-1;
-      return b.score-a.score;
-    });
+  let sum=0;
+  let totalWeight=0;
 
-  if(store){
-    state.ranking=ranking;
-    save();
-  }
+  arr.forEach(x=>{
+    if(Number.isFinite(x.value)){
+      sum+=x.value*x.weight;
+      totalWeight+=x.weight;
+    }
+  });
 
-  return ranking;
+  if(!totalWeight) return null;
+
+  return Math.round(sum/totalWeight);
 }
 
 function scoreStrategy(s,h){
 
   let eliminated=false;
-  let eliminationReasons=[];
+  const eliminationReasons=[];
 
-  /* Equipment requirement */
-
-  if(s.req?.computer && h.computer<s.req.computer){
+  if(
+    s.req?.computer &&
+    Number.isFinite(h.computer) &&
+    h.computer<s.req.computer
+  ){
     eliminated=true;
     eliminationReasons.push("matériel informatique insuffisant");
   }
 
-  /* Explicit refusals */
-
   for(const refusal of h.hardNo){
+
+    if(refusal==="none") continue;
 
     if(s.hard?.includes(refusal)){
       eliminated=true;
       eliminationReasons.push("incompatible avec un refus déclaré");
     }
   }
-
-  /* Strong local incompatibility */
 
   if(
     s.family==="Local" &&
@@ -2765,7 +975,13 @@ function scoreStrategy(s,h){
     eliminationReasons.push("mobilité incompatible");
   }
 
-  /* Scores */
+  if(
+    s.family==="Local" &&
+    state.answers.localPreference==="never"
+  ){
+    eliminated=true;
+    eliminationReasons.push("activité physique refusée");
+  }
 
   const dims={
     human:[],
@@ -2777,9 +993,13 @@ function scoreStrategy(s,h){
   };
 
   function push(group,hv,sv,weight=1){
-    if(!Number.isFinite(hv)||!Number.isFinite(sv))return;
+
+    const value=similarity(hv,sv);
+
+    if(value===null) return;
+
     dims[group].push({
-      value:similarity(hv,sv),
+      value,
       weight
     });
   }
@@ -2791,10 +1011,32 @@ function scoreStrategy(s,h){
   push("human",h.client,s.ideal.client,1);
   push("human",h.patience,s.ideal.patience,1);
   push("human",h.scale,s.ideal.scale,.7);
-  push("human",h.autonomy,4,.6);
+
+  if(Number.isFinite(h.autonomy)){
+    push("human",h.autonomy,4,.6);
+  }
 
   push("resources",h.capital,s.ideal.capital,1.4);
-  push("resources",h.time,3,.8);
+
+  /*
+    Time is not compared to a generic "3" anymore.
+    Fast client services tolerate more available time,
+    scalable assets generally benefit from larger time commitment.
+  */
+
+  if(Number.isFinite(h.time)){
+    let idealTime=3;
+
+    if(["Logiciel","Audience","Produit"].includes(s.family)){
+      idealTime=4;
+    }
+
+    if(["Local","Vente","Service"].includes(s.family)){
+      idealTime=3;
+    }
+
+    push("resources",h.time,idealTime,.8);
+  }
 
   push("geography",h.remote,s.ideal.remote,1.3);
 
@@ -2803,8 +1045,15 @@ function scoreStrategy(s,h){
   }
 
   push("acquisition",h.sales,s.ideal.sales,1.5);
-  push("acquisition",h.rejection,
-    s.ideal.sales>=4?5:3,1.2);
+
+  if(Number.isFinite(h.rejection)){
+    push(
+      "acquisition",
+      h.rejection,
+      s.ideal.sales>=4 ? 5 : 3,
+      1.2
+    );
+  }
 
   push("economics",h.speed,s.ideal.speed,1.3);
 
@@ -2814,15 +1063,19 @@ function scoreStrategy(s,h){
     sub[k]=weightedAverage(dims[k]);
   });
 
-  /* Extra real-profile modifiers */
-
   let modifier=0;
 
-  if(["Vente","Acquisition","Intermédiation","Agence"].includes(s.family)){
+  if(
+    ["Vente","Acquisition","Intermédiation","Agence"].includes(s.family) &&
+    Number.isFinite(h.network)
+  ){
     modifier+=(h.network-3)*2;
   }
 
-  if(["Audience","Contenu","Création"].includes(s.family)){
+  if(
+    ["Audience","Contenu","Création"].includes(s.family) &&
+    Number.isFinite(h.audience)
+  ){
     modifier+=(h.audience-3)*2;
   }
 
@@ -2903,6 +1156,73 @@ function scoreStrategy(s,h){
     modifier+=10;
   }
 
+  /*
+    B2B / B2C preference
+  */
+
+  if(state.answers.b2b==="business"){
+
+    if([
+      "Acquisition","Vente","Automatisation",
+      "Conseil digital","Marketing","Opérations",
+      "Agence","Expertise","Intermédiation"
+    ].includes(s.family)){
+      modifier+=4;
+    }
+
+    if(s.id==="local_b2c"){
+      modifier-=5;
+    }
+  }
+
+  if(state.answers.b2b==="consumer"){
+
+    if([
+      "Acquisition","Vente","Automatisation",
+      "Conseil digital","Opérations"
+    ].includes(s.family)){
+      modifier-=4;
+    }
+
+    if(["ecommerce","resale","local_b2c","ugc"].includes(s.id)){
+      modifier+=4;
+    }
+  }
+
+  /*
+    Camera compatibility
+  */
+
+  if(
+    s.id==="ugc" &&
+    state.answers.camera==="never"
+  ){
+    eliminated=true;
+    eliminationReasons.push("visibilité personnelle incompatible");
+  }
+
+  /*
+    Client relationship hard refusal
+  */
+
+  if(
+    h.hardNo.includes("clients") &&
+    s.ideal.client>=4
+  ){
+    modifier-=14;
+  }
+
+  /*
+    Capital refusal
+  */
+
+  if(
+    h.hardNo.includes("money") &&
+    s.ideal.capital>=3
+  ){
+    modifier-=15;
+  }
+
   const weights={
     human:1.15,
     skills:1.2,
@@ -2916,27 +1236,57 @@ function scoreStrategy(s,h){
   let totalWeight=0;
 
   Object.keys(weights).forEach(k=>{
+
     if(Number.isFinite(sub[k])){
       total+=sub[k]*weights[k];
       totalWeight+=weights[k];
     }
   });
 
-  let score=totalWeight?total/totalWeight:50;
+  /*
+    IMPORTANT:
+    If only a tiny part of the profile is known,
+    we do not allow an artificially high score.
+  */
+
+  const measuredDimensions=
+    Object.values(sub)
+      .filter(Number.isFinite)
+      .length;
+
+  let score=totalWeight
+    ? total/totalWeight
+    : 50;
 
   score+=modifier;
 
-  /* A critical weakness cannot disappear in the average */
+  if(measuredDimensions<=2){
+    score=Math.min(score,68);
+  }
+  else if(measuredDimensions===3){
+    score=Math.min(score,76);
+  }
 
-  if(sub.acquisition<45 && s.ideal.sales>=4){
+  if(
+    Number.isFinite(sub.acquisition) &&
+    sub.acquisition<45 &&
+    s.ideal.sales>=4
+  ){
     score=Math.min(score,72);
   }
 
-  if(sub.geography<45 && s.family==="Local"){
+  if(
+    Number.isFinite(sub.geography) &&
+    sub.geography<45 &&
+    s.family==="Local"
+  ){
     score=Math.min(score,68);
   }
 
-  if(sub.resources<42){
+  if(
+    Number.isFinite(sub.resources) &&
+    sub.resources<42
+  ){
     score=Math.min(score,70);
   }
 
@@ -2944,88 +1294,911 @@ function scoreStrategy(s,h){
     score=Math.min(score,38);
   }
 
-  score=Math.round(Math.max(20,Math.min(96,score)));
+  score=Math.round(
+    Math.max(20,Math.min(96,score))
+  );
 
   return{
     ...s,
     score,
     sub,
     eliminated,
-    eliminationReasons
+    eliminationReasons,
+    measuredDimensions
   };
 }
 
-function weightedAverage(arr){
+function calculateRanking(store=false){
 
-  if(!arr.length)return null;
+  const h=buildHuman();
 
-  let sum=0;
-  let w=0;
+  const ranking=STRATEGIES
+    .map(s=>scoreStrategy(s,h))
+    .sort((a,b)=>{
 
-  arr.forEach(x=>{
-    sum+=x.value*x.weight;
-    w+=x.weight;
-  });
+      if(a.eliminated!==b.eliminated){
+        return a.eliminated ? 1 : -1;
+      }
 
-  return Math.round(sum/w);
+      return b.score-a.score;
+    });
+
+  if(store){
+    state.ranking=ranking;
+  }
+
+  return ranking;
 }
 
 /* =========================================================
-   FINISH + RESULTS
+   ADAPTIVE QUESTION ENGINE
    ========================================================= */
 
-function finishDiagnostic(){
+function startDiagnostic(){
+
+  const preservedEvents=Array.isArray(state.events)
+    ? state.events
+    : [];
+
+  state=freshState();
+
+  /*
+    A new diagnostic is a new profile test.
+    Existing project history is intentionally not reused.
+  */
+
+  state.events=[];
+
+  save();
+
+  show("diagnostic");
+
+  renderNextQuestion();
+}
+
+function eligibleQuestions(){
+
+  return QUESTIONS.filter(q=>{
+
+    if(state.asked.includes(q.id)){
+      return false;
+    }
+
+    if(q.depends){
+
+      try{
+        if(!q.depends(state.answers)){
+          return false;
+        }
+      }
+      catch(error){
+        return false;
+      }
+    }
+
+    return true;
+  });
+}
+
+function discriminationValue(q,top){
+
+  const categoryMap={
+    "Commercial":"sales",
+    "Digital":"digital",
+    "Technique":"tech",
+    "Créatif":"creative",
+    "Client":"client",
+    "Mode de travail":"remote",
+    "Risque":"capital",
+    "Objectif":"speed",
+    "Ambition":"scale",
+    "Géographie":"remote",
+    "Ressources":"capital"
+  };
+
+  const dimension=categoryMap[q.category];
+
+  if(!dimension) return 0;
+
+  const values=top
+    .map(s=>s.ideal?.[dimension])
+    .filter(Number.isFinite);
+
+  if(values.length<2) return 0;
+
+  return(
+    Math.max(...values)-
+    Math.min(...values)
+  )*3;
+}
+
+function nextQuestion(ranking=null){
+
+  const available=eligibleQuestions();
+
+  if(!available.length){
+    return null;
+  }
+
+  /*
+    Foundation phase.
+    The engine first establishes the minimum reliable profile.
+  */
+
+  if(state.asked.length<9){
+
+    return [...available]
+      .sort((a,b)=>b.priority-a.priority)[0];
+  }
+
+  const currentRanking=
+    ranking || calculateRanking(false);
+
+  const top=currentRanking
+    .filter(x=>!x.eliminated)
+    .slice(0,5);
+
+  let best=null;
+  let bestValue=-Infinity;
+
+  for(const q of available){
+
+    let value=
+      q.priority*.15 +
+      q.weight;
+
+    if(top.length>=2){
+      value+=discriminationValue(q,top);
+    }
+
+    if(
+      q.category==="Géographie" &&
+      top.some(x=>[
+        "Local","Commerce"
+      ].includes(x.family))
+    ){
+      value+=9;
+    }
+
+    if(
+      q.category==="Commercial" &&
+      top.some(x=>[
+        "Vente","Acquisition",
+        "Agence","Intermédiation"
+      ].includes(x.family))
+    ){
+      value+=9;
+    }
+
+    if(
+      q.category==="Technique" &&
+      top.some(x=>[
+        "Logiciel","Automatisation",
+        "Conseil digital","Opérations"
+      ].includes(x.family))
+    ){
+      value+=9;
+    }
+
+    if(
+      q.category==="Créatif" &&
+      top.some(x=>[
+        "Création","Contenu",
+        "Audience","Marketing"
+      ].includes(x.family))
+    ){
+      value+=9;
+    }
+
+    if(
+      q.category==="Client" &&
+      top.some(x=>x.ideal.client>=4)
+    ){
+      value+=6;
+    }
+
+    if(value>bestValue){
+      bestValue=value;
+      best=q;
+    }
+  }
+
+  return best;
+}
+
+/* =========================================================
+   PROGRESS
+   Progress no longer calls calculateRanking()
+   ========================================================= */
+
+const TOTAL_INFORMATION_WEIGHT =
+  QUESTIONS.reduce(
+    (sum,q)=>sum+q.weight,
+    0
+  );
+
+function calculateProgress(){
+
+  const answered=QUESTIONS.filter(
+    q=>state.answers[q.id]!==undefined
+  );
+
+  const gained=answered.reduce(
+    (sum,q)=>sum+q.weight,
+    0
+  );
+
+  /*
+    The percentage is an information-completeness indicator,
+    not a question counter.
+
+    We intentionally use a compressed curve:
+    high-value early questions move the bar faster.
+  */
+
+  const raw=
+    TOTAL_INFORMATION_WEIGHT
+      ? gained/TOTAL_INFORMATION_WEIGHT
+      : 0;
+
+  const curved=Math.pow(raw,.78);
+
+  let pct=Math.round(curved*100);
+
+  /*
+    Never display 100 before the diagnostic is actually closed.
+  */
+
+  if(pct>=100 && eligibleQuestions().length){
+    pct=99;
+  }
+
+  return Math.max(
+    answered.length ? 2 : 0,
+    Math.min(99,pct)
+  );
+}
+
+/* =========================================================
+   CONFIDENCE
+   Ranking passed as argument: no duplicate recursive chain.
+   ========================================================= */
+
+function calculateConfidence(ranking){
+
+  const a=state.answers;
+
+  const critical=[
+    "goal",
+    "incomeUrgency",
+    "weeklyHours",
+    "capital",
+    "area",
+    "mobility",
+    "computer",
+    "coldOutreach",
+    "digitalComfort",
+    "rejection",
+    "hardNo",
+    "clientContact",
+    "b2b"
+  ];
+
+  const important=[
+    "lossTolerance",
+    "phoneSales",
+    "negotiation",
+    "learning",
+    "uncertainty",
+    "scaleAmbition",
+    "network",
+    "audience"
+  ];
+
+  let score=0;
+
+  critical.forEach(k=>{
+    if(a[k]!==undefined){
+      score+=4.7;
+    }
+  });
+
+  important.forEach(k=>{
+    if(a[k]!==undefined){
+      score+=2.1;
+    }
+  });
+
+  const extraCount=
+    Object.keys(a).filter(
+      k=>!critical.includes(k) &&
+         !important.includes(k)
+    ).length;
+
+  score+=Math.min(
+    12,
+    extraCount*.75
+  );
+
+  const viable=(ranking || [])
+    .filter(x=>!x.eliminated);
+
+  if(viable.length>=2){
+
+    const gap=
+      viable[0].score-
+      viable[1].score;
+
+    if(gap>=12) score+=10;
+    else if(gap>=8) score+=8;
+    else if(gap>=5) score+=6;
+    else if(gap>=3) score+=3;
+  }
+
+  /*
+    If top strategies are still extremely close,
+    confidence must remain limited.
+  */
+
+  if(
+    viable.length>=3 &&
+    viable[0].score-viable[2].score<=2
+  ){
+    score=Math.min(score,78);
+  }
+
+  return Math.round(
+    Math.max(0,Math.min(96,score))
+  );
+}
+
+function coreProfileComplete(){
+
+  const required=[
+    "goal",
+    "incomeUrgency",
+    "weeklyHours",
+    "capital",
+    "area",
+    "mobility",
+    "computer",
+    "coldOutreach",
+    "digitalComfort",
+    "rejection",
+    "hardNo"
+  ];
+
+  return required.every(
+    key=>state.answers[key]!==undefined
+  );
+}
+
+function shouldFinish(ranking,confidence){
+
+  const viable=ranking.filter(
+    x=>!x.eliminated
+  );
+
+  if(!viable.length){
+    return false;
+  }
+
+  if(!coreProfileComplete()){
+    return false;
+  }
+
+  const top=viable[0];
+  const second=viable[1];
+
+  const gap=
+    second
+      ? top.score-second.score
+      : 20;
+
+  const answeredCount=
+    Object.keys(state.answers).length;
+
+  /*
+    EASY PROFILE:
+    clear high compatibility + clear gap.
+    Can finish earlier.
+  */
+
+  if(
+    answeredCount>=15 &&
+    confidence>=82 &&
+    top.score>=84 &&
+    gap>=7
+  ){
+    return true;
+  }
+
+  /*
+    NORMAL PROFILE.
+  */
+
+  if(
+    answeredCount>=22 &&
+    confidence>=86 &&
+    top.score>=80 &&
+    gap>=4
+  ){
+    return true;
+  }
+
+  /*
+    COMPLEX PROFILE:
+    top strategies are close.
+    Keep asking until much more information exists.
+  */
+
+  if(
+    answeredCount>=30 &&
+    confidence>=88 &&
+    top.score>=76 &&
+    gap>=2
+  ){
+    return true;
+  }
+
+  /*
+    Maximum available information.
+    We finish even if no 80% match exists.
+  */
+
+  if(!eligibleQuestions().length){
+    return true;
+  }
+
+  return false;
+}
+
+function renderNextQuestion(){
+
+  /*
+    One ranking calculation per transition.
+  */
+
+  const ranking=calculateRanking(false);
+
+  state.progress=calculateProgress();
+  state.confidence=
+    calculateConfidence(ranking);
+
+  updateProgress();
+
+  if(
+    shouldFinish(
+      ranking,
+      state.confidence
+    )
+  ){
+    finishDiagnostic(ranking);
+    return;
+  }
+
+  const q=nextQuestion(ranking);
+
+  if(!q){
+    finishDiagnostic(ranking);
+    return;
+  }
+
+  renderQuestion(q);
+
+  save();
+}
+
+/* =========================================================
+   QUESTION RENDERING
+   ========================================================= */
+
+let multiTemp=[];
+
+function renderQuestion(q){
+
+  if(!q) return;
+
+  const container=
+    document.getElementById("questionContainer");
+
+  if(!container) return;
+
+  document.getElementById("infoGain").textContent=
+    q.weight>=7
+      ? "Cette réponse influence fortement le diagnostic."
+      : q.weight>=5
+        ? "Cette réponse affine la compatibilité."
+        : "";
+
+  let html=`
+    <div class="eyebrow">${q.category}</div>
+    <h1>${q.title}</h1>
+    <p class="questionText">${q.text}</p>
+  `;
+
+  if(q.multi){
+
+    multiTemp=
+      Array.isArray(state.answers[q.id])
+        ? [...state.answers[q.id]]
+        : [];
+
+    html+=`
+      <div class="options">
+        ${q.options.map(o=>`
+          <button
+            type="button"
+            class="option multiOption ${multiTemp.includes(o[0])?"selected":""}"
+            id="multi_${o[0]}"
+            onclick="toggleMulti('${q.id}','${o[0]}')"
+          >
+            <span class="fakeCheck">
+              ${multiTemp.includes(o[0])?"✓":""}
+            </span>
+
+            <span>
+              <strong>${o[1]}</strong>
+              <small>${o[2]}</small>
+            </span>
+          </button>
+        `).join("")}
+      </div>
+
+      <div class="actions">
+        <button
+          type="button"
+          class="btn"
+          onclick="confirmMulti('${q.id}')"
+        >
+          Continuer →
+        </button>
+      </div>
+    `;
+  }
+
+  else{
+
+    html+=`
+      <div class="options">
+        ${q.options.map(o=>`
+          <button
+            type="button"
+            class="option"
+            onclick="answer('${q.id}','${o[0]}')"
+          >
+            <strong>${o[1]}</strong>
+            <small>${o[2]}</small>
+          </button>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  container.innerHTML=html;
+
+  const back=
+    document.getElementById("backButton");
+
+  if(back){
+    back.style.visibility=
+      state.answerHistory.length
+        ? "visible"
+        : "hidden";
+  }
+
+  state.currentQuestion=q.id;
+}
+
+function answer(id,value){
+
+  state.answerHistory.push({
+    id,
+    previous:state.answers[id]
+  });
+
+  state.answers[id]=value;
+
+  if(!state.asked.includes(id)){
+    state.asked.push(id);
+  }
+
+  save();
+
+  renderNextQuestion();
+}
+
+function toggleMulti(id,value){
+
+  if(value==="none"){
+
+    multiTemp=["none"];
+
+  }else{
+
+    multiTemp=
+      multiTemp.filter(x=>x!=="none");
+
+    if(multiTemp.includes(value)){
+
+      multiTemp=
+        multiTemp.filter(x=>x!==value);
+
+    }else{
+
+      multiTemp.push(value);
+    }
+  }
+
+  document
+    .querySelectorAll("[id^='multi_']")
+    .forEach(el=>{
+
+      const v=
+        el.id.replace("multi_","");
+
+      const selected=
+        multiTemp.includes(v);
+
+      el.classList.toggle(
+        "selected",
+        selected
+      );
+
+      const check=
+        el.querySelector(".fakeCheck");
+
+      if(check){
+        check.textContent=
+          selected ? "✓" : "";
+      }
+    });
+}
+
+function confirmMulti(id){
+
+  if(!multiTemp.length){
+    return;
+  }
+
+  state.answerHistory.push({
+    id,
+    previous:state.answers[id]
+  });
+
+  state.answers[id]=[
+    ...multiTemp
+  ];
+
+  multiTemp=[];
+
+  if(!state.asked.includes(id)){
+    state.asked.push(id);
+  }
+
+  save();
+
+  renderNextQuestion();
+}
+
+function goBack(){
+
+  const last=
+    state.answerHistory.pop();
+
+  if(!last){
+    return;
+  }
+
+  state.asked=
+    state.asked.filter(
+      x=>x!==last.id
+    );
+
+  if(last.previous===undefined){
+    delete state.answers[last.id];
+  }else{
+    state.answers[last.id]=last.previous;
+  }
+
+  const q=
+    QUESTIONS.find(
+      x=>x.id===last.id
+    );
+
+  const ranking=
+    calculateRanking(false);
+
+  state.progress=
+    calculateProgress();
+
+  state.confidence=
+    calculateConfidence(ranking);
+
+  updateProgress();
+
+  renderQuestion(q);
+
+  save();
+}
+
+function updateProgress(){
+
+  const percent=
+    document.getElementById(
+      "progressPercent"
+    );
+
+  const bar=
+    document.getElementById(
+      "progressBar"
+    );
+
+  if(percent){
+    percent.textContent=
+      state.progress+" %";
+  }
+
+  if(bar){
+    bar.style.width=
+      state.progress+"%";
+  }
+}
+
+/* =========================================================
+   FINISH
+   ========================================================= */
+
+function finishDiagnostic(existingRanking=null){
+
+  const ranking=
+    existingRanking ||
+    calculateRanking(false);
+
+  state.ranking=ranking;
 
   state.progress=100;
-  state.confidence=Math.max(state.confidence,calculateConfidence());
-  calculateRanking(true);
+
+  state.confidence=
+    Math.max(
+      state.confidence,
+      calculateConfidence(ranking)
+    );
 
   save();
 
   show("analysis");
 
-  document.getElementById("analysisStrategies").textContent=
+  const viable=
+    ranking.filter(
+      x=>!x.eliminated
+    );
+
+  const top=viable[0];
+
+  document.getElementById(
+    "analysisStrategies"
+  ).textContent=
     STRATEGIES.length;
 
-  document.getElementById("analysisCompleteness").textContent=
-    state.progress+" %";
+  document.getElementById(
+    "analysisCompleteness"
+  ).textContent=
+    "100 %";
 
-  document.getElementById("analysisConfidence").textContent=
+  document.getElementById(
+    "analysisConfidence"
+  ).textContent=
     state.confidence+" %";
 
-  setTimeout(renderResults,1500);
+  const geo=
+    document.getElementById(
+      "analysisGeo"
+    );
+
+  if(geo){
+
+    geo.textContent=
+      state.answers.area
+        ? "analysée"
+        : "partielle";
+  }
+
+  setTimeout(
+    renderResults,
+    700
+  );
 }
+
+/* =========================================================
+   RESULTS
+   ========================================================= */
 
 function renderResults(){
 
   show("results");
 
-  const viable=state.ranking.filter(x=>!x.eliminated);
-  const winner=viable[0] || state.ranking[0];
+  const viable=
+    state.ranking.filter(
+      x=>!x.eliminated
+    );
 
-  const strong=winner.score>=80;
+  const winner=
+    viable[0] ||
+    state.ranking[0];
 
-  document.getElementById("winner").innerHTML=`
+  if(!winner){
+
+    document.getElementById(
+      "winner"
+    ).innerHTML=`
+      <div class="card">
+        <h2>Aucune stratégie analysable.</h2>
+        <p>Relance le diagnostic.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  const strong=
+    winner.score>=80;
+
+  const medium=
+    winner.score>=75;
+
+  let badgeText=
+    strong
+      ? "Forte compatibilité"
+      : medium
+        ? "Compatibilité intéressante"
+        : "Ajustement à approfondir";
+
+  let badgeClass=
+    strong
+      ? "green"
+      : "orange";
+
+  document.getElementById(
+    "winner"
+  ).innerHTML=`
 
     <div class="grid">
 
       <div class="card topResult c8">
 
-        <span class="badge ${strong?"green":"orange"}">
-          ${strong?"Forte compatibilité":"Compatibilité à confirmer"}
+        <span class="badge ${badgeClass}">
+          ${badgeText}
         </span>
 
         <div style="height:10px"></div>
 
-        <div class="eyebrow">#1 · ${winner.family}</div>
+        <div class="eyebrow">
+          #1 · ${winner.family}
+        </div>
 
-        <h2 style="font-size:27px">${winner.name}</h2>
+        <h2 style="font-size:27px">
+          ${winner.name}
+        </h2>
 
-        <p style="margin-top:8px">${winner.desc}</p>
+        <p style="margin-top:8px">
+          ${winner.desc}
+        </p>
 
         <div class="bigScore">
-          ${winner.score}<small>% compatible</small>
+          ${winner.score}
+          <small>% compatible</small>
         </div>
+
+        ${
+          winner.score<75
+          ? `
+            <p class="small" style="margin-top:8px;color:#FFB17B">
+              CashPilot n'a pas trouvé de correspondance supérieure à 75 % avec les informations actuelles. Le score n'est pas artificiellement augmenté.
+            </p>
+          `
+          : ""
+        }
 
         <div class="subscores">
           ${subscoreBox("Humain",winner.sub.human)}
@@ -3039,8 +2212,13 @@ function renderResults(){
 
       <div class="card c4">
 
-        <div class="metricLabel">Confiance du diagnostic</div>
-        <div class="metric">${state.confidence}%</div>
+        <div class="metricLabel">
+          Confiance du diagnostic
+        </div>
+
+        <div class="metric">
+          ${state.confidence}%
+        </div>
 
         <div class="bar" style="margin-top:10px">
           <span style="width:${state.confidence}%"></span>
@@ -3049,13 +2227,21 @@ function renderResults(){
         <div style="height:19px"></div>
 
         <div class="reason">
-          <strong>Pourquoi cette stratégie ?</strong>
-          <p>${winnerReasons(winner)}</p>
+          <strong>
+            Pourquoi cette stratégie ?
+          </strong>
+          <p>
+            ${winnerReasons(winner)}
+          </p>
         </div>
 
         <div class="reason">
-          <strong>Principal point de vigilance</strong>
-          <p>${winnerWarning(winner)}</p>
+          <strong>
+            Principal point de vigilance
+          </strong>
+          <p>
+            ${winnerWarning(winner)}
+          </p>
         </div>
 
       </div>
@@ -3063,15 +2249,35 @@ function renderResults(){
     </div>
   `;
 
-  document.getElementById("topRanking").innerHTML=
-    viable.slice(1,6).map((s,i)=>strategyRow(s,i+2)).join("");
+  document.getElementById(
+    "topRanking"
+  ).innerHTML=
+    viable
+      .slice(1,6)
+      .map(
+        (s,i)=>
+          strategyRow(s,i+2)
+      )
+      .join("");
 
-  document.getElementById("fullRanking").innerHTML=
-    state.ranking.map((s,i)=>strategyRow(s,i+1,true)).join("");
+  document.getElementById(
+    "fullRanking"
+  ).innerHTML=
+    state.ranking
+      .map(
+        (s,i)=>
+          strategyRow(
+            s,
+            i+1,
+            true
+          )
+      )
+      .join("");
 
   renderProfileSummary();
 
   state.chosen=winner.id;
+
   save();
 }
 
@@ -3080,26 +2286,41 @@ function subscoreBox(label,value){
   return`
     <div class="subscore">
       <span>${label}</span>
-      <strong>${value ?? "—"}%</strong>
+      <strong>
+        ${Number.isFinite(value)
+          ? value+"%"
+          : "À préciser"}
+      </strong>
     </div>
   `;
 }
 
-function strategyRow(s,rank,full=false){
+function strategyRow(
+  s,
+  rank,
+  full=false
+){
 
   return`
     <div class="strategyRow ${s.eliminated?"eliminated":""}">
-      <div class="rank">#${rank}</div>
+
+      <div class="rank">
+        #${rank}
+      </div>
 
       <div>
         <h3>${s.name}</h3>
+
         <p>
           ${s.family}
-          ${s.eliminated
-            ?" · incompatible : "+s.eliminationReasons.join(", ")
-            :full
-              ?" · "+s.tags.join(" · ")
-              :""
+
+          ${
+            s.eliminated
+              ? " · incompatible : "+
+                s.eliminationReasons.join(", ")
+              : full
+                ? " · "+s.tags.join(" · ")
+                : ""
           }
         </p>
       </div>
@@ -3107,6 +2328,7 @@ function strategyRow(s,rank,full=false){
       <div class="rowScore">
         ${s.score}%
       </div>
+
     </div>
   `;
 }
@@ -3115,25 +2337,59 @@ function winnerReasons(s){
 
   const parts=[];
 
-  if(s.sub.skills>=80)
-    parts.push("tes compétences correspondent bien au modèle");
+  if(
+    Number.isFinite(s.sub.skills) &&
+    s.sub.skills>=80
+  ){
+    parts.push(
+      "tes compétences correspondent bien au modèle"
+    );
+  }
 
-  if(s.sub.acquisition>=80)
-    parts.push("ton profil commercial est compatible avec son acquisition");
+  if(
+    Number.isFinite(s.sub.acquisition) &&
+    s.sub.acquisition>=80
+  ){
+    parts.push(
+      "ton profil commercial correspond à son mode d'acquisition"
+    );
+  }
 
-  if(s.sub.resources>=80)
-    parts.push("tes ressources sont suffisantes pour le tester");
+  if(
+    Number.isFinite(s.sub.resources) &&
+    s.sub.resources>=80
+  ){
+    parts.push(
+      "tes ressources permettent de le tester dans de bonnes conditions"
+    );
+  }
 
-  if(s.sub.geography>=80)
-    parts.push("ton environnement de travail ne constitue pas un frein");
+  if(
+    Number.isFinite(s.sub.geography) &&
+    s.sub.geography>=80
+  ){
+    parts.push(
+      "ta situation géographique est compatible"
+    );
+  }
 
-  if(s.sub.human>=80)
-    parts.push("son quotidien correspond bien à ta manière de fonctionner");
+  if(
+    Number.isFinite(s.sub.human) &&
+    s.sub.human>=80
+  ){
+    parts.push(
+      "son fonctionnement correspond à ta manière de travailler"
+    );
+  }
 
-  if(!parts.length)
-    return "Cette stratégie présente actuellement le meilleur équilibre entre tes contraintes et ses exigences.";
+  if(!parts.length){
 
-  return capitalize(parts.slice(0,3).join(", "))+".";
+    return "Cette stratégie présente actuellement le meilleur compromis entre ton profil, tes contraintes et les exigences du modèle.";
+  }
+
+  return capitalize(
+    parts.slice(0,3).join(", ")
+  )+".";
 }
 
 function winnerWarning(s){
@@ -3144,13 +2400,23 @@ function winnerWarning(s){
     ["Compétences",s.sub.skills],
     ["Géographie",s.sub.geography],
     ["Profil humain",s.sub.human]
-  ].filter(x=>Number.isFinite(x[1]))
-   .sort((a,b)=>a[1]-b[1]);
+  ]
+  .filter(
+    x=>Number.isFinite(x[1])
+  )
+  .sort(
+    (a,b)=>a[1]-b[1]
+  );
 
-  if(!entries.length)
-    return "Le marché devra être validé avant tout investissement important.";
+  if(!entries.length){
 
-  return `${entries[0][0]} : ${entries[0][1]} %. C'est actuellement la dimension la moins compatible et celle qu'il faudra surveiller pendant la validation.`;
+    return "Le profil doit encore être validé par des résultats réels.";
+  }
+
+  return(
+    `${entries[0][0]} : ${entries[0][1]} %. `+
+    `C'est actuellement la dimension la moins compatible et celle à surveiller pendant la validation.`
+  );
 }
 
 function capitalize(s){
@@ -3160,6 +2426,19 @@ function capitalize(s){
 /* =========================================================
    PROFILE SUMMARY
    ========================================================= */
+
+function level(v){
+
+  if(!Number.isFinite(v)){
+    return "Non évalué";
+  }
+
+  if(v>=4.5)return "Très élevé";
+  if(v>=3.6)return "Élevé";
+  if(v>=2.6)return "Intermédiaire";
+  if(v>=1.6)return "Faible";
+  return "Très faible";
+}
 
 function renderProfileSummary(){
 
@@ -3175,10 +2454,13 @@ function renderProfileSummary(){
     ["Relation client",level(h.client)],
     ["Patience",level(h.patience)],
     ["Tolérance au rejet",level(h.rejection)],
-    ["Réseau",level(h.network)]
+    ["Réseau",level(h.network)],
+    ["Potentiel local",level(h.geoLocal)]
   ];
 
-  document.getElementById("profileSummary").innerHTML=
+  document.getElementById(
+    "profileSummary"
+  ).innerHTML=
     facts.map(x=>`
       <div class="profileFact">
         <span>${x[0]}</span>
@@ -3187,24 +2469,23 @@ function renderProfileSummary(){
     `).join("");
 }
 
-function level(v){
-
-  if(v>=4.5)return "Très élevé";
-  if(v>=3.6)return "Élevé";
-  if(v>=2.6)return "Intermédiaire";
-  if(v>=1.6)return "Faible";
-  return "Très faible";
-}
-
 /* =========================================================
    PROJECT ACTIVATION
    ========================================================= */
 
 function activateProject(){
 
-  const strategy=state.ranking.find(x=>x.id===state.chosen);
+  const strategy=
+    state.ranking.find(
+      x=>x.id===state.chosen
+    );
+
+  if(!strategy){
+    return;
+  }
 
   state.period=1;
+
   state.results={
     contacts:0,
     responses:0,
@@ -3214,144 +2495,421 @@ function activateProject(){
     hours:0
   };
 
-  state.tasks=initialTasks(strategy);
+  state.tasks=
+    initialTasks(strategy);
 
   state.events=[
     {
       title:"Diagnostic terminé",
-      text:`${strategy.name} sélectionné avec ${strategy.score}% de compatibilité et ${state.confidence}% de confiance.`,
+      text:
+        `${strategy.name} sélectionné avec `+
+        `${strategy.score}% de compatibilité et `+
+        `${state.confidence}% de confiance.`,
       date:new Date().toLocaleDateString("fr-FR")
     }
   ];
 
+  state.decision=null;
+
   save();
 
   show("app");
+
   renderApp();
+}
+
+function makeTask(
+  title,
+  desc,
+  target,
+  minutes,
+  evidence="Déclaratif"
+){
+  return{
+    title,
+    desc,
+    target,
+    minutes,
+    evidence,
+    status:"todo",
+    blocker:null
+  };
 }
 
 function initialTasks(s){
 
-  if(["Audience","Contenu","Création"].includes(s.family)){
+  if([
+    "Audience",
+    "Contenu",
+    "Création"
+  ].includes(s.family)){
 
     return[
-      {
-        title:"Définir une niche précise",
-        desc:"Choisis une audience identifiable avec un besoin ou intérêt commun.",
-        done:false
-      },
-      {
-        title:"Analyser 10 contenus ou acteurs existants",
-        desc:"Comprends ce qui attire déjà l'attention dans cette niche.",
-        done:false
-      },
-      {
-        title:"Créer un premier contenu test",
-        desc:"Produis une première version sans chercher la perfection.",
-        done:false
-      },
-      {
-        title:"Publier et mesurer la réaction",
-        desc:"Observe vues, interactions et conversations réelles.",
-        done:false
-      },
-      {
-        title:"Identifier le signal le plus fort",
-        desc:"Note ce qui semble réellement intéresser le marché.",
-        done:false
-      }
+      makeTask(
+        "Définir une niche précise",
+        "Choisis une audience identifiable avec un besoin ou intérêt commun.",
+        "1 niche validée",
+        25
+      ),
+
+      makeTask(
+        "Analyser 10 contenus ou acteurs existants",
+        "Comprends ce qui attire déjà l'attention dans cette niche.",
+        "10 analyses",
+        45
+      ),
+
+      makeTask(
+        "Créer un premier contenu test",
+        "Produis une première version sans chercher la perfection.",
+        "1 contenu",
+        60
+      ),
+
+      makeTask(
+        "Publier et mesurer la réaction",
+        "Observe vues, interactions et conversations réelles.",
+        "1 publication",
+        20,
+        "Semi-auto"
+      ),
+
+      makeTask(
+        "Identifier le signal le plus fort",
+        "Note ce qui semble réellement intéresser le marché.",
+        "1 apprentissage",
+        20
+      )
     ];
   }
 
-  if(["Logiciel","Produit"].includes(s.family)){
+  if([
+    "Logiciel",
+    "Produit"
+  ].includes(s.family)){
 
     return[
-      {
-        title:"Définir un problème très précis",
-        desc:"Pas encore de construction : formule d'abord le problème.",
-        done:false
-      },
-      {
-        title:"Trouver 10 utilisateurs potentiels",
-        desc:"Identifie de vraies personnes confrontées à ce problème.",
-        done:false
-      },
-      {
-        title:"Parler à 5 utilisateurs",
-        desc:"Vérifie comment ils résolvent actuellement le problème.",
-        done:false
-      },
-      {
-        title:"Tester une proposition",
-        desc:"Présente la solution avant de construire le produit complet.",
-        done:false
-      },
-      {
-        title:"Obtenir un signal d'intention",
-        desc:"Cherche une inscription, précommande ou engagement concret.",
-        done:false
-      }
+      makeTask(
+        "Définir un problème très précis",
+        "Pas encore de construction : formule d'abord le problème.",
+        "1 problème précis",
+        30
+      ),
+
+      makeTask(
+        "Trouver 10 utilisateurs potentiels",
+        "Identifie de vraies personnes confrontées à ce problème.",
+        "10 personnes",
+        45
+      ),
+
+      makeTask(
+        "Parler à 5 utilisateurs",
+        "Vérifie comment ils résolvent actuellement le problème.",
+        "5 échanges",
+        90
+      ),
+
+      makeTask(
+        "Tester une proposition",
+        "Présente la solution avant de construire le produit complet.",
+        "1 proposition test",
+        40
+      ),
+
+      makeTask(
+        "Obtenir un signal d'intention",
+        "Cherche une inscription, précommande ou engagement concret.",
+        "1 signal réel",
+        60
+      )
     ];
   }
 
   if(s.family==="Local"){
 
     return[
-      {
-        title:"Définir une zone de prospection",
-        desc:"Choisis un rayon réaliste selon ta mobilité.",
-        done:false
-      },
-      {
-        title:"Identifier 15 clients potentiels",
-        desc:"Construis une vraie liste locale.",
-        done:false
-      },
-      {
-        title:"Créer une offre simple",
-        desc:"Un problème, une prestation, un prix test.",
-        done:false
-      },
-      {
-        title:"Contacter 10 prospects locaux",
-        desc:"Téléphone, visite ou message selon le marché.",
-        done:false
-      },
-      {
-        title:"Obtenir un premier retour réel",
-        desc:"Mesure l'intérêt avant d'investir davantage.",
-        done:false
-      }
+      makeTask(
+        "Définir une zone de prospection",
+        "Choisis un rayon réaliste selon ta mobilité.",
+        "1 zone",
+        20
+      ),
+
+      makeTask(
+        "Identifier 15 clients potentiels",
+        "Construis une vraie liste locale.",
+        "15 prospects",
+        45
+      ),
+
+      makeTask(
+        "Créer une offre simple",
+        "Un problème, une prestation, un prix test.",
+        "1 offre",
+        40
+      ),
+
+      makeTask(
+        "Contacter 10 prospects locaux",
+        "Téléphone, visite ou message selon le marché.",
+        "10 contacts",
+        90
+      ),
+
+      makeTask(
+        "Obtenir un premier retour réel",
+        "Mesure l'intérêt avant d'investir davantage.",
+        "1 retour",
+        30
+      )
     ];
   }
 
   return[
-    {
-      title:"Choisir une cible très précise",
-      desc:"Définis exactement le type de client que tu veux aider.",
-      done:false
-    },
-    {
-      title:"Identifier un problème monétisable",
-      desc:"Le problème doit être suffisamment important pour justifier un paiement.",
-      done:false
-    },
-    {
-      title:"Construire une offre test",
-      desc:"Résultat proposé, périmètre, méthode et prix de validation.",
-      done:false
-    },
-    {
-      title:"Trouver 15 prospects réels",
-      desc:"Pas de personas fictifs : une liste de vraies personnes ou entreprises.",
-      done:false
-    },
-    {
-      title:"Contacter les 10 premiers prospects",
-      desc:"L'objectif est d'obtenir une réaction du marché.",
-      done:false
-    }
+    makeTask(
+      "Choisir une cible très précise",
+      "Définis exactement le type de client que tu veux aider.",
+      "1 cible",
+      25
+    ),
+
+    makeTask(
+      "Identifier un problème monétisable",
+      "Le problème doit être suffisamment important pour justifier un paiement.",
+      "1 problème",
+      30
+    ),
+
+    makeTask(
+      "Construire une offre test",
+      "Résultat proposé, périmètre, méthode et prix de validation.",
+      "1 offre",
+      45
+    ),
+
+    makeTask(
+      "Trouver 15 prospects réels",
+      "Pas de personas fictifs : une liste de vraies personnes ou entreprises.",
+      "15 prospects",
+      45
+    ),
+
+    makeTask(
+      "Contacter les 10 premiers prospects",
+      "L'objectif est d'obtenir une réaction du marché.",
+      "10 contacts",
+      75
+    )
   ];
+}
+
+/* =========================================================
+   TASK SYSTEM
+   todo / progress / done / blocked
+   ========================================================= */
+
+function taskStatusLabel(status){
+
+  return{
+    todo:"À faire",
+    progress:"En cours",
+    done:"Terminé",
+    blocked:"Bloqué"
+  }[status] || "À faire";
+}
+
+function setTaskStatus(
+  index,
+  status
+){
+
+  const task=state.tasks[index];
+
+  if(!task){
+    return;
+  }
+
+  const previous=
+    task.status || "todo";
+
+  task.status=status;
+
+  if(status!=="blocked"){
+    task.blocker=null;
+  }
+
+  if(status==="blocked"){
+
+    const reason=prompt(
+      "Pourquoi cette action est-elle bloquée ?\n\n"+
+      "Exemples : manque de temps, je ne sais pas comment faire, peur de contacter, pas assez de prospects..."
+    );
+
+    if(reason===null){
+
+      task.status=previous;
+      return;
+    }
+
+    task.blocker=
+      reason.trim() ||
+      "Blocage non précisé";
+  }
+
+  state.events.push({
+    title:
+      status==="done"
+        ? "Action terminée"
+        : status==="blocked"
+          ? "Blocage détecté"
+          : status==="progress"
+            ? "Action commencée"
+            : "Action remise à faire",
+
+    text:
+      status==="blocked"
+        ? `${task.title} · ${task.blocker}`
+        : task.title,
+
+    date:new Date()
+      .toLocaleDateString("fr-FR")
+  });
+
+  save();
+
+  renderApp();
+}
+
+function toggleTask(index){
+
+  const task=state.tasks[index];
+
+  if(!task){
+    return;
+  }
+
+  const current=
+    task.status ||
+    (task.done ? "done" : "todo");
+
+  setTaskStatus(
+    index,
+    current==="done"
+      ? "todo"
+      : "done"
+  );
+}
+
+function completion(){
+
+  if(!state.tasks.length){
+    return 0;
+  }
+
+  const done=
+    state.tasks.filter(
+      t=>
+        (t.status || (t.done?"done":"todo"))
+        ==="done"
+    ).length;
+
+  return Math.round(
+    done/state.tasks.length*100
+  );
+}
+
+function renderTask(t,i){
+
+  const status=
+    t.status ||
+    (t.done ? "done" : "todo");
+
+  const done=
+    status==="done";
+
+  return`
+    <div class="task">
+
+      <div
+        class="checkbox ${done?"done":""}"
+        onclick="toggleTask(${i})"
+        title="${done?"Réouvrir":"Terminer"}"
+      >
+        ${done?"✓":""}
+      </div>
+
+      <div>
+
+        <h3>${t.title}</h3>
+
+        <p>${t.desc}</p>
+
+        <p
+          class="small"
+          style="margin-top:7px"
+        >
+          ${t.target ? `Objectif : ${t.target}` : ""}
+          ${t.minutes ? ` · ~${t.minutes} min` : ""}
+          ${t.evidence ? ` · Preuve : ${t.evidence}` : ""}
+        </p>
+
+        ${
+          t.blocker
+          ? `
+            <p
+              class="small red"
+              style="margin-top:6px"
+            >
+              Blocage : ${t.blocker}
+            </p>
+          `
+          : ""
+        }
+
+        <div
+          class="actions"
+          style="margin-top:9px"
+        >
+
+          <button
+            class="btn secondary smallBtn"
+            onclick="setTaskStatus(${i},'todo')"
+          >
+            À faire
+          </button>
+
+          <button
+            class="btn secondary smallBtn"
+            onclick="setTaskStatus(${i},'progress')"
+          >
+            En cours
+          </button>
+
+          <button
+            class="btn secondary smallBtn"
+            onclick="setTaskStatus(${i},'done')"
+          >
+            Terminé
+          </button>
+
+          <button
+            class="btn secondary smallBtn"
+            onclick="setTaskStatus(${i},'blocked')"
+          >
+            Bloqué
+          </button>
+
+        </div>
+
+      </div>
+
+      <span class="taskStatus">
+        ${taskStatusLabel(status)}
+      </span>
+
+    </div>
+  `;
 }
 
 /* =========================================================
@@ -3361,111 +2919,130 @@ function initialTasks(s){
 function openAppPage(id,button){
 
   document.querySelectorAll(".appPage")
-    .forEach(x=>x.style.display="none");
+    .forEach(
+      x=>x.style.display="none"
+    );
 
-  document.getElementById(id).style.display="block";
+  const target=
+    document.getElementById(id);
 
-  document.querySelectorAll(".appNav button")
-    .forEach(x=>x.classList.remove("active"));
+  if(target){
+    target.style.display="block";
+  }
 
-  if(button)button.classList.add("active");
-
-  renderApp();
-}
-
-function completion(){
-
-  if(!state.tasks.length)return 0;
-
-  return Math.round(
-    state.tasks.filter(x=>x.done).length /
-    state.tasks.length * 100
+  document.querySelectorAll(
+    ".appNav button"
+  ).forEach(
+    x=>x.classList.remove("active")
   );
-}
 
-function toggleTask(i){
+  if(button){
+    button.classList.add("active");
+  }
 
-  state.tasks[i].done=!state.tasks[i].done;
-
-  state.events.push({
-    title:state.tasks[i].done
-      ?"Action terminée"
-      :"Action réouverte",
-    text:state.tasks[i].title,
-    date:new Date().toLocaleDateString("fr-FR")
-  });
-
-  save();
   renderApp();
-}
-
-function renderTask(t,i){
-
-  return`
-    <div class="task">
-
-      <div class="checkbox ${t.done?"done":""}"
-           onclick="toggleTask(${i})">
-        ${t.done?"✓":""}
-      </div>
-
-      <div>
-        <h3>${t.title}</h3>
-        <p>${t.desc}</p>
-      </div>
-
-      <span class="taskStatus">
-        ${t.done?"Terminé":"À faire"}
-      </span>
-
-    </div>
-  `;
 }
 
 function renderApp(){
 
-  const strategy=state.ranking.find(x=>x.id===state.chosen);
-  if(!strategy)return;
+  const strategy=
+    state.ranking.find(
+      x=>x.id===state.chosen
+    );
+
+  if(!strategy){
+    return;
+  }
 
   const pct=completion();
-  const next=state.tasks.find(x=>!x.done);
 
-  document.getElementById("todayPriority").textContent=
-    next ? next.title : "Période prête pour le bilan";
+  const next=
+    state.tasks.find(t=>{
 
-  document.getElementById("todayDescription").textContent=
+      const status=
+        t.status ||
+        (t.done ? "done" : "todo");
+
+      return status!=="done";
+    });
+
+  const doneCount=
+    state.tasks.filter(t=>{
+
+      const status=
+        t.status ||
+        (t.done ? "done" : "todo");
+
+      return status==="done";
+
+    }).length;
+
+  document.getElementById(
+    "todayPriority"
+  ).textContent=
+    next
+      ? next.title
+      : "Période prête pour le bilan";
+
+  document.getElementById(
+    "todayDescription"
+  ).textContent=
     next
       ? next.desc
       : "Toutes les actions sont terminées. Analyse maintenant les résultats obtenus.";
 
-  document.getElementById("periodMetric").textContent=
+  document.getElementById(
+    "periodMetric"
+  ).textContent=
     state.period;
 
-  document.getElementById("todayProgressBar").style.width=
+  document.getElementById(
+    "todayProgressBar"
+  ).style.width=
     pct+"%";
 
-  document.getElementById("todayProgressText").textContent=
-    `${state.tasks.filter(x=>x.done).length}/${state.tasks.length} actions terminées`;
+  document.getElementById(
+    "todayProgressText"
+  ).textContent=
+    `${doneCount}/${state.tasks.length} actions terminées`;
 
-  document.getElementById("todayTasks").innerHTML=
-    state.tasks.map(renderTask).join("");
+  document.getElementById(
+    "todayTasks"
+  ).innerHTML=
+    state.tasks
+      .map(renderTask)
+      .join("");
 
-  document.getElementById("planTasks").innerHTML=
-    state.tasks.map(renderTask).join("");
+  document.getElementById(
+    "planTasks"
+  ).innerHTML=
+    state.tasks
+      .map(renderTask)
+      .join("");
 
-  document.getElementById("planProgress").textContent=
+  document.getElementById(
+    "planProgress"
+  ).textContent=
     pct+"%";
 
-  document.getElementById("planProgressBar").style.width=
+  document.getElementById(
+    "planProgressBar"
+  ).style.width=
     pct+"%";
 
-  document.getElementById("planHeading").textContent=
+  document.getElementById(
+    "planHeading"
+  ).textContent=
     `Période ${state.period} · ${strategy.name}`;
 
-  document.getElementById("appStrategy").textContent=
+  document.getElementById(
+    "appStrategy"
+  ).textContent=
     strategy.name;
 
-  document.getElementById("appCompatibility").textContent=
+  document.getElementById(
+    "appCompatibility"
+  ).textContent=
     strategy.score+"%";
 
   renderResultsTracking();
@@ -3483,21 +3060,39 @@ function renderApp(){
 function saveResults(){
 
   state.results={
-    contacts:+document.getElementById("contacts").value || 0,
-    responses:+document.getElementById("responses").value || 0,
-    sales:+document.getElementById("sales").value || 0,
-    revenue:+document.getElementById("revenue").value || 0,
-    costs:+document.getElementById("costs").value || 0,
-    hours:+document.getElementById("hoursSpent").value || 0
+    contacts:
+      +document.getElementById("contacts").value || 0,
+
+    responses:
+      +document.getElementById("responses").value || 0,
+
+    sales:
+      +document.getElementById("sales").value || 0,
+
+    revenue:
+      +document.getElementById("revenue").value || 0,
+
+    costs:
+      +document.getElementById("costs").value || 0,
+
+    hours:
+      +document.getElementById("hoursSpent").value || 0
   };
 
   state.events.push({
     title:"Résultats mis à jour",
-    text:`${state.results.contacts} contacts · ${state.results.responses} réponses · ${state.results.sales} vente(s) · ${state.results.revenue} €.`,
-    date:new Date().toLocaleDateString("fr-FR")
+    text:
+      `${state.results.contacts} contacts · `+
+      `${state.results.responses} réponses · `+
+      `${state.results.sales} vente(s) · `+
+      `${state.results.revenue} €.`,
+
+    date:new Date()
+      .toLocaleDateString("fr-FR")
   });
 
   save();
+
   renderApp();
 }
 
@@ -3515,39 +3110,79 @@ function renderResultsTracking(){
   };
 
   Object.keys(fields).forEach(id=>{
-    const el=document.getElementById(id);
-    if(el)el.value=fields[id];
+
+    const el=
+      document.getElementById(id);
+
+    if(el){
+      el.value=fields[id];
+    }
   });
 
-  let title="Pas encore assez de données.";
-  let advice="Exécute le plan puis renseigne ce que tu obtiens.";
+  let title=
+    "Pas encore assez de données.";
+
+  let advice=
+    "Exécute le plan puis renseigne ce que tu obtiens.";
 
   if(r.sales>0 || r.revenue>0){
-    title="Premier signal économique détecté.";
-    advice="Le prochain objectif est de vérifier si ce résultat peut être reproduit.";
+
+    title=
+      "Premier signal économique détecté.";
+
+    advice=
+      "Le prochain objectif est de vérifier si ce résultat peut être reproduit.";
   }
-  else if(r.contacts>=10 && r.responses===0){
-    title="L'acquisition ne produit pas encore de signal.";
-    advice="Il faut probablement corriger la cible, le message ou le canal avant d'augmenter le volume.";
+
+  else if(
+    r.contacts>=10 &&
+    r.responses===0
+  ){
+
+    title=
+      "L'acquisition ne produit pas encore de signal.";
+
+    advice=
+      "Il faut probablement corriger la cible, le message ou le canal avant d'augmenter le volume.";
   }
-  else if(r.responses>0 && r.sales===0){
-    title="Le marché réagit, mais ne convertit pas encore.";
-    advice="La stratégie n'est pas forcément mauvaise : l'offre ou la conversion doit être travaillée.";
+
+  else if(
+    r.responses>0 &&
+    r.sales===0
+  ){
+
+    title=
+      "Le marché réagit, mais ne convertit pas encore.";
+
+    advice=
+      "La stratégie n'est pas forcément mauvaise : l'offre ou la conversion doit être travaillée.";
   }
+
   else if(r.contacts>0){
-    title="Le test marché a commencé.";
-    advice="Continue jusqu'à obtenir un échantillon suffisamment significatif.";
+
+    title=
+      "Le test marché a commencé.";
+
+    advice=
+      "Continue jusqu'à obtenir un échantillon suffisamment significatif.";
   }
 
-  document.getElementById("marketReading").textContent=title;
-  document.getElementById("marketAdvice").textContent=advice;
+  document.getElementById(
+    "marketReading"
+  ).textContent=title;
 
-  document.getElementById("profitMetric").textContent=
+  document.getElementById(
+    "marketAdvice"
+  ).textContent=advice;
+
+  document.getElementById(
+    "profitMetric"
+  ).textContent=
     (r.revenue-r.costs)+" €";
 }
 
 /* =========================================================
-   REVIEW / ADAPTATION
+   REVIEW
    ========================================================= */
 
 function renderReview(){
@@ -3555,7 +3190,14 @@ function renderReview(){
   const r=state.results;
   const pct=completion();
 
-  document.getElementById("reviewData").innerHTML=`
+  const blocked=
+    state.tasks.filter(t=>
+      (t.status || "todo")==="blocked"
+    );
+
+  document.getElementById(
+    "reviewData"
+  ).innerHTML=`
 
     <div class="reason">
       <strong>Exécution</strong>
@@ -3563,18 +3205,35 @@ function renderReview(){
     </div>
 
     <div class="reason">
+      <strong>Blocages</strong>
+      <p>
+        ${blocked.length}
+        action(s) actuellement bloquée(s).
+      </p>
+    </div>
+
+    <div class="reason">
       <strong>Acquisition</strong>
-      <p>${r.contacts} contacts · ${r.responses} réponses.</p>
+      <p>
+        ${r.contacts} contacts ·
+        ${r.responses} réponses.
+      </p>
     </div>
 
     <div class="reason">
       <strong>Résultat commercial</strong>
-      <p>${r.sales} vente(s) · ${r.revenue} € de revenus.</p>
+      <p>
+        ${r.sales} vente(s) ·
+        ${r.revenue} € de revenus.
+      </p>
     </div>
 
     <div class="reason">
       <strong>Investissement</strong>
-      <p>${r.costs} € · ${r.hours} h de travail.</p>
+      <p>
+        ${r.costs} € ·
+        ${r.hours} h de travail.
+      </p>
     </div>
   `;
 }
@@ -3584,76 +3243,135 @@ function analysePeriod(){
   const r=state.results;
   const pct=completion();
 
+  const blocked=
+    state.tasks.filter(t=>
+      (t.status || "todo")==="blocked"
+    );
+
   let decision;
   let title;
   let text;
 
-  if(pct<50){
-
-    decision="repeat";
-    title="RÉPÉTER";
-    text="Le problème principal est actuellement l'exécution. Changer de stratégie maintenant donnerait trop peu d'informations.";
-
-  }
-
-  else if((r.sales>0 || r.revenue>0) && pct>=80){
-
-    decision="accelerate";
-    title="ACCÉLÉRER";
-    text="Un signal économique existe et l'exécution est suffisante. La prochaine période doit tester la répétabilité.";
-
-  }
-
-  else if(r.contacts>=10 && r.responses===0){
+  if(
+    blocked.length>=2 &&
+    pct<70
+  ){
 
     decision="correct";
-    title="CORRIGER";
-    text="Tu as suffisamment exécuté pour constater un problème d'acquisition. On corrige avant d'augmenter le volume.";
 
+    title="CORRIGER";
+
+    text=
+      "Plusieurs actions sont bloquées. CashPilot recommande de traiter les freins d'exécution avant d'augmenter le volume.";
   }
 
-  else if(r.responses>=2 && r.sales===0){
+  else if(pct<50){
+
+    decision="repeat";
+
+    title="RÉPÉTER";
+
+    text=
+      "Le problème principal est actuellement l'exécution. Changer de stratégie maintenant donnerait trop peu d'informations.";
+  }
+
+  else if(
+    (r.sales>0 || r.revenue>0) &&
+    pct>=80
+  ){
+
+    decision="accelerate";
+
+    title="ACCÉLÉRER";
+
+    text=
+      "Un signal économique existe et l'exécution est suffisante. La prochaine période doit tester la répétabilité.";
+  }
+
+  else if(
+    r.contacts>=10 &&
+    r.responses===0
+  ){
+
+    decision="correct";
+
+    title="CORRIGER";
+
+    text=
+      "Tu as suffisamment exécuté pour constater un problème d'acquisition. On corrige avant d'augmenter le volume.";
+  }
+
+  else if(
+    r.responses>=2 &&
+    r.sales===0
+  ){
 
     decision="convert";
-    title="AMÉLIORER L'OFFRE";
-    text="Le marché répond mais ne convertit pas encore. La stratégie reste pertinente, mais la proposition doit évoluer.";
 
+    title="AMÉLIORER L'OFFRE";
+
+    text=
+      "Le marché répond mais ne convertit pas encore. La stratégie reste pertinente, mais la proposition doit évoluer.";
   }
 
   else if(pct>=80){
 
     decision="continue";
-    title="CONTINUER";
-    text="L'exécution est bonne mais le signal reste insuffisant pour accélérer ou abandonner.";
 
+    title="CONTINUER";
+
+    text=
+      "L'exécution est bonne mais le signal reste insuffisant pour accélérer ou abandonner.";
   }
 
   else{
 
     decision="repeat";
+
     title="CONSOLIDER";
-    text="Il manque encore suffisamment d'exécution ou de données pour prendre une décision fiable.";
+
+    text=
+      "Il manque encore suffisamment d'exécution ou de données pour prendre une décision fiable.";
   }
 
   state.decision=decision;
 
-  document.getElementById("decision").textContent=title;
-  document.getElementById("decisionText").textContent=text;
+  document.getElementById(
+    "decision"
+  ).textContent=title;
 
-  document.getElementById("nextPeriod").style.display="block";
-  document.getElementById("nextPeriodTitle").textContent=
+  document.getElementById(
+    "decisionText"
+  ).textContent=text;
+
+  document.getElementById(
+    "nextPeriod"
+  ).style.display="block";
+
+  document.getElementById(
+    "nextPeriodTitle"
+  ).textContent=
     `CashPilot recommande : ${title}`;
 
-  document.getElementById("nextPeriodText").textContent=text;
+  document.getElementById(
+    "nextPeriodText"
+  ).textContent=text;
 
   state.events.push({
     title:"Analyse de période",
     text:`Décision : ${title}. ${text}`,
-    date:new Date().toLocaleDateString("fr-FR")
+    date:new Date()
+      .toLocaleDateString("fr-FR")
   });
 
   save();
+
+  renderTimeline();
 }
+
+/* =========================================================
+   NEXT PERIOD
+   ========================================================= */
 
 function startNextPeriod(){
 
@@ -3664,117 +3382,143 @@ function startNextPeriod(){
   if(d==="accelerate"){
 
     state.tasks=[
-      {
-        title:"Reproduire le premier résultat",
-        desc:"Obtiens une deuxième vente ou un deuxième client avec une méthode similaire.",
-        done:false
-      },
-      {
-        title:"Augmenter le volume de test",
-        desc:"Double progressivement le nombre de prospects sans changer toutes les variables.",
-        done:false
-      },
-      {
-        title:"Mesurer le taux de réponse",
-        desc:"Compare contacts, réponses et conversions.",
-        done:false
-      },
-      {
-        title:"Identifier ce qui est reproductible",
-        desc:"Sépare le hasard du processus réellement répétable.",
-        done:false
-      }
-    ];
+      makeTask(
+        "Reproduire le premier résultat",
+        "Obtiens une deuxième vente ou un deuxième client avec une méthode similaire.",
+        "1 nouveau résultat",
+        90
+      ),
 
+      makeTask(
+        "Augmenter le volume de test",
+        "Double progressivement le nombre de prospects sans changer toutes les variables.",
+        "Volume x2",
+        120
+      ),
+
+      makeTask(
+        "Mesurer le taux de réponse",
+        "Compare contacts, réponses et conversions.",
+        "1 mesure complète",
+        20
+      ),
+
+      makeTask(
+        "Identifier ce qui est reproductible",
+        "Sépare le hasard du processus réellement répétable.",
+        "1 processus",
+        30
+      )
+    ];
   }
 
   else if(d==="correct"){
 
     state.tasks=[
-      {
-        title:"Analyser les prospects précédents",
-        desc:"Vérifie si la cible était réellement qualifiée.",
-        done:false
-      },
-      {
-        title:"Créer une nouvelle version du message",
-        desc:"Rends le problème et le résultat proposé plus spécifiques.",
-        done:false
-      },
-      {
-        title:"Tester sur 5 nouveaux prospects",
-        desc:"Petit échantillon avant toute augmentation du volume.",
-        done:false
-      },
-      {
-        title:"Comparer les taux de réponse",
-        desc:"Garde la version produisant le meilleur signal.",
-        done:false
-      }
-    ];
+      makeTask(
+        "Analyser les prospects précédents",
+        "Vérifie si la cible était réellement qualifiée.",
+        "1 analyse",
+        35
+      ),
 
+      makeTask(
+        "Créer une nouvelle version du message",
+        "Rends le problème et le résultat proposé plus spécifiques.",
+        "1 nouveau message",
+        35
+      ),
+
+      makeTask(
+        "Tester sur 5 nouveaux prospects",
+        "Petit échantillon avant toute augmentation du volume.",
+        "5 prospects",
+        45
+      ),
+
+      makeTask(
+        "Comparer les taux de réponse",
+        "Garde la version produisant le meilleur signal.",
+        "1 comparaison",
+        20
+      )
+    ];
   }
 
   else if(d==="convert"){
 
     state.tasks=[
-      {
-        title:"Lister les objections reçues",
-        desc:"Comprends précisément pourquoi les personnes intéressées n'achètent pas.",
-        done:false
-      },
-      {
-        title:"Modifier l'offre",
-        desc:"Travaille résultat, prix, preuve ou réduction du risque.",
-        done:false
-      },
-      {
-        title:"Recontacter les prospects intéressés",
-        desc:"Présente la nouvelle version.",
-        done:false
-      },
-      {
-        title:"Chercher la première conversion",
-        desc:"L'objectif est maintenant un vrai signal économique.",
-        done:false
-      }
-    ];
+      makeTask(
+        "Lister les objections reçues",
+        "Comprends précisément pourquoi les personnes intéressées n'achètent pas.",
+        "Objections classées",
+        30
+      ),
 
+      makeTask(
+        "Modifier l'offre",
+        "Travaille résultat, prix, preuve ou réduction du risque.",
+        "1 nouvelle offre",
+        45
+      ),
+
+      makeTask(
+        "Recontacter les prospects intéressés",
+        "Présente la nouvelle version.",
+        "Tous les prospects chauds",
+        45
+      ),
+
+      makeTask(
+        "Chercher la première conversion",
+        "L'objectif est maintenant un vrai signal économique.",
+        "1 conversion",
+        60
+      )
+    ];
   }
 
   else if(d==="continue"){
 
     state.tasks=[
-      {
-        title:"Augmenter légèrement l'échantillon",
-        desc:"Continue le test avec davantage de données.",
-        done:false
-      },
-      {
-        title:"Mesurer chaque réaction",
-        desc:"Note les réponses positives, négatives et objections.",
-        done:false
-      },
-      {
-        title:"Identifier le canal le plus efficace",
-        desc:"Concentre progressivement les efforts.",
-        done:false
-      },
-      {
-        title:"Chercher un signal économique",
-        desc:"La prochaine étape doit produire une validation plus forte.",
-        done:false
-      }
-    ];
+      makeTask(
+        "Augmenter légèrement l'échantillon",
+        "Continue le test avec davantage de données.",
+        "Nouvel échantillon",
+        60
+      ),
 
+      makeTask(
+        "Mesurer chaque réaction",
+        "Note les réponses positives, négatives et objections.",
+        "100 % des réactions",
+        20
+      ),
+
+      makeTask(
+        "Identifier le canal le plus efficace",
+        "Concentre progressivement les efforts.",
+        "1 canal prioritaire",
+        30
+      ),
+
+      makeTask(
+        "Chercher un signal économique",
+        "La prochaine étape doit produire une validation plus forte.",
+        "1 signal économique",
+        60
+      )
+    ];
   }
 
   else{
 
-    state.tasks=state.tasks.map(t=>({
-      ...t,
-      done:false
-    }));
+    state.tasks=
+      state.tasks.map(t=>({
+        ...t,
+        status:"todo",
+        blocker:null
+      }));
   }
 
   state.results={
@@ -3788,17 +3532,27 @@ function startNextPeriod(){
 
   state.events.push({
     title:`Période ${state.period} créée`,
-    text:"Le plan a été adapté à partir de la période précédente.",
-    date:new Date().toLocaleDateString("fr-FR")
+    text:
+      "Le plan a été adapté à partir de la période précédente.",
+    date:new Date()
+      .toLocaleDateString("fr-FR")
   });
 
   state.decision=null;
 
   save();
+
   renderApp();
 
-  const first=document.querySelector(".appNav button");
-  openAppPage("today",first);
+  const first=
+    document.querySelector(
+      ".appNav button"
+    );
+
+  openAppPage(
+    "today",
+    first
+  );
 }
 
 /* =========================================================
@@ -3807,23 +3561,42 @@ function startNextPeriod(){
 
 function renderTimeline(){
 
-  const el=document.getElementById("timeline");
-  if(!el)return;
+  const el=
+    document.getElementById(
+      "timeline"
+    );
 
-  if(!state.events.length){
-    el.innerHTML="<p>Aucun événement.</p>";
+  if(!el){
     return;
   }
 
-  el.innerHTML=[...state.events].reverse().map(e=>`
+  if(!state.events.length){
 
-    <div class="timelineItem">
-      <h3>${e.title}</h3>
-      <p>${e.text}</p>
-      <p class="small">${e.date}</p>
-    </div>
+    el.innerHTML=
+      "<p>Aucun événement.</p>";
 
-  `).join("");
+    return;
+  }
+
+  el.innerHTML=
+    [...state.events]
+      .reverse()
+      .map(e=>`
+
+        <div class="timelineItem">
+
+          <h3>${e.title}</h3>
+
+          <p>${e.text}</p>
+
+          <p class="small">
+            ${e.date}
+          </p>
+
+        </div>
+
+      `)
+      .join("");
 }
 
 /* =========================================================
@@ -3847,19 +3620,33 @@ function renderAppProfile(){
     ["Préférence remote",level(h.remote)]
   ];
 
-  const el=document.getElementById("appProfile");
+  const el=
+    document.getElementById(
+      "appProfile"
+    );
 
   if(el){
-    el.innerHTML=facts.map(x=>`
-      <div class="profileFact">
-        <span>${x[0]}</span>
-        <strong>${x[1]}</strong>
-      </div>
-    `).join("");
+
+    el.innerHTML=
+      facts.map(x=>`
+
+        <div class="profileFact">
+          <span>${x[0]}</span>
+          <strong>${x[1]}</strong>
+        </div>
+
+      `).join("");
   }
 
-  const conf=document.getElementById("appConfidence");
-  if(conf)conf.textContent=state.confidence+"%";
+  const conf=
+    document.getElementById(
+      "appConfidence"
+    );
+
+  if(conf){
+    conf.textContent=
+      state.confidence+"%";
+  }
 }
 
 /* =========================================================
@@ -3868,63 +3655,110 @@ function renderAppProfile(){
 
 function loadTestProfile(){
 
+  state=freshState();
+
   state.answers={
+
     goal:"2000",
     incomeUrgency:"soon",
     weeklyHours:"18",
     capital:"150",
     lossTolerance:"100",
+
     country:"france",
     area:"city",
     mobility:"none",
     localPreference:"never",
+
     computer:"good",
+
     coldOutreach:"fine",
     phoneSales:"warm",
     negotiation:"good",
     rejection:"analyse",
+
     digitalComfort:"expert",
     aiTools:"work",
     website:"nocode",
     automation:"done",
     spreadsheets:"good",
+
     video:"basic",
     design:"basic",
     writing:"good",
     camera:"never",
+
     soldBefore:"work",
     freelance:"once",
     businessPast:"tried",
+
     network:"some",
     audience:"none",
+
     solo:"mixed",
     structure:"good",
     routine:"mixed",
     learning:"yes",
     uncertainty:"good",
+
     clientContact:"async",
     b2b:"business",
     delivery:"service",
+
     scaleAmbition:"small",
     recurring:"high",
-    hardNo:["face","travel","stock"]
+
+    hardNo:[
+      "face",
+      "travel",
+      "stock"
+    ]
   };
 
-  state.asked=Object.keys(state.answers);
-  state.answerHistory=[];
-  state.progress=100;
-  state.confidence=92;
+  state.asked=
+    Object.keys(
+      state.answers
+    );
 
-  calculateRanking(true);
+  state.answerHistory=[];
+
+  const ranking=
+    calculateRanking(false);
+
+  state.ranking=ranking;
+  state.progress=100;
+
+  state.confidence=
+    calculateConfidence(ranking);
 
   save();
+
   show("analysis");
 
-  document.getElementById("analysisStrategies").textContent=STRATEGIES.length;
-  document.getElementById("analysisCompleteness").textContent="100 %";
-  document.getElementById("analysisConfidence").textContent="92 %";
+  document.getElementById(
+    "analysisStrategies"
+  ).textContent=
+    STRATEGIES.length;
 
-  setTimeout(renderResults,900);
+  document.getElementById(
+    "analysisCompleteness"
+  ).textContent=
+    "100 %";
+
+  document.getElementById(
+    "analysisConfidence"
+  ).textContent=
+    state.confidence+" %";
+
+  document.getElementById(
+    "analysisGeo"
+  ).textContent=
+    "analysée";
+
+  setTimeout(
+    renderResults,
+    500
+  );
 }
 
 /* =========================================================
@@ -3933,13 +3767,65 @@ function loadTestProfile(){
 
 function resetAll(){
 
-  if(confirm("Réinitialiser complètement la démo CashPilot V6 ?")){
+  if(
+    confirm(
+      "Réinitialiser complètement la démo CashPilot V6 ?"
+    )
+  ){
     localStorage.removeItem(STORE);
     location.reload();
   }
 }
 
-</script>
+/* =========================================================
+   STARTUP SAFETY
+   ========================================================= */
 
-</body>
-</html>
+window.addEventListener(
+  "error",
+  event=>{
+    console.error(
+      "CashPilot error:",
+      event.error || event.message
+    );
+  }
+);
+
+document.addEventListener(
+  "DOMContentLoaded",
+  ()=>{
+
+    /*
+      Old task format migration.
+    */
+
+    if(Array.isArray(state.tasks)){
+
+      state.tasks=
+        state.tasks.map(t=>({
+
+          ...t,
+
+          status:
+            t.status ||
+            (t.done
+              ? "done"
+              : "todo"),
+
+          blocker:
+            t.blocker || null
+        }));
+    }
+
+    save();
+
+    /*
+      Always allow landing to render immediately.
+      No ranking is calculated on page load.
+    */
+
+    show("landing");
+  }
+);
+
+</script>

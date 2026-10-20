@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#080B14">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="description" content="CashPilot trouve l’activité indépendante qui correspond vraiment à ton profil, puis t’aide à la lancer semaine après semaine.">
-<title>CashPilot</title>
+<meta name="description" content="Kairvo trouve l’activité indépendante qui correspond vraiment à ton profil, puis t’aide à la lancer semaine après semaine.">
+<title>Kairvo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
@@ -210,13 +210,13 @@ input.in:focus,textarea.in:focus{outline:none;border-color:var(--violet);box-sha
 </head>
 <body>
 <div id="app">
-  <div class="wrap"><header class="top"><span class="logo"><span class="mk"><i></i></span>CashPilot</span></header></div>
+  <div class="wrap"><header class="top"><span class="logo"><span class="mk"><i></i></span>Kairvo</span></header></div>
   <main id="view" class="wrap">
     <section class="hero">
       <span class="chip v">Diagnostic adaptatif</span>
       <h1>Trouve l’activité qui correspond <em>vraiment</em> à qui tu es.</h1>
-      <p class="muted">CashPilot analyse ta personnalité, tes compétences, ton temps, ton argent et tes refus, puis t’aide à lancer ton activité semaine après semaine.</p>
-      <noscript><p class="notice" style="margin-top:16px">JavaScript est nécessaire pour utiliser CashPilot.</p></noscript>
+      <p class="muted">Kairvo analyse ta personnalité, tes compétences, ton temps, ton argent et tes refus, puis t’aide à lancer ton activité semaine après semaine.</p>
+      <noscript><p class="notice" style="margin-top:16px">JavaScript est nécessaire pour utiliser Kairvo.</p></noscript>
     </section>
   </main>
 </div>
@@ -1096,7 +1096,7 @@ function formatTrait(k, v) {
   return Math.round(v * 100) + '/100';
 }
 /* =========================================================
-   MOTEUR CASHPILOT
+   MOTEUR KAIRVO
    - Profil = traits {v, src, conf, at}. Inconnu = absent (jamais une moyenne).
    - Scoring = hard filters -> 10 dimensions -> dimensions critiques -> confiance.
    - Questionnaire adaptatif : prochaine question = gain d'information maximal.
@@ -2210,10 +2210,10 @@ function loadState() {
     try { st = JSON.parse(raw); } catch (e) { st = null; }
     if (!validState(st)) {
       try { window.localStorage.setItem('cashpilot.backup', raw); } catch (e2) {}
-      st = freshState(); st.notice = 'Les données d’une ancienne version étaient incompatibles : elles ont été mises de côté et CashPilot repart de zéro.';
+      st = freshState(); st.notice = 'Les données d’une ancienne version étaient incompatibles : elles ont été mises de côté et Kairvo repart de zéro.';
     }
   }
-  if (!st) { st = freshState(); if (legacy) st.notice = 'Une ancienne version de CashPilot a été détectée. Ses données de test ont été réinitialisées.'; }
+  if (!st) { st = freshState(); if (legacy) st.notice = 'Une ancienne version de Kairvo a été détectée. Ses données de test ont été réinitialisées.'; }
   if (!st.ui) st.ui = { screen: 'landing', tab: 'today' };
   if (!Array.isArray(st.archive)) st.archive = [];
   if (['landing', 'quiz', 'result', 'space', 'lab'].indexOf(st.ui.screen) < 0) st.ui.screen = 'landing';
@@ -2363,7 +2363,7 @@ function closePeriod(decision) {
   var an = PROJ.analyze(p, s);
   per.analysis = { at: nowIso(), recommended: an.decision, why: an.why, cnt: an.cnt, m: an.m, reasons: an.reasons, doneRate: an.doneRate };
   per.decision = decision; per.closedAt = nowIso();
-  addHistory('decision', 'Bilan période ' + per.n + ' — décision CashPilot : ' + decision + (decision !== an.decision ? ' (recommandé : ' + an.decision + ')' : ''), { rec: an.decision });
+  addHistory('decision', 'Bilan période ' + per.n + ' — décision Kairvo : ' + decision + (decision !== an.decision ? ' (recommandé : ' + an.decision + ')' : ''), { rec: an.decision });
   closeSheet();
   if (decision === 'PIVOTER') {
     p.status = 'pivot'; p.endedAt = nowIso();
@@ -2451,7 +2451,7 @@ function render() {
 function showError(err) {
   var view = $('view');
   var msg = (err && (err.stack || err.message)) || String(err);
-  if (view) view.innerHTML = '<div class="err stack" style="margin-top:20px"><h2 style="font-size:22px">Un problème est survenu</h2><p class="muted">CashPilot a rencontré une erreur. Tes données sont conservées. Tu peux revenir à l’accueil ou repartir de zéro.</p>' +
+  if (view) view.innerHTML = '<div class="err stack" style="margin-top:20px"><h2 style="font-size:22px">Un problème est survenu</h2><p class="muted">Kairvo a rencontré une erreur. Tes données sont conservées. Tu peux revenir à l’accueil ou repartir de zéro.</p>' +
     '<button class="btn pri" data-act="err-home">Revenir à l’accueil</button><button class="btn danger" data-act="reset-ask">Réinitialiser les données</button><details><summary class="small muted">Détail technique</summary><pre>' + esc(msg) + '</pre></details></div>';
 }
 
@@ -2459,7 +2459,7 @@ function showError(err) {
 function vLanding() {
   var d = S.diag, has = d.order.length > 0;
   var cta = '';
-  if (S.project) cta += '<button class="btn pri" data-act="open-space">Ouvrir mon espace CashPilot</button>';
+  if (S.project) cta += '<button class="btn pri" data-act="open-space">Ouvrir mon espace Kairvo</button>';
   if (d.done) cta += '<button class="btn ' + (S.project ? '' : 'pri') + '" data-act="open-result">Voir mon diagnostic</button>';
   else if (has) cta += '<button class="btn ' + (S.project ? '' : 'pri') + '" data-act="resume">Reprendre mon diagnostic — ' + displayPct() + ' %</button>';
   if (!has) cta += '<button class="btn pri" data-act="start">Commencer mon diagnostic</button>';
@@ -2468,7 +2468,7 @@ function vLanding() {
     '<section class="hero"><span class="chip v">Diagnostic adaptatif</span>' +
     '<h1>Trouve l’activité qui correspond <em>vraiment</em> à qui tu es.</h1>' +
     '<p class="muted">Pas le business à la mode : celui qui colle à ta personnalité, tes compétences, ton temps, ton argent, ta géographie et tes refus.</p>' +
-    '<div class="flow"><span>HUMAIN</span><b>→</b><span>CASHPILOT</span><b>→</b><span>BUSINESS</span></div></section>' +
+    '<div class="flow"><span>HUMAIN</span><b>→</b><span>KAIRVO</span><b>→</b><span>BUSINESS</span></div></section>' +
     '<div class="stack" style="margin-top:22px">' + cta + '</div>' +
     '<div class="steps"><div class="step"><span class="n">1</span><div><b>Un diagnostic qui s’adapte à toi</b><span class="muted small">Chaque réponse choisit la question suivante. Certains profils sont clairs en quelques minutes, d’autres demandent plus de précision.</span></div></div>' +
     '<div class="step"><span class="n">2</span><div><b>Une recommandation expliquée</b><span class="muted small">' + STRATEGIES.length + ' modèles d’activité comparés, avec une compatibilité et une confiance distinctes. Aucun score gonflé.</span></div></div>' +
@@ -2626,7 +2626,7 @@ function vToday() {
       '<div class="grid2">' + (next.status === 'doing' ? '<button class="btn pri" data-act="quick-status" data-id="' + next.id + '" data-st="done">Terminé</button>' : '<button class="btn pri" data-act="quick-status" data-id="' + next.id + '" data-st="doing">Commencer</button>') +
       '<button class="btn" data-act="quick-status" data-id="' + next.id + '" data-st="blocked">Bloqué</button></div><button class="link" data-act="task-open" data-id="' + next.id + '">Voir le détail</button></div>';
   } else if (blocked.length) {
-    prio = '<div class="card prio stack"><span class="eyebrow" style="color:var(--yellow)">À faire maintenant</span><h2 style="font-size:22px">Débloquer tes tâches</h2><p class="muted">Toutes les autres tâches sont faites. Ouvre une tâche bloquée, ou fais ton bilan : CashPilot proposera une correction.</p><button class="btn pri" data-act="tab" data-tab="review">Faire mon bilan</button></div>';
+    prio = '<div class="card prio stack"><span class="eyebrow" style="color:var(--yellow)">À faire maintenant</span><h2 style="font-size:22px">Débloquer tes tâches</h2><p class="muted">Toutes les autres tâches sont faites. Ouvre une tâche bloquée, ou fais ton bilan : Kairvo proposera une correction.</p><button class="btn pri" data-act="tab" data-tab="review">Faire mon bilan</button></div>';
   } else {
     prio = '<div class="card prio stack"><span class="eyebrow" style="color:var(--yellow)">Période terminée</span><h2 style="font-size:22px">Fais ton bilan</h2><p class="muted">Tu as terminé toutes les tâches. Pas besoin d’attendre : le bilan décide de la suite.</p><button class="btn pri" data-act="tab" data-tab="review">Faire mon bilan</button></div>';
   }
@@ -2678,7 +2678,7 @@ function vReview() {
     '<div class="kpi"><small>Revenus</small><b class="tn ' + (an.m.revenue > 0 ? 'pos' : '') + '">' + eur(an.m.revenue) + '</b></div><div class="kpi"><small>Durée</small><b class="tn">' + an.days + ' j</b></div></div>' +
     (tgt ? '<div class="stack" style="gap:6px">' + tgt + '</div>' : '') + (blk ? '<b>Blocages</b><ul class="list warn">' + blk + '</ul>' : '') +
     '<div class="between small"><span>Taux de réponse</span><b>' + pct(an.replyRate) + '</b></div><div class="between small"><span>Valeur par heure</span><b>' + (an.perHour === null ? '—' : eur(an.perHour)) + '</b></div></div>' +
-    '<div class="card hl stack"><span class="eyebrow">Recommandation CashPilot</span><h2 style="font-size:26px;color:var(--yellow)">' + an.decision + '</h2><p class="muted">' + esc(DECISION_TXT[an.decision]) + '</p><ul class="list">' + an.why.map(function (w) { return '<li>' + esc(w) + '</li>'; }).join('') + '</ul></div>' +
+    '<div class="card hl stack"><span class="eyebrow">Recommandation Kairvo</span><h2 style="font-size:26px;color:var(--yellow)">' + an.decision + '</h2><p class="muted">' + esc(DECISION_TXT[an.decision]) + '</p><ul class="list">' + an.why.map(function (w) { return '<li>' + esc(w) + '</li>'; }).join('') + '</ul></div>' +
     (empty ? '<div class="notice">Rien n’a encore été fait ni enregistré sur cette période. Le bilan sera plus utile après quelques actions.</div>' : '') +
     '<div class="card stack"><h3>Ta décision</h3><div class="dec">' + decs + '</div><p class="muted small">' + esc(DECISION_TXT[sel]) + '</p>' +
     '<button class="btn pri" data-act="close-period">Valider : ' + sel + '</button></div></div>';
@@ -2758,7 +2758,7 @@ function handle(act, el) {
       var sid = el.getAttribute('data-sid'), s = STRAT_BY_ID[sid];
       UI.launchSid = sid;
       if (S.project && S.project.status === 'active') confirmSheet('Changer de projet ?', 'Ton projet « ' + S.project.name + ' » sera archivé (son historique est conservé) et « ' + s.name + ' » démarrera.', 'launch', 'Lancer ' + s.name);
-      else confirmSheet('Lancer « ' + s.name + ' » ?', 'CashPilot va créer ta première période : quelques actions concrètes pour valider cette piste. La suite dépendra de tes résultats.', 'launch', 'Lancer le projet');
+      else confirmSheet('Lancer « ' + s.name + ' » ?', 'Kairvo va créer ta première période : quelques actions concrètes pour valider cette piste. La suite dépendra de tes résultats.', 'launch', 'Lancer le projet');
       break;
     case 'launch': S.ui.pivotFrom = null; launch(UI.launchSid); break;
     case 'tab': S.ui.tab = el.getAttribute('data-tab'); UI.decision = null; save(); render(); try { window.scrollTo(0, 0); } catch (e) {} break;
@@ -2818,7 +2818,7 @@ function boot() {
     showError(err);
   }
 }
-window.addEventListener('error', function (ev) { try { console.error('CashPilot :', ev.error || ev.message); } catch (e) {} });
+window.addEventListener('error', function (ev) { try { console.error('Kairvo :', ev.error || ev.message); } catch (e) {} });
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 
 </script>
